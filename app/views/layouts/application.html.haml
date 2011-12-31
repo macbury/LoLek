@@ -10,7 +10,6 @@
     .uploader
       .inner= render 'links/form'
     .wrapper
-      .bolek
       %ul.nav
         %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
         - if logged_in?
