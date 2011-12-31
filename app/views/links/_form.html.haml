@@ -1,0 +1,25 @@
+- if @link && @link.errors.any?
+  #error_explanation
+    %h2 Nie można dodać obrazka ponieważ:
+    %ul
+      - @link.errors.full_messages.each do |msg|
+        %li= msg
+
+%h2 Podaj link do filmiku na youtube lub obrazka w internecie:
+
+= form_tag links_path, multipart: true do |f|
+  .field
+    = label_tag :url, "URL:"
+    = text_field_tag :url
+    = submit_tag 'Wyślij'
+
+
+%h2 Wyślij obrazek:
+
+= form_tag links_path, multipart: true do |f|
+  .field
+    = label_tag :image, "Obrazek:"
+    = file_field_tag :image
+    = submit_tag 'Wyślij'
+%br/
+.clear

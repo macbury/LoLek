@@ -1,0 +1,39 @@
+!!!
+%html
+  %head
+    %title LoLek
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    %link{ :rel => "shortcut icon", :href => "/favicon.png", :type => "image/x-icon" }/
+    = csrf_meta_tags
+  %body{ :id => "controller_#{controller.controller_name}_#{controller.action_name}" }
+    .uploader
+      .inner= render 'links/form'
+    .wrapper
+      .bolek
+      %ul.nav
+        %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
+        - if logged_in?
+          %li.pull-left= link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
+          %li.pull-left.profile
+            %p= self.current_user.username
+            %p= link_to "Wyloguj się", logout_path
+        - else
+          %li.pull-left= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn")
+      .clear
+      .header
+        %h1
+          = link_to "LoLek", root_url
+          %small - najlepszy zbiór obrazków z Internetu!
+        %ul.tabs
+          %li= link_to "Najnowsze", "#", class: "selected"
+          %li= link_to "Najpopularniejsze", "#"
+          %li= link_to "Wylęgarnia", "#", id: "pending_link"
+        .clear
+      = yield
+      .clear
+    .footer= render 'layouts/footer'
+
+    = render partial: "layouts/facebook"
+    = render partial: "layouts/googleplus"
+    = render partial: "layouts/twitter"

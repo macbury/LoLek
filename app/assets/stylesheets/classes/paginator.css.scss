@@ -1,0 +1,69 @@
+.navi{
+  width: 720px;
+  margin: 0 auto;
+  position: relative;
+  /*wysokosc numerow przelaczajacych*/
+  margin-bottom: 75px;
+}
+
+.navi .prev,
+.navi .next,
+.navi .page{
+  display: block;
+  position: absolute;
+  font-size: 24px;
+  font-family: impact;
+  text-decoration: none;
+  /*wielkosc przycisku poprzedni nastepny*/
+  padding: 10px;
+  color: white;
+  background: orange;
+  border-radius: 4px;;
+  text-transform: uppercase;
+}
+.navi .prev{
+  width: 180px;
+  //background:#ddd;
+  //color:#999;
+  
+}
+.navi .off{
+  background: none repeat scroll 0 0 #DDDDDD;
+  color: #999999;
+}
+.navi .off:hover{
+  background: none repeat scroll 0 0 #DDDDDD;
+  color: #999999;
+}
+.navi .prev:hover {
+  //background:#eee !important;
+}
+
+.navi .next{
+  width: 360px;
+  right: 0;
+  text-align: right;
+}
+.navi .prev:hover,
+.navi .next:hover{
+  background: darken(yellow, 10%);
+}
+.navi .page{
+  left: 170px;
+  background: #fff;
+  color: #333;
+  width: 170px;
+  text-align: center;
+}
+
+.current{
+  color: white;
+  background: orange;
+  padding: 3px;
+  border-radius: 4px;
+  text-align: cetner;
+}
+
+#pages {
+  margin-top: 10px;
+}

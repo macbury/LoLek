@@ -1,0 +1,12 @@
+.item{ id: "item_#{image.id}" }
+  .social
+    .fb-like{ :data => { :href => link_url(:id => image.id), :send => "false", :layout => "box_count", "show-faces" => false, :colorscheme => "dark" } }
+    .g-plusone{ :data => { :size => "tall", :href => link_url(:id => image.id) } }
+    .last
+      %a.twitter-share-button{ href: "https://twitter.com/share", data: { url: link_url(:id => image.id), counturl: link_url(:id => image.id), lang: "pl", count: "vertical" }  } Tweet
+    %div.last
+      %a.next{ href: "#" }
+        = image_tag "down.png"
+        %br/
+        Następny
+  .inner= image_tag image.file.url(:thumb)

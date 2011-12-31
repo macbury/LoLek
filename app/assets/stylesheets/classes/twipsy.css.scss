@@ -1,0 +1,58 @@
+.twipsy {
+    display: block;
+    font-size: 11px;
+    opacity: 0.8;
+    padding: 5px;
+    position: absolute;
+    visibility: visible;
+    z-index: 1000;
+}
+.twipsy.fade.in {
+    opacity: 0.8;
+}
+.twipsy.above .twipsy-arrow {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #000000;
+    bottom: 0;
+    left: 50%;
+    margin-left: -5px;
+}
+.twipsy.left .twipsy-arrow {
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #000000;
+    border-top: 5px solid transparent;
+    margin-top: -5px;
+    right: 0;
+    top: 50%;
+}
+.twipsy.below .twipsy-arrow {
+    border-bottom: 5px solid #000000;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    left: 50%;
+    margin-left: -5px;
+    top: 0;
+}
+.twipsy.right .twipsy-arrow {
+    border-bottom: 5px solid transparent;
+    border-right: 5px solid #000000;
+    border-top: 5px solid transparent;
+    left: 0;
+    margin-top: -5px;
+    top: 50%;
+}
+.twipsy-inner {
+    background-color: #000000;
+    border-radius: 4px 4px 4px 4px;
+    color: white;
+    max-width: 200px;
+    padding: 3px 8px;
+    text-align: center;
+    text-decoration: none;
+}
+.twipsy-arrow {
+    height: 0;
+    position: absolute;
+    width: 0;
+}
