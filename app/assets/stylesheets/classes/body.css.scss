@@ -72,6 +72,11 @@ a {
     border-radius: 0px 6px 6px 6px;
     padding: 10px;
     margin-bottom: 15px;
+    
+    &.full {
+      border-radius: 6px;
+    }
+    
     .inner {
       text-align: center;
     }

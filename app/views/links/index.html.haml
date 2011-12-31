@@ -1,3 +1,5 @@
-= render partial: @links
+- @links.each_with_index do |link, index|
+  = render partial: link
+  = render partial: "ads/adtaily" if index % 2 == 0
 .clear
 = paginate @links

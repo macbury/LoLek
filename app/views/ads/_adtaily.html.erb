@@ -1,0 +1,16 @@
+<% if Rails.env.to_sym != :development %>
+<% unless @adtaily %>
+<% @adtaily = true %>
+<div class="item" id="ad_<%= (Time.now.to_f*1000*rand).to_i %>">
+<div class="social">
+  <a class='next' href='#'>
+    <img alt="Down" src="/assets/down.png" />
+    <br>
+    Następny
+  </a>
+</div>
+<script type="text/javascript" id="AdTaily_Widget" src="http://static.adtaily.pl/widget.js#aEHSxtrAsldroP1"></script>
+<noscript><a href="http://www.adtaily.pl">Reklama w internecie</a></noscript>
+</div>
+<% end %>
+<% end  %>
