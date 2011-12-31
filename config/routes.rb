@@ -1,4 +1,6 @@
 Lolek::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
   resources :links
   resources :videos
   resources :images

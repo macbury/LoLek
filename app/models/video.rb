@@ -38,12 +38,13 @@ class Video < Link
   def self.refresh_channel
     channels = YAML.load(File.open(File.join(Rails.root, "config/channels/youtube.yml")))
     channels.each do |name, user|
-      @videos = YoutubeClient.videos_by(:user => user).videos
-      @videos.each do |video|
-        puts video.player_url
+      @videos = YoutubeClient.videos_by(:user => user, :per_page => 50).videos
+      @videos.reverse.each do |video|
         v = Video.new(:url => video.player_url)
         v.publish_at = Time.now + (1.day * rand)
-        v.save
+        saved = v.save
+        
+        puts "#{saved.inspect}. #{user}: #{video.title} => #{video.player_url}"
       end
     end
   end

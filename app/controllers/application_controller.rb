@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
     @current_user
   end
+
   
   def logged_in?
     self.current_user.present?
@@ -22,6 +23,10 @@ class ApplicationController < ActionController::Base
   
   def login_required!
     redirect_to root_path unless logged_in?
+  end
+  
+  def authenticate_admin_user!
+    login_required!
   end
   
 end

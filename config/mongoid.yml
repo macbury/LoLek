@@ -1,6 +1,6 @@
 development:
   host: localhost
-  database: lolek_development
+  database: lolek_dev
 
 test:
   host: localhost

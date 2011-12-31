@@ -21,7 +21,9 @@ gem 'delayed_job_mongoid'
 
 gem "koala"
 
+gem "activeadmin"
 gem "kaminari"
+gem "mechanize"
 
 # Gems used only for assets and not required
 # in production environments by default.

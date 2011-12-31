@@ -5,7 +5,10 @@ class Link
   validates :url, :uniqueness => true, :presence => true, :if => :check_url?, :on => :create
   
   field :url, type: String
-  field :likes, type: Integer
+  field :likes, type: Integer, default: 0
+  field :tweets, type: Integer, default: 0
+  field :google, type: Integer, default: 0
+  field :rate, type: Integer, default: 0
   field :processed, type: Boolean, default: false
   field :publish_at, type: DateTime
   

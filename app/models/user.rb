@@ -1,11 +1,26 @@
 class User
   include Mongoid::Document
+  include ActiveAdmin::Mongoid::Patches
   field :username, :type => String
   field :access_token, :type => String
   field :fb_id, :type => Integer
   field :bot, :type => Boolean
   
   has_many :links, :dependent => :destroy
+  
+  after_create :post_info
+  after_save :check_if_admin
+  
+  def post_info
+    #TODO Dodaj info na tablicy ze sie zarejestrowales :P
+  end
+  
+  def check_if_admin
+    
+  end
+  
+  handle_asynchronously :post_info
+  handle_asynchronously :check_if_admin
   
   def graph
     Koala::Facebook::GraphAPI.new(self.access_token)
