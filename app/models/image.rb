@@ -1,8 +1,8 @@
 class Image < Link
   field :file, type: String
   field :file_processing, type: Boolean, default: true
-  field :width, type: Integer
-  field :height, type: Integer
+  
+  field :description, type: String
   
   mount_uploader :file, ImageUploader
   process_in_background :file
