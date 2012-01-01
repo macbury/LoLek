@@ -1,7 +1,10 @@
 Lolek::Application.routes.draw do
   ActiveAdmin.routes(self)
 
-  resources :links
+  resources :links do
+    get :pending, on: :collection
+  end
+  
   resources :videos
   resources :images
   

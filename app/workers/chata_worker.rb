@@ -1,5 +1,5 @@
-class LubieCyckiWorker < Struct.new(:nil)
-  Url = "http://lubiecycki.tumblr.com/"
+class ChataWorker < Struct.new(:nil)
+  Url = "http://chatolandia.pl/"
   
   attr_accessor :list, :images, :urls
   
@@ -12,10 +12,8 @@ class LubieCyckiWorker < Struct.new(:nil)
     @agent.read_timeout = 10
     @agent.keep_alive = true
     @agent.user_agent_alias = 'Mac Safari'
-    
-    check_url = LubieCyckiWorker::Url
-    
-    scrap_url(check_url)
+
+    scrap_url(ChataWorker::Url)
   end
   
   def scrap_url(check_url)
@@ -23,18 +21,19 @@ class LubieCyckiWorker < Struct.new(:nil)
     @agent.get(check_url) do |page|
       urls << check_url
       puts "=======> Opening: #{check_url}"
-      page.search(".post a").each do |url|
-        puts url["href"]
-        Delayed::Job.enqueue LubieCyckiImageDownloaderWorker.new(url["href"])
+      page.search(".post_body p a img").each do |url|
+        puts url["src"]
+        Delayed::Job.enqueue ImageDownloaderWorker.new(url["src"])
       end
-      puts "Going to next page"
-      next_page_link = page.search("#nextpage")
+      
+      next_page_link = page.search(".nav-previous a")
       
       if next_page_link.nil? || next_page_link.empty?
         puts "End of page"
         check_url = nil
       else
-        check_url = File.join(LubieCyckiWorker::Url, next_page_link.first["href"])
+        check_url = next_page_link.first["href"]
+        puts "Going to next page: #{check_url}"
         scrap_url(check_url)
       end
     end

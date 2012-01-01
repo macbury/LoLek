@@ -1,7 +1,7 @@
 class Link
   include Mongoid::Document
   include Mongoid::Timestamps
-  
+  RateThreshold = 15
   validates :url, :uniqueness => true, :presence => true, :if => :check_url?, :on => :create
   
   field :url, type: String
@@ -14,6 +14,9 @@ class Link
   
   scope :is_processed, where(processed: true)
   scope :is_published, where(:publish_at.lt => Time.now).is_processed
+  scope :is_pending, where(:rate.lt => Link::RateThreshold)
+  scope :is_hot, where(:rate.gt => Link::RateThreshold)
+  scope :is_newest, desc(:publish_at)
   
   belongs_to :user
   

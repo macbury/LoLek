@@ -25,9 +25,9 @@
           = link_to "LoLek", root_url
           %small - najlepszy zbiór obrazków z Internetu!
         %ul.tabs
-          %li= link_to "Najnowsze", "#", class: "selected"
+          %li= link_to "Najnowsze", root_path, class: @tab == :newest ? "selected" : nil
           %li= link_to "Najpopularniejsze", "#"
-          %li= link_to "Wylęgarnia", "#", id: "pending_link"
+          %li= link_to "Wylęgarnia", pending_links_path, id: "pending_link", class: @tab == :pending ? "selected" : nil
         .clear
       = yield
       .clear
