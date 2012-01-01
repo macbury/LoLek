@@ -1,0 +1,44 @@
+.modal-backdrop {
+  background-color: #000000;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+}
+.modal-backdrop.fade {
+    opacity: 0;
+}
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0.8;
+}
+.modal {
+  background-clip: padding-box;
+  background-color: darken(#1C1E24, 5);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 6px 6px 6px 6px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  left: 50%;
+  margin: -250px 0 0 -280px;
+  position: fixed;
+  top: 50%;
+  width: 560px;
+  z-index: 11000;
+
+  text-align: center;
+}
+.modal .close {
+    margin-top: 7px;
+}
+.modal.fade {
+    -moz-transition: opacity 0.3s linear 0s, top 0.3s ease-out 0s;
+    top: -25%;
+}
+.modal.fade.in {
+    top: 50%;
+}
+
+.modal-body {
+    padding: 15px;
+}

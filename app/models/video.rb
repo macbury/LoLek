@@ -42,6 +42,7 @@ class Video < Link
       @videos.reverse.each do |video|
         v = Video.new(:url => video.player_url)
         v.publish_at = Time.now + (1.day * rand)
+        v.start_rate = Link::RateThreshold
         saved = v.save
         
         puts "#{saved.inspect}. #{user}: #{video.title} => #{video.player_url}"

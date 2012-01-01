@@ -3,6 +3,7 @@ Lolek::Application.routes.draw do
 
   resources :links do
     get :pending, on: :collection
+    get :popular, on: :collection
   end
   
   resources :videos

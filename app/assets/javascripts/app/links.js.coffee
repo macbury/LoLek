@@ -27,6 +27,11 @@ $(document).ready ->
    $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination-20}, 500 )
    return false
 
+  $('.modal').addClass("in")
+  $('.modal a').click ->
+    $('.modal').fadeOut()
+    $('.modal-backdrop').fadeOut()
+    false
   
   $("#add_image").click ->
     $('#pending_link').twipsy "hide"

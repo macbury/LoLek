@@ -5,23 +5,33 @@ class Link
   validates :url, :uniqueness => true, :presence => true, :if => :check_url?, :on => :create
   
   field :url, type: String
+  field :processed, type: Boolean, default: false
+  field :publish_at, type: DateTime
+  
+  field :start_rate, type: Integer, default: 0
+  
   field :likes, type: Integer, default: 0
   field :tweets, type: Integer, default: 0
   field :google, type: Integer, default: 0
   field :rate, type: Integer, default: 0
-  field :processed, type: Boolean, default: false
-  field :publish_at, type: DateTime
   
   scope :is_processed, where(processed: true)
   scope :is_published, where(:publish_at.lt => Time.now).is_processed
   scope :is_pending, where(:rate.lt => Link::RateThreshold)
-  scope :is_hot, where(:rate.gt => Link::RateThreshold)
+  scope :is_hot, where(:rate.gte => Link::RateThreshold)
+  scope :is_popular, desc(:rate, :publish_at)
   scope :is_newest, desc(:publish_at)
   
   belongs_to :user
   
+  before_save :update_rate
+  
   def check_url?
     true
+  end
+  
+  def update_rate
+    self.rate = self.likes + self.tweets + self.google + self.start_rate
   end
   
   def processed!

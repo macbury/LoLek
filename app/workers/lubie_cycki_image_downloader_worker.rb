@@ -15,6 +15,7 @@ class LubieCyckiImageDownloaderWorker < Struct.new(:url)
         i = Image.new(:url => img["src"])
         i.description = img["alt"]
         i.publish_at = Time.now + (1.day * rand)
+        i.start_rate = Link::RateThreshold
         saved = i.save
       end
     end
