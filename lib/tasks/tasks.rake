@@ -5,6 +5,9 @@ namespace :lolek do
     Delayed::Job.enqueue LubieCyckiWorker.new(nil)
     Delayed::Job.enqueue RefreshWorker.new(nil)
     Delayed::Job.enqueue GlosyGlowaWorker.new(nil)
+    Delayed::Job.enqueue AndrzejRysujeWorker.new(nil)
+    Delayed::Job.enqueue ForGifsWorker.new(nil)
+    Delayed::Job.enqueue MemyWorker.new(nil)
   end
   
   desc "Fetch cycki"
@@ -21,7 +24,22 @@ namespace :lolek do
   task :glowa => :environment do
     Delayed::Job.enqueue GlosyGlowaWorker.new(nil)
   end
-  
+
+  desc "Fetch chata"
+  task :andrzej => :environment do
+    Delayed::Job.enqueue AndrzejRysujeWorker.new(nil)
+  end
+
+  desc "Fetch chata"
+  task :forgifs => :environment do
+    Delayed::Job.enqueue ForGifsWorker.new(nil)
+  end
+
+  desc "Fetch chata"
+  task :mems => :environment do
+    Delayed::Job.enqueue MemyWorker.new(nil)
+  end
+
   desc "Wikary"
   task :wikary => :environment do
     Dir["/home/wikary_php/org/**/*.*"].each do |filename|

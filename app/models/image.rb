@@ -11,6 +11,8 @@ class Image < Link
   validates_processing_of :file
   validates :file, :presence => true
   
+  attr_accessor :skip_extension_check
+  
   def check_url?
     url.present?
   end
@@ -19,9 +21,15 @@ class Image < Link
     !processed
   end
   
+  def gif?
+    (File.extname(self.file.path) =~ /.gif/i) rescue false
+  end
+  
   def url=(new_url)
     Rails.logger.debug "New url: #{new_url}"
     self.remote_file_url = new_url
     write_attribute :url, new_url
   end
+  
+  
 end

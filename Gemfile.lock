@@ -70,8 +70,6 @@ GEM
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
-    domain_name (0.5.1)
-      unf (~> 0.0.3)
     erubis (2.7.0)
     eventmachine (0.12.10)
     execjs (1.2.13)
@@ -113,12 +111,10 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mechanize (2.1)
-      domain_name (~> 0.5, >= 0.5.1)
+    mechanize (2.0.1)
       net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (~> 2.3, >= 2.3.2)
+      net-http-persistent (~> 1.8)
       nokogiri (~> 1.4)
-      ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (~> 0.0, >= 0.0.9)
     meta_search (1.1.1)
       actionpack (~> 3.1.0)
@@ -135,9 +131,8 @@ GEM
     multi_json (1.0.4)
     multipart-post (1.1.4)
     net-http-digest_auth (1.2)
-    net-http-persistent (2.3.3)
+    net-http-persistent (1.9)
     nokogiri (1.5.0)
-    ntlm-http (0.1.1)
     oauth (0.4.5)
     orm_adapter (0.0.5)
     polyamorous (0.5.0)
@@ -198,9 +193,6 @@ GEM
     uglifier (1.2.1)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
-    unf (0.0.4)
-      unf_ext
-    unf_ext (0.0.4)
     warden (1.1.0)
       rack (>= 1.0)
     webrobots (0.0.12)
@@ -233,7 +225,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   koala
-  mechanize
+  mechanize (= 2.0.1)
   mongoid
   rails (= 3.1.1)
   rmagick

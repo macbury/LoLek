@@ -31,7 +31,7 @@ class Link
   end
   
   def update_rate
-    self.rate = self.likes + self.tweets + self.google + self.start_rate
+    self.rate = [self.likes, self.tweets, self.google, self.start_rate].compact.inject(0) { |s, v| s+=v }
   end
   
   def processed!
@@ -50,4 +50,6 @@ class Link
       return Link.new
     end
   end
+  
+
 end

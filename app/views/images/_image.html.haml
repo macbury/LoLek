@@ -9,4 +9,8 @@
         = image_tag "down.png"
         %br/
         Następny
-  .inner= image_tag image.file.url(:thumb), alt: image.description
+  .inner
+    - if image.gif?
+      = image_tag image.file.url, alt: image.description
+    - else
+      = image_tag image.file.url(:thumb), alt: image.description

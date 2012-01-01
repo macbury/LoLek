@@ -23,7 +23,7 @@ gem "koala"
 
 gem "activeadmin"
 gem "kaminari"
-gem "mechanize"
+gem "mechanize", "2.0.1"
 
 # Gems used only for assets and not required
 # in production environments by default.
