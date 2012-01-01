@@ -28,7 +28,7 @@ class MemyWorker < Struct.new(:nil)
       
       next_page_link = page.search(".pagination a")
       
-      if next_page_link.nil? || next_page_link.empty? || @index > 0
+      if next_page_link.nil? || next_page_link.empty? || @index <= 0
         puts "End of page"
         check_url = nil
       else
