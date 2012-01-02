@@ -45,25 +45,16 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
   
   def watermark
+    logo = Magick::Image.read(File.join(Rails.root, "app/assets/images/watermark.png")).first
+      
+ 
     manipulate! do |img|
-      white_bg = Magick::Image.new(img.columns, img.rows) do
-        self.background_color = '#444'
+      black_bg = Magick::Image.new(img.columns, img.rows+32) do
+        self.background_color = '#fff'
       end
       
-      img = white_bg.composite(img, 0, 0, Magick::OverCompositeOp)
-      
-      mark = Magick::Image.new(img.columns, 20) do
-        self.background_color = 'none'
-      end
-      gc = Magick::Draw.new
-      gc.annotate(mark, 0, 0, 0, 0, "LoLek.pl") do
-        self.gravity = Magick::WestGravity
-        self.pointsize = 16
-        self.fill = "white"
-        self.stroke = "transparent"
-      end
-      
-      img = img.watermark(mark, 0.80, 0, Magick::SouthGravity)
+      img = black_bg.composite(img, 0, 0, Magick::OverCompositeOp)
+      img = img.composite(logo, Magick::SouthEastGravity, Magick::OverCompositeOp)
     end
   end
 
