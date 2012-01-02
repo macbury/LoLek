@@ -8,6 +8,7 @@ namespace :lolek do
     Delayed::Job.enqueue AndrzejRysujeWorker.new(nil)
     Delayed::Job.enqueue ForGifsWorker.new(nil)
     Delayed::Job.enqueue MemyWorker.new(nil)
+    Delayed::Job.enqueue BashWorker.new(nil)
     RssImageWorker.refresh
     CiteWorker.refresh
   end
@@ -50,6 +51,11 @@ namespace :lolek do
   desc "Fetch chata"
   task :cites => :environment do
     CiteWorker.refresh
+  end
+
+  desc "Fetch chata"
+  task :bash => :environment do
+    Delayed::Job.enqueue BashWorker.new(nil)
   end
 
   desc "Wikary"
