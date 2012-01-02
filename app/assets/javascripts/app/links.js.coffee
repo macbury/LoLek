@@ -45,5 +45,10 @@ $(document).ready ->
     $(this).fadeOut()
     false
   
-  $('.item .inner .preview').bind "load", -> $(this).height $(this).height() - 32
+  $('.item .inner .preview').bind "load", -> 
+    inner = $(this).parents(".inner")
+    inner.css
+      overflow: "hidden"
+      height: "#{$(this).height() - 32}px"
+    
   $('.item .inner img').trigger("load")
