@@ -78,9 +78,21 @@ a {
       border-radius: 6px;
     }
     
+    .share {
+      background: darken($darker_background, 4%);
+      border-radius: 5px;
+      margin-top: 10px;
+      text-align: center;
+      table {
+        width: 710px;
+        td {
+          text-align: center;
+        }
+      }
+    }
+    
     .inner {
       text-align: center;
-      min-height: 260px;
     }
     .social {
       text-align: center;

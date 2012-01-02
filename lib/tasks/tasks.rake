@@ -84,7 +84,7 @@ namespace :lolek do
   desc "Randomize"
   task :randomize => :environment do
     Link.all.each do |link|
-      link._randomization_key = rand
+      link.publish_at = Time.now - 1.day * rand
       link.save
     end
   end

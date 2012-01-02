@@ -1,14 +1,7 @@
 .item{ id: "item_#{video.id}" }
   .social
-    %div
-      .fb-like{ :data => { :href => link_url(:id => video.id), :send => "false", :layout => "box_count", "show-faces" => false, :colorscheme => "dark" } }
-    .last
-      .g-plusone{ :data => { :size => "tall", :href => link_url(:id => video.id) } }
-    .last
-      %a.twitter-share-button{ href: "https://twitter.com/share", data: { url: link_url(:id => video.id), counturl: link_url(:id => video.id), lang: "pl", count: "vertical" }  } Tweet
-    %div.last
-      %a.next{ href: "#" }
-        = image_tag "down.png"
-        %br/
-        Następny
+    %a.next{ href: "#" }
+      = image_tag "down.png"
+      %br/
+      Następny
   = youtube_player video, 720

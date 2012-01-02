@@ -7,17 +7,7 @@ class LinksController < ApplicationController
 
   def pending
     @tab = :pending
-    @page = params[:page] - 2
-    @page ||= 0
-    
-    if @page < 0
-      @page = 0
-    elsif @page < 2
-       Link.is_published.is_pending.random(10).limit(10)
-    else
-      @links = Link.is_published.is_pending.is_newest.page(@page).per(10)
-    end
-    
+    @links = Link.is_published.is_pending.is_newest.page(params[:page]).per(10)
     render action: "index"
   end
 

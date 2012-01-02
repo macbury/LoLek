@@ -5,8 +5,7 @@
 $(document).ready ->
   
   blank_image = $("#blank_image").attr("src")
-  $('.item .inner img').protectImage
-    image: $("#blank_image").attr("src")
+
   
   $('#pending_link').twipsy
     placement: "above"
@@ -45,10 +44,19 @@ $(document).ready ->
     $(this).fadeOut()
     false
   
-  $('.item .inner .preview').bind "load", -> 
+  $('.item .inner img.preview').bind "load", -> 
     inner = $(this).parents(".inner")
+    height = $(this).data("height")
+    height ||= $(this).height() - 32
+    width = $(this).width()
+    $(this).data("height", height)
+    src = $(this).data("url")
     inner.css
       overflow: "hidden"
-      height: "#{$(this).height() - 32}px"
-    
+      height: "#{height}px"
+      background: "transparent url('#{src}') no-repeat top center"
+    $(this).css
+      height: "#{height}px"
+      width: "#{width}px"
+    $(this).attr "src", blank_image
   $('.item .inner img').trigger("load")
