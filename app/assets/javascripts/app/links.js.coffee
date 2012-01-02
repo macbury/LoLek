@@ -44,3 +44,6 @@ $(document).ready ->
       height: $('.uploader .inner').height() + 20
     $(this).fadeOut()
     false
+  
+  $('.item .inner .preview').bind "load", -> $(this).height $(this).height() - 32
+  $('.item .inner img').trigger("load")

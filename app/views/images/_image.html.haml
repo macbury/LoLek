@@ -16,5 +16,5 @@
     - if image.gif?
       = image_tag image.file.url, alt: image.description
     - else
-      = image_tag image.file.url(:thumb), alt: image.description
+      = image_tag image.file.url(:thumb), alt: image.description, class: "preview"
      
