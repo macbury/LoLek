@@ -25,6 +25,9 @@ gem "activeadmin"
 gem "kaminari"
 gem "mechanize", "2.0.1"
 
+gem 'whenever', :require => false
+gem 'sitemap_generator'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

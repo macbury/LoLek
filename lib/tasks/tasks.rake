@@ -51,7 +51,7 @@ namespace :lolek do
     Dir["/home/wikary_php/org/**/*.*"].each do |filename|
       i = Image.new
       i.file = File.open(filename, "r+")
-      i.publish_at = Time.now + 30.days * rand
+      i.publish_at = Time.now + 2.months * rand
       i.save
       puts "#{i.publish_at}: "+filename
     end
