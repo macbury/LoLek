@@ -27,7 +27,7 @@ class CiteWorker < Struct.new(:url)
       
       next unless Image.where(hash: hash).empty?
       
-      file_name = File.join(tmp_path, "#{hash}.png")
+      file_name = File.join(tmp_path, "#{hash}.jpeg")
       
       puts "Storing in: #{file_name}"
       

@@ -5,6 +5,7 @@ class TextImage
   include Magick
   
   def initialize(text, width=700, height=460, padding=10)
+    text = text.gsub(/<br>/i, "")
     image = render_cropped_text(text, 700, 460) do |img|
       img.fill = "#ffffff"
       img.background_color = "transparent"
