@@ -1,22 +1,29 @@
 require "open-uri"
 require File.join(Rails.root, "lib/render_text")
-class BashWorker < Struct.new(:nil)
+
+class CiekawostkiWorker < Struct.new(:nil)
   
   def perform
     tmp_path = File.join(Rails.root, "tmp", "cites")
     Dir.mkdir(tmp_path) rescue nil
-    cites = open("http://bash.org.pl/text").read.split("%").map { |c| c.split("\n")[1..-1] }.compact
-    cites.each do |text|
-      next if text.nil? || text.empty?
-      puts "Cite:"
-      text = text[1..-1].join("\n")
+    
+    
+    60.times do
+      puts "Opening news"
+      begin
+        cie = JSON.parse(open("http://cziki.pl/?format=json").read)
+      rescue Exception => e
+        puts e.to_s
+        next
+      end
+      text = cie["content"]
       puts text
       hash = Digest::MD5.hexdigest(text)
       puts "Digest is: #{hash}"
       
       next unless Image.where(hash: hash).empty?
-      
-      file_name = File.join(tmp_path, "#{hash}.png")
+
+      file_name = File.join(tmp_path, "#{hash}.jpeg")
       
       puts "Storing in: #{file_name}"
       
@@ -29,7 +36,9 @@ class BashWorker < Struct.new(:nil)
       i.description = text
       i.save
       puts i.errors.full_messages.join("\n")
+      sleep 3 * rand
     end
+    
   end
   
 end

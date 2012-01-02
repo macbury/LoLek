@@ -27,7 +27,7 @@ class CiteWorker < Struct.new(:url)
       
       next unless Image.where(hash: hash).empty?
       
-      file_name = File.join(tmp_path, "#{hash}.jpeg")
+      file_name = File.join(tmp_path, "#{hash}.png")
       
       puts "Storing in: #{file_name}"
       
@@ -37,6 +37,7 @@ class CiteWorker < Struct.new(:url)
       i.file = File.open(file_name)
       i.publish_at = Time.now + 1.day * rand
       i.hash = hash
+      i.description = text
       i.save
       puts i.errors.full_messages.join("\n")
     end
