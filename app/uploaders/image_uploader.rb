@@ -41,6 +41,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #
   
   def mark_as_processed
+    model.hash = ::Digest::MD5.file(current_path).hexdigest
     model.processed!
   end
   
@@ -61,7 +62,6 @@ class ImageUploader < CarrierWave::Uploader::Base
         self.pointsize = 16
         self.fill = "white"
         self.stroke = "transparent"
-        self.font_family = "Helvetica"
       end
       
       img = img.watermark(mark, 0.80, 0, Magick::SouthGravity)

@@ -1,10 +1,12 @@
 class Image < Link
   field :file, type: String
+  field :hash, type: String
   field :file_processing, type: Boolean, default: true
   
   field :description, type: String
   
   mount_uploader :file, ImageUploader
+  
   process_in_background :file
   
   validates_integrity_of :file
@@ -30,6 +32,6 @@ class Image < Link
     self.remote_file_url = new_url
     write_attribute :url, new_url
   end
-  
+
   
 end
