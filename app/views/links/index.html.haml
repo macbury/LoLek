@@ -2,4 +2,4 @@
   = render partial: link
   = render partial: "ads/adtaily" if index % 2 == 0
 .clear
-= paginate @links
+= paginate @links, :window => 10

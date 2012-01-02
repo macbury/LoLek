@@ -25,6 +25,8 @@ gem "activeadmin"
 gem "kaminari"
 gem "mechanize", "2.0.1"
 
+gem "mongoid-random"
+
 gem 'whenever', :require => false
 gem 'sitemap_generator'
 

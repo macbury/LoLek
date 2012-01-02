@@ -129,6 +129,8 @@ GEM
       activemodel (~> 3.1)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
+    mongoid-random (0.0.1)
+      mongoid (>= 2.0.0)
     multi_json (1.0.4)
     multipart-post (1.1.4)
     net-http-digest_auth (1.2)
@@ -232,6 +234,7 @@ DEPENDENCIES
   koala
   mechanize (= 2.0.1)
   mongoid
+  mongoid-random
   rails (= 3.1.1)
   rmagick
   sass-rails (~> 3.1.4)

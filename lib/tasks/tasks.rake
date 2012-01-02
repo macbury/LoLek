@@ -56,4 +56,12 @@ namespace :lolek do
       puts "#{i.publish_at}: "+filename
     end
   end
+  
+  desc "Randomize"
+  task :randomize => :environment do
+    Link.all.each do |link|
+      link._randomization_key = rand
+      link.save
+    end
+  end
 end
