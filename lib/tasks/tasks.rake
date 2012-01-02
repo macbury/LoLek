@@ -8,6 +8,7 @@ namespace :lolek do
     Delayed::Job.enqueue AndrzejRysujeWorker.new(nil)
     Delayed::Job.enqueue ForGifsWorker.new(nil)
     Delayed::Job.enqueue MemyWorker.new(nil)
+    RssImageWorker.refresh
   end
   
   desc "Fetch cycki"
@@ -38,6 +39,11 @@ namespace :lolek do
   desc "Fetch chata"
   task :mems => :environment do
     Delayed::Job.enqueue MemyWorker.new(nil)
+  end
+
+  desc "Fetch chata"
+  task :rss => :environment do
+    RssImageWorker.refresh
   end
 
   desc "Wikary"
