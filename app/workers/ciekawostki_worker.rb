@@ -23,7 +23,7 @@ class CiekawostkiWorker < Struct.new(:nil)
       
       next unless Image.where(hash: hash).empty?
 
-      file_name = File.join(tmp_path, "#{hash}.jpeg")
+      file_name = File.join(tmp_path, "#{hash}.png")
       
       puts "Storing in: #{file_name}"
       
