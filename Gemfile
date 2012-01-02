@@ -21,7 +21,6 @@ gem 'delayed_job_mongoid'
 
 gem "koala"
 
-gem "activeadmin"
 gem "kaminari"
 gem "mechanize", "2.0.1"
 
