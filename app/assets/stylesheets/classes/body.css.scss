@@ -66,6 +66,7 @@ a {
 .wrapper {
   width: $wrapper_width;
   margin: 0px auto;
+  min-height: 480px;
   
   .item {
     background: $darker_background;

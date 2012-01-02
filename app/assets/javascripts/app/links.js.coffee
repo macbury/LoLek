@@ -5,7 +5,7 @@
 $(document).ready ->
   
   blank_image = $("#blank_image").attr("src")
-  $('.item img').protectImage
+  $('.item .inner img').protectImage
     image: $("#blank_image").attr("src")
   
   $('#pending_link').twipsy
