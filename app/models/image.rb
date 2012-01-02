@@ -1,6 +1,5 @@
 class Image < Link
   field :file, type: String
-  field :hash, type: String
   field :file_processing, type: Boolean, default: true
   
   field :description, type: String

@@ -41,7 +41,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   #
   
   def mark_as_processed
-    model.hash = ::Digest::MD5.file(current_path).hexdigest
     model.processed!
   end
   

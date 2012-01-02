@@ -11,6 +11,8 @@ class Link
   
   field :start_rate, type: Integer, default: 0
   
+  field :hash, type: String
+  
   field :likes, type: Integer, default: 0
   field :tweets, type: Integer, default: 0
   field :google, type: Integer, default: 0
