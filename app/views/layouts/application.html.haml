@@ -7,6 +7,7 @@
     %link{ :rel => "shortcut icon", :href => "/favicon.png", :type => "image/x-icon" }/
     = csrf_meta_tags
   %body{ :id => "controller_#{controller.controller_name}_#{controller.action_name}" }
+    = image_tag "blank.gif", id: "blank_image"
     - if notice
       .modal-backdrop
       .modal.fade
@@ -42,3 +43,4 @@
     = render partial: "layouts/facebook"
     = render partial: "layouts/googleplus"
     = render partial: "layouts/twitter"
+    = render partial: "layouts/gg"

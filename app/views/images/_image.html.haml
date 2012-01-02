@@ -3,6 +3,15 @@
     .fb-like{ :data => { :href => link_url(:id => image.id), :send => "false", :layout => "box_count", "show-faces" => false, :colorscheme => "dark" } }
     .g-plusone{ :data => { :size => "tall", :href => link_url(:id => image.id) } }
     .last
+      :javascript
+        gg_share_widget(#{
+          url: link_url(:id => image.id),
+          title: "title",
+          desc: "desc",
+          button_type: '03',
+          onclick: 'funkcja'
+        })
+    .last
       %a.twitter-share-button{ href: "https://twitter.com/share", data: { url: link_url(:id => image.id), counturl: link_url(:id => image.id), lang: "pl", count: "vertical" }  } Tweet
     %div.last
       %a.next{ href: "#" }
@@ -14,3 +23,4 @@
       = image_tag image.file.url, alt: image.description
     - else
       = image_tag image.file.url(:thumb), alt: image.description
+     

@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready ->
+  
+  blank_image = $("#blank_image").attr("src")
+  $('.item img').protectImage
+    image: $("#blank_image").attr("src")
+  
   $('#pending_link').twipsy
     placement: "above"
     title: -> "32 nowe linki!"
