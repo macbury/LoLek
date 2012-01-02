@@ -1,5 +1,4 @@
 Lolek::Application.routes.draw do
-  ActiveAdmin.routes(self)
 
   resources :links do
     get :pending, on: :collection

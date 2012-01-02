@@ -1,6 +1,5 @@
 class User
   include Mongoid::Document
-  include ActiveAdmin::Mongoid::Patches
   field :username, :type => String
   field :access_token, :type => String
   field :fb_id, :type => Integer
