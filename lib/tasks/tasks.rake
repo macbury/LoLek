@@ -12,6 +12,8 @@ namespace :lolek do
     Delayed::Job.enqueue PrzyslowiaCytatyWorker.new(nil)
     RssImageWorker.refresh
     CiteWorker.refresh
+    GryskopWorker.refresh
+    GameNodeWorker.refresh
     Delayed::Job.enqueue CiekawostkiWorker.new(nil)
   end
   
@@ -53,6 +55,16 @@ namespace :lolek do
   desc "Fetch chata"
   task :cites => :environment do
     CiteWorker.refresh
+  end
+
+  desc "Fetch chata"
+  task :games => :environment do
+    GryskopWorker.refresh
+  end
+
+  desc "Fetch chata"
+  task :node => :environment do
+    GameNodeWorker.refresh
   end
 
   desc "Fetch chata"

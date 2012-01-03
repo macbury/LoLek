@@ -44,6 +44,9 @@ $(document).ready ->
     $(this).fadeOut()
     false
   
+  $('.item .inner .game').each ->
+    swfobject.embedSWF($(this).data("url"), $(this).attr("id"), $(this).data("width"), $(this).data("height"), "9.0.0", "expressInstall.swf");
+  
   $('.item .inner img.preview').bind "load", -> 
     inner = $(this).parents(".inner")
     height = $(this).data("height")

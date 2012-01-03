@@ -69,8 +69,4 @@ class ImageUploader < CarrierWave::Uploader::Base
     model.skip_extension_check ? nil : %w(jpg jpeg gif png)
   end
 
-  # Override the filename of the uploaded files:
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
 end

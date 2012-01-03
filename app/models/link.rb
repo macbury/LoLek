@@ -26,7 +26,6 @@ class Link
   scope :is_newest, desc(:publish_at)
   
   belongs_to :user
-  
   before_save :update_rate
   
   def check_url?
@@ -40,6 +39,10 @@ class Link
   def processed!
     self.publish_at ||= Time.now
     self.processed = true
+  end
+  
+  def random_rate!
+    self.start_rate = (Link::RateThreshold / 3) + (Link::RateThreshold * rand)
   end
   
   def self.import(params)

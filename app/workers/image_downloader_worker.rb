@@ -20,7 +20,7 @@ class ImageDownloaderWorker < Struct.new(:url)
     i.write_attribute :url, url
     i.file = file
     i.publish_at = Time.now + (1.day * rand)
-    i.start_rate = Link::RateThreshold
+    i.random_rate!
     saved = i.save
   end
   

@@ -20,26 +20,11 @@ class CiteWorker < Struct.new(:url)
         text = description.inner_text
       end
       puts text
-      
-      
-      hash = Digest::MD5.hexdigest(item.inner_text)
-      puts "Digest is: #{hash}"
-      
-      next unless Image.where(hash: hash).empty?
-      
-      file_name = File.join(tmp_path, "#{hash}.png")
-      
-      puts "Storing in: #{file_name}"
-      
-      text = TextImage.new(item.text)
-      text.save(file_name)
-      i = Image.new
-      i.file = File.open(file_name)
-      i.publish_at = Time.now + 1.day * rand
-      i.hash = hash
-      i.description = text
-      i.save
-      puts i.errors.full_messages.join("\n")
+      if (text.nil? || text.empty?)
+        puts "skiping..."
+      else
+        Delayed::Job.enqueue CiteRenderWorker.new(text)
+      end
     end
   end
   
