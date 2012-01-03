@@ -1,10 +1,13 @@
 class User
   include Mongoid::Document
+  Normal = 0
+  Moderator = 1
+  Admin = 2
+
   field :username, :type => String
   field :access_token, :type => String
   field :fb_id, :type => Integer
-  field :bot, :type => Boolean
-  
+  field :role, type: Integer, default: User::Normal
   has_many :links, :dependent => :destroy
   
   after_create :post_info
@@ -33,5 +36,13 @@ class User
     user.save
     
     user
+  end
+
+  def admin?
+    self.role == User::Admin
+  end
+
+  def moderator?
+    self.role == User::Admin || self.role == User::Moderator
   end
 end

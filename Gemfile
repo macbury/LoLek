@@ -19,6 +19,7 @@ gem "rmagick"
 gem 'delayed_job', '3.0.0.pre3'
 gem 'delayed_job_mongoid'
 
+gem "cancan"
 gem "koala"
 
 gem "kaminari"

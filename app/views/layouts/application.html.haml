@@ -25,6 +25,8 @@
           %li.pull-left= link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
           %li.pull-left.profile
             %p= self.current_user.username
+            - if can :manage, User
+              %p= link_to "Użytkownicy", users_path
             %p= link_to "Wyloguj się", logout_path
         - else
           %li.pull-left= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn")

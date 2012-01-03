@@ -6,4 +6,5 @@ pl:
   summary: "najlepszy zbiór obrazków z Internetu!"
   description: "jakiś tam opis"
   notices:
+    access_denied: "Nie masz wystarczających uprawnień aby zobaczyć zawartość tamtej strony."
     created: "Obrazek został dodany i w ciągu 10 minut powinien pojawić się w wylęgarni"

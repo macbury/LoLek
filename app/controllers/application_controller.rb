@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, notice: I18n.t("flash.notice.access_denied")
+  end
+
   protected
   
   helper_method :logged_in?, :current_user

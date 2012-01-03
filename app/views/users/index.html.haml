@@ -1,0 +1,17 @@
+%h1 Listing users
+
+%table
+  %tr
+    %th Imie i nazwisko
+    %th Profil
+    %th Rola
+    %th
+
+  - @users.each do |user|
+    %tr
+      %td= link_to user.username, edit_user_path(user)
+      %td= user.fb_id
+      %td= user.role
+      %td= link_to 'Usuń', user, :confirm => 'Czy na pewno?', :method => :delete
+
+= paginate @users, :window => 10

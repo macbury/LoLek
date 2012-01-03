@@ -96,7 +96,11 @@ namespace :lolek do
   desc "Randomize"
   task :randomize => :environment do
     Link.all.each do |link|
-      link.publish_at = Time.now - 1.day * rand
+      if Rails.env == "development"
+        link.publish_at = Time.now - 1.day * rand
+      else
+        link.publish_at = Time.now + 2.months * rand
+      end
       link.save
     end
   end

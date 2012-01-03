@@ -1,5 +1,7 @@
 Lolek::Application.routes.draw do
 
+  resources :users
+
   resources :links do
     get :pending, on: :collection
     get :popular, on: :collection

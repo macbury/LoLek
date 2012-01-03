@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Username:
+  = @user.username
+%p
+  %b Fb:
+  = @user.fb_id
+%p
+  %b Access token:
+  = @user.access_token
+%p
+  %b Role:
+  = @user.role
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path

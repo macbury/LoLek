@@ -4,6 +4,11 @@
       = image_tag "down.png"
       %br/
       Następny
+    - if can? :destroy, link
+      = link_to link_path(id: link.id), method: "delete", confirm: t("link.confirm_destroy"), class: "destroy" do
+        = image_tag "destroy.png"
+        %br/
+        Usuń
   .inner= render partial: link
   .share
     %table
