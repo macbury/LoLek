@@ -1,3 +1,5 @@
+require "open-uri"
+require File.join(Rails.root, "lib/render_text")
 class CiteRenderWorker < Struct.new(:text_to_render)
   
   def perform
