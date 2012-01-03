@@ -1,9 +1,2 @@
-.item{ id: "item_#{game.id}" }
-  .social
-    %a.next{ href: "#" }
-      = image_tag "down.png"
-      %br/
-      Następny
-  .inner
-    .game{ id: "game_#{game.id}", data: { url: game.file.url, width: game.width, height: game.height } }
-      %p= link_to image_tag("http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"), "http://www.adobe.com/go/getflashplayer"
+.game{ id: "game_#{game.id}", data: { url: game.file.url, width: game.width, height: game.height } }
+  %p= link_to image_tag("http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"), "http://www.adobe.com/go/getflashplayer"

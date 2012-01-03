@@ -1,26 +1,4 @@
-.item{ id: "item_#{image.id}" }
-  .social
-    %a.next{ href: "#" }
-      = image_tag "down.png"
-      %br/
-      Następny
-  .inner
-    - if image.gif?
-      = image_tag image.file.url, alt: image.description, data: { url: image.file.url }
-    - else
-      = image_tag image.file.url(:thumb), alt: image.description, class: "preview", data: { url: image.file.url(:thumb) }
-  .share
-    %table
-      %tr
-        %td
-          %a.twitter-share-button{ href: "https://twitter.com/share", data: { url: link_url(:id => image.id), counturl: link_url(:id => image.id), lang: "pl", count: "horizontal" }  } Tweet
-        %td
-          .g-plusone{ :data => { :size => "medium", :annotation => "bubble", :href => link_url(:id => image.id) } }
-        %td
-          :javascript
-            #{nk(url: "http://links.cool", type: 2, color: 1, title: "Google", image: "", description: "jakiś opis")}
-        %td
-          :javascript
-              gg_share_widget(#{{:url => link_url(:id => image.id), :title => "title", :desc => "desc", :button_type => '03', :onclick => 'funkcja'}.to_json})
-        %td
-          .fb-like{ :data => { :href => link_url(:id => image.id), :send => "true", :layout => "button_count", "show-faces" => false, :colorscheme => "dark" } }
+- if image.gif?
+  = image_tag image.file.url, alt: image.description, data: { url: image.file.url }
+- else
+  = image_tag image.file.url(:thumb), alt: image.description, class: "preview", data: { url: image.file.url(:thumb) }

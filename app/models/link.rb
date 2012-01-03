@@ -57,5 +57,19 @@ class Link
     end
   end
   
+  def game?
+    self.class == Game
+  end
 
+  def image?
+    self.class == Image
+  end
+
+  def video?
+    self.class == Video
+  end
+
+  def to_opengraph
+    { title: I18n.t("title"), type: "article", description: I18n.t("summary") }
+  end
 end

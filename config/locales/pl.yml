@@ -1,6 +1,9 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
+pl:
+  title: "Lolek.pl"
+  summary: "najlepszy zbiór obrazków z Internetu!"
+  description: "jakiś tam opis"
   notices:
     created: "Obrazek został dodany i w ciągu 10 minut powinien pojawić się w wylęgarni"

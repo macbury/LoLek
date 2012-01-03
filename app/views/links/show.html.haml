@@ -1,9 +1,6 @@
-%p#notice= notice
+= render partial: "links/link", locals: { link: @link }
 
-%p
-  %b Image:
-  = @link.image
-
-= link_to 'Edit', edit_link_path(@link)
-\|
-= link_to 'Back', links_path
+- content_for :head do
+  - @link.to_opengraph.merge(url: link_url(id: @link.id)).each do |key, value|
+    %meta{ property: "og:#{key}", content: value }/
+    %meta{ itemprop: key, content: value }

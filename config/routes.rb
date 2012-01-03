@@ -5,9 +5,6 @@ Lolek::Application.routes.draw do
     get :popular, on: :collection
   end
   
-  resources :videos
-  resources :images
-  
   match "/login" => "session#new", as: :login
   match "/logout" => "session#destroy", as: :logout
   match "/callback" => "session#create", as: :callback

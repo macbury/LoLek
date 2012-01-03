@@ -1,13 +1,14 @@
 !!!
-%html
+%html{ itemscope: true, itemtype: "http://schema.org/Article" }
   %head
-    %title LoLek
+    %title= t("title")
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     %link{ :rel => "shortcut icon", :href => "/favicon.png", :type => "image/x-icon" }/
     = csrf_meta_tags
     = render partial: "layouts/gg"
     = render partial: "layouts/nk"
+    = yield :head
   %body{ :id => "controller_#{controller.controller_name}_#{controller.action_name}" }
     - if notice
       .modal-backdrop
@@ -31,7 +32,7 @@
       .header
         %h1
           = link_to "LoLek", root_url
-          %small - najlepszy zbiór obrazków z Internetu!
+          %small - #{t('summary')}
         %ul.tabs
           %li= link_to "Najnowsze", root_path, class: @tab == :newest ? "selected" : nil
           %li= link_to "Najpopularniejsze", popular_links_path, class: @tab == :popular ? "selected" : nil

@@ -28,7 +28,7 @@ class LinksController < ApplicationController
 
   def create
     @link = Link.import(params)
-
+    @link.user = self.current_user if logged_in?
     if @link.save
       redirect_to root_path, notice: t("notices.created")
     else
