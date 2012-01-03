@@ -2,19 +2,20 @@ namespace :lolek do
   
   desc "Fetch all info from channels"
   task :fetch => :environment do
-    Delayed::Job.enqueue LubieCyckiWorker.new(nil)
-    Delayed::Job.enqueue RefreshWorker.new(nil)
-    Delayed::Job.enqueue GlosyGlowaWorker.new(nil)
-    Delayed::Job.enqueue AndrzejRysujeWorker.new(nil)
-    Delayed::Job.enqueue ForGifsWorker.new(nil)
-    Delayed::Job.enqueue MemyWorker.new(nil)
-    Delayed::Job.enqueue BashWorker.new(nil)
-    Delayed::Job.enqueue PrzyslowiaCytatyWorker.new(nil)
+    dev = Rails.env == "developement" ? 0 : 1
+    Delayed::Job.enqueue LubieCyckiWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue RefreshWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue GlosyGlowaWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue AndrzejRysujeWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue ForGifsWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue MemyWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue BashWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue PrzyslowiaCytatyWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
     RssImageWorker.refresh
     CiteWorker.refresh
     GryskopWorker.refresh
     GameNodeWorker.refresh
-    Delayed::Job.enqueue CiekawostkiWorker.new(nil)
+    Delayed::Job.enqueue CiekawostkiWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
   end
   
   desc "Fetch cycki"

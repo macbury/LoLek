@@ -51,6 +51,6 @@ class Video < Link
   end
 
   def to_opengraph
-    super.merge { image: self.youtube_preview }
+    super.merge({ image: self.youtube_preview })
   end
 end

@@ -33,6 +33,6 @@ class Image < Link
   end
 
   def to_opengraph
-    super.merge { image: File.join(App::Config["url"], self.file.facebook.url) }
+    super.merge({ image: File.join(App::Config["url"], self.file.facebook.url) })
   end
 end
