@@ -11,17 +11,4 @@
         Usuń
   .inner= render partial: link
   .share
-    %table
-      %tr
-        %td
-          %a.twitter-share-button{ href: "https://twitter.com/share", data: { url: link_url(:id => link.id), counturl: link_url(:id => link.id), lang: "pl", count: "horizontal" }  } Tweet
-        %td
-          .g-plusone{ :data => { :size => "medium", :annotation => "bubble", :href => link_url(:id => link.id) } }
-        %td
-          :javascript
-            #{nk(link.to_opengraph.merge(type: 2, color: 1, url: link_url(id: link.id)))}
-        %td
-          :javascript
-              gg_share_widget(#{link.to_opengraph.merge(button_type: "03", color: 1, url: link_url(id: link.id)).to_json})
-        %td
-          .fb-like{ :data => { :href => link_url(:id => link.id), :send => "true", :layout => "button_count", "show-faces" => false, :colorscheme => "dark" } }
+    .fb-like{ :data => { :href => link_url(:id => link.id), :send => "true", :layout => "button_count", "show-faces" => false, :colorscheme => "dark" } }
