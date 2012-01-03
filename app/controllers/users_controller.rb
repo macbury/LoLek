@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.per(30).page(params[:page])
+    @users = User.page(params[:page]).per(30)
 
     respond_to do |format|
       format.html # index.html.erb

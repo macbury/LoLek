@@ -18,13 +18,15 @@ class Link
   field :google, type: Integer, default: 0
   field :rate, type: Integer, default: 0
   
+  field :banned, type: Boolean, default: false
+
   scope :is_processed, where(processed: true)
-  scope :is_published, where(:publish_at.lt => Time.now).is_processed
+  scope :is_published, where(:publish_at.lt => Time.now, :banned => false).is_processed
   scope :is_pending, where(:rate.lt => Link::RateThreshold)
   scope :is_hot, where(:rate.gte => Link::RateThreshold)
   scope :is_popular, desc(:rate, :publish_at)
   scope :is_newest, desc(:publish_at)
-  
+
   belongs_to :user
   before_save :update_rate
   

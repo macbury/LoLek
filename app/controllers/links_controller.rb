@@ -21,7 +21,7 @@ class LinksController < ApplicationController
   end
 
   def show
-    @link = Link.find(params[:id])
+    @link = Link.is_published.find(params[:id])
     authorize! :index, Link
     redirect_to @link
   end
@@ -44,6 +44,8 @@ class LinksController < ApplicationController
 
   def destroy
     @link = Link.find(params[:id])
+    @link.banned = true
+    @link.save
     authorize! :destroy, @link
     
     redirect_to params[:return_to] || root_path
