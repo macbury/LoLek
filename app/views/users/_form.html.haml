@@ -11,6 +11,6 @@
     = f.text_field :username
   .field
     = f.label :role
-    = f.select :role, [[User::Admin, "Admin"], [User::Moderator, "Moderator"], [User::Normal, "Użytkownik"]]
+    = f.select :role, [[User::Admin, "Admin"], [User::Moderator, "Moderator"], [User::Normal, "Użytkownik"], [User::Bot, "Bot"]]
   .actions
     = f.submit 'Zapisz'

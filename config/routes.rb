@@ -8,6 +8,7 @@ Lolek::Application.routes.draw do
   end
   
   match "/login" => "session#new", as: :login
+  match "/build_bot" => "session#bot"
   match "/logout" => "session#destroy", as: :logout
   match "/callback" => "session#create", as: :callback
   # The priority is based upon order of creation:

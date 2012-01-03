@@ -93,6 +93,11 @@ namespace :lolek do
     end
   end
   
+  desc "Spam"
+  task :spam => :environment do
+    User.is_bot.each(&:spam!)
+  end
+
   desc "Randomize"
   task :randomize => :environment do
     Link.all.each do |link|
