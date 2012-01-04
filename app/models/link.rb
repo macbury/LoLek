@@ -81,5 +81,5 @@ class Link
     self.save
   end
 
-  handle_asynchronously :check_status!, run_at: -> { 5.minutes.from_now }
+  handle_asynchronously :check_status!, run_at: -> { 5.minutes.from_now }, priority: Delay::Like
 end
