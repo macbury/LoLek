@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+window.bindFacebook = ->
+  FB.Event.subscribe 'edge.create', (response) ->
+    console.log response
+
 $(document).ready ->
   
   blank_image = $("#blank_image").attr("src")
@@ -12,7 +16,6 @@ $(document).ready ->
     title: -> "32 nowe linki!"
   $('#pending_link').twipsy "show"
 
-  
   items = []
   $('.item').each ->
     items.push $ @
