@@ -18,6 +18,7 @@ gem "rmagick"
 
 gem 'delayed_job', '3.0.0.pre3'
 gem 'delayed_job_mongoid'
+gem "delayed_job_web", :git => "git://github.com/macbury/delayed_job_web.git"
 
 gem "cancan"
 gem "koala"
@@ -29,6 +30,7 @@ gem "mongoid-random"
 
 gem 'whenever', :require => false
 gem 'sitemap_generator'
+
 
 # Gems used only for assets and not required
 # in production environments by default.

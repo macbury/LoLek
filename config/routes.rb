@@ -1,13 +1,17 @@
 Lolek::Application.routes.draw do
-
   resources :users
 
   resources :links do
-    get :pending, on: :collection
-    get :popular, on: :collection
-    get :like, on: :collection
+    collection do
+      get :pending
+      get :popular
+      get :like
+      get :stats
+    end
   end
   
+  match "/workers" => DelayedJobWeb, anchor: false, as: :workers
+
   match "/login" => "session#new", as: :login
   match "/build_bot" => "session#bot"
   match "/logout" => "session#destroy", as: :logout

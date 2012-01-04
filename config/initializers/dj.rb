@@ -7,3 +7,9 @@ Delayed::Worker.delay_jobs = !Rails.env.test?
 module Delay
   Like = -1
 end
+
+
+DelayedJobWeb.use Rack::Auth::Basic do |username, password|
+  username == App::Config["admin"]["user"]
+  password == App::Config["admin"]["password"]
+end

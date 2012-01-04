@@ -1,0 +1,23 @@
+.h2 Zasoby
+%table
+  %tr
+    %th Nazwa
+    %th Całkowicie
+    %th Nie przetworzonych
+    %th Najnowsze
+    %th Wylęgarnia
+    %th Na przyszlosc
+  
+  - [Link, Image, Video, Game].each do |obj|
+  %tr
+    %th= obj.class.to_s
+    %th= obj.count
+    %th= obj.where(processed: false).count
+    %th= obj.is_published.is_hot.count
+    %th= obj.is_published.is_pending.count
+    %th= obj.is_not_published.count
+
+%h2
+  Użytkowników: #{User.count}
+%h2
+  Botów: #{User.is_bot.count}

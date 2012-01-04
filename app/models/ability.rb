@@ -8,6 +8,7 @@ class Ability
 
     if user.admin?
       can :manage, :all
+      can :read, :stats
     else  
       if user.moderator?
         can :destroy, Link

@@ -42,6 +42,10 @@ class LinksController < ApplicationController
     end
   end
 
+  def stats
+    authorize! :read, :stats
+  end
+
   def destroy
     @link = Link.find(params[:id])
     @link.banned = true

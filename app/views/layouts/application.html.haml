@@ -1,7 +1,7 @@
 !!!
 %html{ itemscope: true, itemtype: "http://schema.org/Article" }
   %head
-    %title= t("title")
+    %title #{t("title")} - #{t('summary')}
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     %link{ :rel => "shortcut icon", :href => "/favicon.png", :type => "image/x-icon" }/
@@ -25,13 +25,16 @@
             %p= self.current_user.username
             - if can? :manage, User
               %p= link_to "Użytkownicy", users_path
+              %p= link_to "Workery", workers_path
+            - if can? :read, :stats
+              %p= link_to "Statystyki", stats_links_path
             %p= link_to "Wyloguj się", logout_path
         - else
           %li.pull-left= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn")
       .clear
       .header
         %h1
-          = link_to "LoLek", root_url
+          = link_to t("title"), root_url
           %small - #{t('summary')}
         %ul.tabs
           %li= link_to "Najnowsze", root_path, class: @tab == :newest ? "selected" : nil

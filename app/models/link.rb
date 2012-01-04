@@ -20,6 +20,7 @@ class Link
 
   scope :is_processed, where(processed: true)
   scope :is_published, where(:publish_at.lt => Time.now, :banned => false).is_processed
+  scope :is_not_published, where(:publish_at.gt => Time.now).is_processed
   scope :is_pending, where(:rate.lt => Link::RateThreshold)
   scope :is_hot, where(:rate.gte => Link::RateThreshold)
   scope :is_popular, desc(:rate, :publish_at)

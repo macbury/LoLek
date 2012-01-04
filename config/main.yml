@@ -1,2 +1,5 @@
 development:
   url: "http://lolek.local"
+  admin:
+    user: admin
+    password: admin
