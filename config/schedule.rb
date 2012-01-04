@@ -10,4 +10,5 @@ end
 every 1.week, :at => "23:00 am" do
   rake "tmp:clear"
   rake "tmp:create"
+  rake "lolek:ranks"
 end

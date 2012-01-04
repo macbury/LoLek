@@ -20,7 +20,9 @@
       %ul.nav
         %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
         - if logged_in?
-          %li.pull-left= link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
+          %li.pull-left
+            = link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
+            Masz #{self.current_user.rank} punktów
           %li.pull-left.profile
             %p= self.current_user.username
             - if can? :manage, User
@@ -39,7 +41,7 @@
         %ul.tabs
           %li= link_to "Najnowsze", root_path, class: @tab == :newest ? "selected" : nil
           %li= link_to "Najpopularniejsze", popular_links_path, class: @tab == :popular ? "selected" : nil
-          %li= link_to "Wylęgarnia", pending_links_path, id: "pending_link", class: @tab == :pending ? "selected" : nil
+          %li= link_to "Wylęgarnia", pending_links_path, id: "pending_link", data: { count: unread_count }, class: @tab == :pending ? "selected" : nil
         .clear
       = yield
       .clear

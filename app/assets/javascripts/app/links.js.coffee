@@ -14,9 +14,11 @@ window.bindFacebook = ->
 $(document).ready ->
   blank_image = $("#blank_image").attr("src")
   
-  $('#pending_link').twipsy
-    placement: "above"
-    title: -> "32 nowe linki!"
+  unread_count = $('#pending_link').data("count")
+  if unread_count > 0
+    $('#pending_link').twipsy
+      placement: "above"
+      title: -> "#{unread_count} nowe obrazki!"
   $('#pending_link').twipsy "show"
 
   items = []

@@ -1,9 +1,13 @@
+require "open-uri"
 class ImageDownloaderWorker < Struct.new(:url)
   def perform
     return unless Image.where(url: url).empty?
     puts "Downloading: #{url}"
     file = open(url)
-    
+    if file.nil?
+      puts "No file found..."
+      return
+    end
     path = file.path
     ext = File.extname(path)
 

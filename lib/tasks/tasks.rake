@@ -99,6 +99,11 @@ namespace :lolek do
     User.is_bot.each(&:spam!)
   end
 
+  desc "Calculate user ranks"
+  task :rank => :environment do
+    User.all.each(&:calculate_rank!)
+  end
+
   desc "Randomize"
   task :randomize => :environment do
     Link.all.each do |link|

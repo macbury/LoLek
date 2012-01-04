@@ -20,6 +20,7 @@ class LinksController < ApplicationController
   def pending
     @tab = :pending
     @links = Link.is_published.is_pending.is_newest.page(params[:page]).per(10)
+    cookies[:readed] = @links.count
     authorize! :index, Link
     render action: "index"
   end

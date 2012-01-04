@@ -19,7 +19,7 @@ class Link
   field :banned, type: Boolean, default: false
 
   scope :is_processed, where(processed: true)
-  scope :is_published, where(:publish_at.lt => Time.now, :banned => false).is_processed
+  scope :is_published, where(:publish_at.lt => Time.now).is_processed
   scope :is_not_published, where(:publish_at.gt => Time.now).is_processed
   scope :is_pending, where(:rate.lt => Link::RateThreshold)
   scope :is_hot, where(:rate.gte => Link::RateThreshold)
@@ -28,15 +28,9 @@ class Link
 
   has_many :likes, :dependent => :destroy
   belongs_to :user
-
-  before_save :update_rate
   
   def check_url?
     true
-  end
-  
-  def update_rate
-    self.rate = [self.likes, self.start_rate].compact.inject(0) { |s, v| s+=v }
   end
   
   def processed!
@@ -80,7 +74,7 @@ class Link
     @graph = Koala::Facebook::GraphAPI.new(nil)
     info = @graph.get_object(File.join(App::Config["url"], "/links/#{self.id}"))
     
-    self.likes = [info["shares"], info["likes"]].compact.inject(0) { |sum, likes| sum += likes } || 0
+    self.rate = [info["shares"], info["likes"], self.start_rate].compact.inject(0) { |sum, likes| sum += likes } || 0
     self.save
   end
 

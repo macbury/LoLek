@@ -9,13 +9,13 @@
     %th Na przyszlosc
   
   - [Link, Image, Video, Game].each do |obj|
-  %tr
-    %th= obj.class.to_s
-    %th= obj.count
-    %th= obj.where(processed: false).count
-    %th= obj.is_published.is_hot.count
-    %th= obj.is_published.is_pending.count
-    %th= obj.is_not_published.count
+    %tr
+      %td= obj.inspect
+      %td= obj.count
+      %td= obj.where(processed: false).count
+      %td= obj.is_published.is_hot.count
+      %td= obj.is_published.is_pending.count
+      %td= obj.is_not_published.count
 
 %h2
   Użytkowników: #{User.count}

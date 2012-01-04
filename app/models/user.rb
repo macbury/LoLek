@@ -11,6 +11,8 @@ class User
   field :role, type: Integer, default: User::Normal
   field :points, type: Integer, default: 0
 
+  field :rank, type: Integer, default: 0
+
   has_many :links, :dependent => :destroy
   has_many :likes, :dependent => :destroy
 
@@ -99,4 +101,11 @@ class User
   end
 
   handle_asynchronously :publish_spam, run_at: -> { Time.now.at_end_of_day - (1+(18*rand).round ).hours }
+
+  def calculate_rank!
+    self.rate = self.links.sum(:rate) + self.likes.count
+    self.save
+  end
+
+  handle_asynchronously :calculate_rank!
 end
