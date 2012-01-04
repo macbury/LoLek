@@ -1,5 +1,16 @@
 class LinksController < ApplicationController
 
+  def like
+    @link = Link.is_published.find(params[:id])
+    authorize! :like, @link
+
+    @link.check_status!
+    liked = false
+    liked = self.current_user.like!(@link) if logged_in?
+
+    render json: { status: liked }.to_json
+  end
+
   def index
     @tab = :newest
     @links = Link.is_published.is_hot.is_newest.page(params[:page]).per(10)

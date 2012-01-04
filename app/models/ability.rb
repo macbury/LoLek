@@ -5,7 +5,7 @@ class Ability
     user ||= User.new
     can :read, Link
     can :create, Link
-
+    can :like, Link
     if user.admin?
       can :manage, :all
       can :read, :stats

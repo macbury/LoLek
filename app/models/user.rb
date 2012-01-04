@@ -9,8 +9,11 @@ class User
   field :access_token, :type => String
   field :fb_id, :type => Integer
   field :role, type: Integer, default: User::Normal
+  field :points, type: Integer, default: 0
+
   has_many :links, :dependent => :destroy
-  
+  has_many :likes, :dependent => :destroy
+
   after_create :post_info
   after_save :check_if_admin
   
@@ -31,6 +34,17 @@ class User
     Koala::Facebook::GraphAPI.new(self.access_token)
   end
   
+  def like!(link)
+    like = self.likes.find_or_create_by( link_id: link.id )
+    self.calculate_rank!
+    like.new_record?
+  end
+
+  def calculate_rank!
+    
+  end
+  handle_asynchronously :calculate_rank!
+
   def self.login!(access_token)
     profile = Koala::Facebook::GraphAPI.new(access_token).get_object("me")
     user = User.find_or_initialize_by fb_id: profile["id"]

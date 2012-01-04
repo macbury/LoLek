@@ -26,7 +26,9 @@ class Link
   scope :is_popular, desc(:rate, :publish_at)
   scope :is_newest, desc(:publish_at)
 
+  has_many :likes, :dependent => :destroy
   belongs_to :user
+
   before_save :update_rate
   
   def check_url?

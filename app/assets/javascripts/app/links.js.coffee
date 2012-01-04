@@ -4,12 +4,15 @@
 
 window.bindFacebook = ->
   FB.Event.subscribe 'edge.create', (response) ->
-    console.log response
+    $.getJSON "#{response}/like", (resp) -> 
+      if resp.status
+        console.log "Found div with like and increase it value on one"
+      else
+        console.log "No liked"
+      
 
 $(document).ready ->
-  
   blank_image = $("#blank_image").attr("src")
-
   
   $('#pending_link').twipsy
     placement: "above"
