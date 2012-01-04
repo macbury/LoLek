@@ -5,6 +5,7 @@ Lolek::Application.routes.draw do
   resources :links do
     get :pending, on: :collection
     get :popular, on: :collection
+    get :like, on: :collection
   end
   
   match "/login" => "session#new", as: :login

@@ -14,8 +14,6 @@ class Link
   field :hash, type: String
   
   field :likes, type: Integer, default: 0
-  field :tweets, type: Integer, default: 0
-  field :google, type: Integer, default: 0
   field :rate, type: Integer, default: 0
   
   field :banned, type: Boolean, default: false
@@ -35,7 +33,7 @@ class Link
   end
   
   def update_rate
-    self.rate = [self.likes, self.tweets, self.google, self.start_rate].compact.inject(0) { |s, v| s+=v }
+    self.rate = [self.likes, self.start_rate].compact.inject(0) { |s, v| s+=v }
   end
   
   def processed!
@@ -74,4 +72,14 @@ class Link
   def to_opengraph
     { title: I18n.t("title"), type: "article", description: I18n.t("summary") }
   end
+
+  def check_status!
+    @graph = Koala::Facebook::GraphAPI.new(nil)
+    info = @graph.get_object(File.join(App::Config["url"], "/links/#{self.id}"))
+    
+    self.likes = [info["shares"], info["likes"]].compact.inject(0) { |sum, likes| sum += likes } || 0
+    self.save
+  end
+
+  handle_asynchronously :check_status!, run_at: -> { 5.minutes.from_now }
 end
