@@ -56,12 +56,14 @@ $(document).ready ->
     swfobject.embedSWF($(this).data("url"), $(this).attr("id"), $(this).data("width"), $(this).data("height"), "9.0.0", "expressInstall.swf");
   
   $('.item .inner img.preview').bind "load", -> 
+    return if $(this).data("loaded") == true
     inner = $(this).parents(".inner")
     height = $(this).data("height")
     height ||= $(this).height() - 32
     width = $(this).width()
     $(this).data("height", height)
     src = $(this).data("url")
+    $(this).data("loaded", true)
     inner.css
       overflow: "hidden"
       height: "#{height}px"
@@ -70,4 +72,3 @@ $(document).ready ->
       height: "#{height}px"
       width: "#{width}px"
     $(this).attr "src", blank_image
-  $('.item .inner img').trigger("load")

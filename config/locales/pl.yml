@@ -10,3 +10,11 @@ pl:
   notices:
     access_denied: "Nie masz wystarczających uprawnień aby zobaczyć zawartość tamtej strony."
     created: "Obrazek został dodany i w ciągu 10 minut powinien pojawić się w wylęgarni"
+  views:
+    pagination:
+      truncate: "..."
+      first: "&laquo; Pierwszy"
+      last: "Ostatni &raquo;"
+      previous: "&lsaquo; Cofnij"
+      next: "Dalej &rsaquo;"
+      truncate: "..."

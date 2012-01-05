@@ -15,11 +15,7 @@ class ForGifsImageDownloaderWorker < Struct.new(:url)
       unless img.nil?
         obj = { src: img["src"], alt: img["alt"] }
         puts obj.inspect
-        i = Image.new(:url => File.join("http://forgifs.com/", img["src"]))
-        i.description = img["alt"]
-        i.publish_at = Time.now + (1.day * rand)
-        i.start_rate = Link::RateThreshold
-        saved = i.save
+        Delayed::Job.enqueue ImageDownloaderWorker.new(File.join("http://forgifs.com/", img["src"]))
       end
     end
     

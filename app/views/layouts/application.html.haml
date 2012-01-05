@@ -20,11 +20,11 @@
       %ul.nav
         %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
         - if logged_in?
-          %li.pull-left
-            = link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
-            Masz #{self.current_user.rank} punktów
+          %li.pull-left= link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
+            
           %li.pull-left.profile
-            %p= self.current_user.username
+            %p= link_to self.current_user.username, profile_path(id: self.current_user.id)
+            %p Masz #{self.current_user.rank} punktów
             - if can? :manage, User
               %p= link_to "Użytkownicy", users_path
               %p= link_to "Workery", workers_path
@@ -48,7 +48,6 @@
     .footer= render 'layouts/footer'
     %div{ style: "display:none" }
       = image_tag "blank.gif", id: "blank_image"
-    = render partial: "layouts/facebook"
-    = render partial: "layouts/googleplus"
+      = render partial: "layouts/facebook"
 
 
