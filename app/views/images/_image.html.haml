@@ -1,4 +1,5 @@
-- if image.gif?
-  = image_tag image.file.url, alt: image.description, data: { url: image.file.url }
-- else
-  = image_tag image.file.url(:thumb), alt: image.description, class: "preview", data: { url: image.file.url(:thumb) }
+= link_to link_path(id: image.id) do
+  - if image.gif?
+    = image_tag image.file.url, alt: image.description, data: { url: image.file.url }
+  - else
+    = image_tag image.file.url(:thumb), alt: image.description, class: "preview", data: { url: image.file.url(:thumb) }

@@ -1,0 +1,2 @@
+module LolekHelper
+end

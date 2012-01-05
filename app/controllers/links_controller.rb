@@ -34,8 +34,7 @@ class LinksController < ApplicationController
 
   def show
     @link = Link.is_published.find(params[:id])
-    authorize! :index, Link
-    redirect_to @link
+    authorize! :read, @link
   end
 
   def new

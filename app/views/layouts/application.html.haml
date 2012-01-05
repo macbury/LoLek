@@ -42,6 +42,7 @@
           %li= link_to "Najnowsze", root_path, class: @tab == :newest ? "selected" : nil
           %li= link_to "Najpopularniejsze", popular_links_path, class: @tab == :popular ? "selected" : nil
           %li= link_to "Wylęgarnia", pending_links_path, id: "pending_link", data: { count: unread_count }, class: @tab == :pending ? "selected" : nil
+          %li= link_to "Ranking", profiles_path, class: @tab == :profiles ? "selected" : nil
         .clear
       = yield
       .clear

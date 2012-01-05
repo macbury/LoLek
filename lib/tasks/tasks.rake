@@ -18,6 +18,7 @@ namespace :lolek do
     Delayed::Job.enqueue CiekawostkiWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
     Delayed::Job.enqueue DilbertWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
     Delayed::Job.enqueue StripfieldWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    Delayed::Job.enqueue TheMovieWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
   end
   
   desc "Fetch cycki"
@@ -95,6 +96,10 @@ namespace :lolek do
     Delayed::Job.enqueue StripfieldWorker.new(nil)
   end
 
+  desc "Fetch chata"
+  task :movie => :environment do
+    Delayed::Job.enqueue TheMovieWorker.new(nil)
+  end
   
   desc "Wikary"
   task :wikary => :environment do

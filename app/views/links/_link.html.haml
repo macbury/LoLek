@@ -1,14 +1,9 @@
 .item{ id: "item_#{link.id}" }
-  .social
-    %a.next{ href: "#" }
-      = image_tag "down.png"
-      %br/
-      Następny
+  .inner= render partial: link
+  .share
     - if can? :destroy, link
       = link_to link_path(id: link.id), method: "delete", confirm: t("link.confirm_destroy"), class: "destroy" do
         = image_tag "destroy.png"
         %br/
         Usuń
-  .inner= render partial: link
-  .share
     .fb-like{ :data => { :href => link_url(:id => link.id), :send => "true", :layout => "button_count", "show-faces" => false, :colorscheme => "dark", :width => 220 } }

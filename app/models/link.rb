@@ -2,7 +2,7 @@ class Link
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Random
-  RateThreshold = 15
+  RateThreshold = 5
   validates :url, :uniqueness => true, :presence => true, :if => :check_url?, :on => :create
   
   field :url, type: String
