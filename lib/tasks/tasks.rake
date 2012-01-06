@@ -3,22 +3,15 @@ namespace :lolek do
   desc "Fetch all info from channels"
   task :fetch => :environment do
     dev = Rails.env == "developement" ? 0 : 1
-    Delayed::Job.enqueue LubieCyckiWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue RefreshWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue GlosyGlowaWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue AndrzejRysujeWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue ForGifsWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue MemyWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue BashWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue PrzyslowiaCytatyWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+    [LubieCyckiWorker, DilbertWorker,StripfieldWorker, TheMovieWorker, CiekawostkiWorker, RefreshWorker, GlosyGlowaWorker, AndrzejRysujeWorker, ForGifsWorker, MemyWorker, PrzyslowiaCytatyWorker, BashWorker, TwistedWorker].uniq.each do |klass|
+      time = Time.now.at_beginning_of_day + (dev * (15.hours * rand))
+      Delayed::Job.enqueue klass.new(nil), run_at: time
+      puts "Will run #{klass.inspect} on #{time}"
+    end
     RssImageWorker.refresh
     CiteWorker.refresh
     GryskopWorker.refresh
     GameNodeWorker.refresh
-    Delayed::Job.enqueue CiekawostkiWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue DilbertWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue StripfieldWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-    Delayed::Job.enqueue TheMovieWorker.new(nil), run_at: Time.now.at_beginning_of_day + (dev * (15.hours * rand))
   end
   
   desc "Fetch cycki"
@@ -100,7 +93,12 @@ namespace :lolek do
   task :movie => :environment do
     Delayed::Job.enqueue TheMovieWorker.new(nil)
   end
-  
+
+  desc "Fetch chata"
+  task :twisted => :environment do
+    Delayed::Job.enqueue TwistedWorker.new(nil)
+  end
+
   desc "Wikary"
   task :wikary => :environment do
     Dir["/home/wikary_php/org/**/*.*"].each do |filename|

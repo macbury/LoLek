@@ -13,6 +13,8 @@ class Link
   
   field :hash, type: String
   
+  field :store_token, type: String
+
   field :likes, type: Integer, default: 0
   field :rate, type: Integer, default: 0
   
@@ -28,11 +30,20 @@ class Link
 
   has_many :likes, :dependent => :destroy
   belongs_to :user
-  
+
   def check_url?
     true
   end
   
+  def store_token
+    toc = read_attribute :store_token
+    if toc.nil?
+      toc = Digest::MD5.hexdigest(self.id.to_s)
+      write_attribute :store_token, toc
+    end
+    toc
+  end
+
   def processed!
     self.publish_at ||= Time.now
     self.processed = true
