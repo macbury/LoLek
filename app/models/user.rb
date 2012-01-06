@@ -37,13 +37,19 @@ class User
   end
   
   def like!(link)
-    like = self.likes.find_or_create_by( link_id: link.id )
-    self.calculate_rank!
-    like.new_record?
+    like = Like.find_or_initialize_by( link_id: link.id, user_id: self.id )
+    new_like = like.new_record?
+    if new_like
+      self.rank += 1
+      self.save
+    end
+    like.save
+    new_like
   end
 
   def calculate_rank!
-    
+    self.rank = self.likes.count
+    self.save
   end
   handle_asynchronously :calculate_rank!
 

@@ -79,16 +79,24 @@ a {
       border-radius: 6px;
     }
     
-    .share {
+    $author_width: 200px;
+
+    .action {
       background: darken($darker_background, 4%);
       border-radius: 0 0 5px 5px;
-      padding: 10px;
-      text-align: center;
-      table {
-        width: 710px;
-        td {
-          text-align: center;
-        }
+      .like {
+        text-align: center;
+        width: $author_width;
+        border-radius: 0px 0px 0px 5px;
+        padding: 5px;
+        float: right;
+      }
+
+      p {
+        line-height: 30px;
+        height: 30px;
+        margin: 0px;
+        margin-left: 10px;
       }
     }
     

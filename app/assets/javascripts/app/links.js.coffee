@@ -5,10 +5,16 @@
 window.bindFacebook = ->
   FB.Event.subscribe 'edge.create', (response) ->
     $.getJSON "#{response}/like", (resp) -> 
-      if resp.status
-        console.log "Found div with like and increase it value on one"
-      else
-        console.log "No liked"
+      if !resp.logged_in && !$.cookie("login_msg")
+        like = $("#item_#{resp.id} .like")
+        like.twipsy
+          placement: "right"
+          title: -> "Zaloguj się w hardzio.pl aby zdobywać punkty i odznaki za osiągnięcia!"
+        like.twipsy "show"
+      if resp.liked
+        console.log "inc"
+        
+
       
 
 $(document).ready ->

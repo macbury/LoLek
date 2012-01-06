@@ -8,7 +8,7 @@ class LinksController < ApplicationController
     liked = false
     liked = self.current_user.like!(@link) if logged_in?
 
-    render json: { status: liked }.to_json
+    render json: { liked: liked, logged_in: logged_in?, id: @link.id }.to_json
   end
 
   def index
@@ -19,7 +19,7 @@ class LinksController < ApplicationController
 
   def pending
     @tab = :pending
-    @links = Link.is_published.is_pending.is_newest.page(params[:page]).per(10)
+    @links = Link.is_published.is_pending.is_newest.includes(:user).page(params[:page]).per(10)
     cookies[:readed] = @links.count
     authorize! :index, Link
     render action: "index"

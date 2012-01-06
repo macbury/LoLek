@@ -1,9 +1,10 @@
 .item{ id: "item_#{link.id}" }
   .inner= render partial: link
-  .share
-    - if can? :destroy, link
-      = link_to link_path(id: link.id), method: "delete", confirm: t("link.confirm_destroy"), class: "destroy" do
-        = image_tag "destroy.png"
-        %br/
-        Usuń
-    .fb-like{ :data => { :href => link_url(:id => link.id), :send => "true", :layout => "button_count", "show-faces" => false, :colorscheme => "dark", :width => 220 } }
+  .action
+    .like
+      .fb-like{ :data => { :href => link_url(:id => link.id), :send => "true", :layout => "button_count", "show-faces" => false, :colorscheme => "dark", :width => 200 } }
+    - if link.user
+      %p #{link_to(link.user.username, profile_path(id: link.user.id))} dodał #{distance_of_time_in_words(link.publish_at, Time.now)} temu
+    - else
+      %p #{link_to("Gość", "#")} dodał #{distance_of_time_in_words(link.publish_at, Time.now)} temu
+    .clear
