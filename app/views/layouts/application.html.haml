@@ -7,7 +7,7 @@
     %link{ :rel => "shortcut icon", :href => "/favicon.png", :type => "image/x-icon" }/
     = csrf_meta_tags
     = yield :head
-  %body{ :id => "controller_#{controller.controller_name}_#{controller.action_name}" }
+  %body
     - if notice
       .modal-backdrop
       .modal.fade

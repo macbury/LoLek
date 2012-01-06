@@ -25,7 +25,7 @@ class Link
   scope :is_not_published, where(:publish_at.gt => Time.now).is_processed
   scope :is_pending, where(:rate.lt => Link::RateThreshold)
   scope :is_hot, where(:rate.gte => Link::RateThreshold)
-  scope :is_popular, desc(:rate, :publish_at)
+  scope :is_popular, desc(:rate, :publish_at).is_hot
   scope :is_newest, desc(:publish_at)
 
   has_many :likes, :dependent => :destroy
