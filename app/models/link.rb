@@ -31,6 +31,12 @@ class Link
   has_many :likes, :dependent => :destroy
   belongs_to :user
 
+  after_create :update_user!
+
+  def update_user!
+    self.user.calculate_rank! if self.user
+  end
+
   def check_url?
     true
   end
@@ -87,6 +93,7 @@ class Link
     
     self.rate = [info["shares"], info["likes"], self.start_rate].compact.inject(0) { |sum, likes| sum += likes } || 0
     self.save
+    update_user!
   end
 
   handle_asynchronously :check_status!, run_at: -> { 5.minutes.from_now }, priority: Delay::Like

@@ -17,6 +17,7 @@
     .uploader
       .inner= render 'links/form'
     .wrapper
+      #fb-root
       %ul.nav
         %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
         - if logged_in?
@@ -32,7 +33,7 @@
               %p= link_to "Statystyki", stats_links_path
             %p= link_to "Wyloguj się", logout_path
         - else
-          %li.pull-left= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn")
+          %li.pull-left= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn", id: "login_button")
       .clear
       .header
         %h1

@@ -2,7 +2,13 @@
   .inner= render partial: link
   .action
     .like
-      .fb-like{ :data => { :href => link_url(:id => link.id), :send => "true", :layout => "button_count", "show-faces" => false, :colorscheme => "dark", :width => 200 } }
+      = link_to link_url(id: link.id), class: "facebook-share-button", data: { like: like_link_path(id: link.id) } do
+        %span.fb_share_size_Small
+          %span.FBConnectButton.FBConnectButton_Small
+            %span.FBConnectButton_Text Wrzuć na Facebooka!
+          %span.fb_share_count_nub_right
+          %span.fb_share_count.fb_share_count_right
+            %span.fb_share_count_inner= link.rate.to_i
     - if link.user
       %p #{link_to(link.user.username, profile_path(id: link.user.id))} dodał #{distance_of_time_in_words(link.publish_at, Time.now)} temu
     - else

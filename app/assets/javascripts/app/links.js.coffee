@@ -2,20 +2,31 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-window.bindFacebook = ->
-  FB.Event.subscribe 'edge.create', (response) ->
-    $.getJSON "#{response}/like", (resp) -> 
-      if !resp.logged_in && !$.cookie("login_msg")
-        like = $("#item_#{resp.id} .like")
-        like.twipsy
-          placement: "right"
-          title: -> "Zaloguj się w hardzio.pl aby zdobywać punkty i odznaki za osiągnięcia!"
-        like.twipsy "show"
-      if resp.liked
-        console.log "inc"
-        
+window.bindFacebook = -> false  
 
-      
+onShare = (item) ->
+  counter = item.find('.fb_share_count_inner')
+  likes = parseInt(counter.text()) + 1
+  counter.text(likes)
+
+  $.getJSON item.data("like"), (resp) -> 
+    if !resp.logged_in && !$.cookie("login_msg")
+      like = $("#item_#{resp.id} .like")
+      like.twipsy
+        placement: "above"
+        html: true
+        offset: 20
+        title: -> 
+          btn = $("#login_button").clone()
+          btn.removeAttr("id")
+          obj = $("<p>Zaloguj się w hardzio.pl aby zdobywać punkty i odznaki za osiągnięcia!</p>")
+          p = $("<p></p>")
+          p.append(btn)
+          obj.append(p)
+          obj.html()
+      like.twipsy "show"
+    if resp.liked
+      console.log "inc"
 
 $(document).ready ->
   blank_image = $("#blank_image").attr("src")
@@ -26,6 +37,16 @@ $(document).ready ->
       placement: "above"
       title: -> "#{unread_count} nowe obrazki!"
   $('#pending_link').twipsy "show"
+
+  $('.item .facebook-share-button').click ->
+    item = $(this)
+    FB.ui {
+      method: 'feed',
+      link: item.attr("href"),
+    }, (response) -> onShare(item)
+      
+
+    false
 
   items = []
   $('.item').each ->

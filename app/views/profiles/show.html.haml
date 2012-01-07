@@ -1,2 +1,12 @@
-.profil
-  %h2 Profil: #{@user.username}
+.profile-pad
+  .profile-image= image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture")
+  .profile-info
+    .date 
+      %b Dołączył
+      = distance_of_time_in_words @user.created_at, Time.now
+      temu
+    %h3= @user.username
+    %p Posiada #{@user.rank} punktów/0 odznak 
+    %p Dodał #{@user.links.count} obrazków/#{@user.likes.count} udostępnił
+  .clear
+%h3.vs VS

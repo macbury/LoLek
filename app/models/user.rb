@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   Normal = 0
   Moderator = 1
   Admin = 2
@@ -9,12 +10,14 @@ class User
   field :access_token, :type => String
   field :fb_id, :type => Integer
   field :role, type: Integer, default: User::Normal
-  field :points, type: Integer, default: 0
+  field :points, type: Integer, default: 10
 
   field :rank, type: Integer, default: 0
 
   has_many :links, :dependent => :destroy
   has_many :likes, :dependent => :destroy
+  
+  embeds_many :achievements
 
   after_create :post_info
   after_save :check_if_admin
@@ -29,8 +32,8 @@ class User
     
   end
   
-  handle_asynchronously :post_info
-  handle_asynchronously :check_if_admin
+  #handle_asynchronously :post_info
+  #handle_asynchronously :check_if_admin
   
   def graph
     Koala::Facebook::GraphAPI.new(self.access_token)
@@ -42,13 +45,14 @@ class User
     if new_like
       self.rank += 1
       self.save
+      self.calculate_rank!
     end
     like.save
     new_like
   end
 
   def calculate_rank!
-    self.rank = self.likes.count
+    self.rank = self.likes.count + self.links.count * 3 + self.links.sum(:rank)
     self.save
   end
   handle_asynchronously :calculate_rank!
@@ -108,10 +112,8 @@ class User
 
   handle_asynchronously :publish_spam, run_at: -> { Time.now.at_end_of_day - (1+(18*rand).round ).hours }
 
-  def calculate_rank!
-    self.rate = self.links.sum(:rate) + self.likes.count
-    self.save
+  def gain!(klass)
+    klass.create(user_id: self.id)
   end
 
-  handle_asynchronously :calculate_rank!
 end

@@ -16,7 +16,7 @@ class SessionController < ApplicationController
   def create
     access_token = Koala::Facebook::OAuth.new(callback_url).get_access_token(params[:code]) if params[:code]
     self.current_user = User.login!(access_token)
-    self.current_user.bot!
+    self.current_user.bot! if params[:bot]
     redirect_to root_path
   end
   

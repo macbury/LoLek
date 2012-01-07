@@ -79,7 +79,7 @@ a {
       border-radius: 6px;
     }
     
-    $author_width: 200px;
+    $author_width: 180px;
 
     .action {
       background: darken($darker_background, 4%);
@@ -233,4 +233,49 @@ $tab_columns: 4;
   position: fixed;
   left: 10px;
   top: 10px;
+}
+
+
+$profile_image_width: 50px;
+$profile_image_padding: 5px;
+.profile-pad {
+  .profile-image {
+    width: $profile_image_width;
+    height: $profile_image_width;
+    padding: $profile_image_padding;
+    background: orange;
+    border-radius: 6px 0px 0px 6px;
+    img {
+      border-radius: 6px 0px 0px 6px;
+      width: $profile_image_width;
+      height: $profile_image_width;
+    }
+    float: left;
+  }
+
+  .profile-info {
+    background: $darker_background;
+    border-radius: 0px 6px 6px 0px;
+    width: $wrapper-width - $profile_image_width - $profile_image_padding * 4;
+    padding: $profile_image_padding;
+    height: $profile_image_width;
+    float: left;
+    h3, p {
+      margin: 0px 0px 3px 0px;
+    }
+
+    .date {
+      float: right;
+    }
+
+    p {
+      font-size: 10px;
+    }
+  }
+}
+
+h3.vs {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
 }
