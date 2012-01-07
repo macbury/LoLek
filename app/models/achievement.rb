@@ -6,11 +6,14 @@ class Achievement
   field :readed, type: Boolean, default: false
   embedded_in :user
 
+  First100Users = :register
+
   def name
-    throw "this is base"
+    I18n.t("achievements.#{self.type}.name")
   end
 
   def description
-    throw "this is base"
+    I18n.t("achievements.#{self.type}.description")
   end
+
 end

@@ -112,8 +112,8 @@ class User
 
   handle_asynchronously :publish_spam, run_at: -> { Time.now.at_end_of_day - (1+(18*rand).round ).hours }
 
-  def gain!(klass)
-    klass.create(user_id: self.id)
+  def gain!(achievement_type)
+    self.achievements.find_or_create_by( type: achievement_type )
   end
 
 end

@@ -180,34 +180,34 @@ $tab_columns: 4;
       font-size: 32px;
     }
   }
-  
-  .tabs {
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
-    li {
-      float: left;
-      width: $wrapper_width / $tab_columns - 1px;
-      &:first-child a {
-        border-left: 0px;
-        border-radius: 5px 0px 0px 5px;
-      }
-      
-      &:last-child a {
-        border-radius: 0px 5px 5px 0px;
-      }
-      a {
-        display: block;
-        padding: 5px 10px;
-        text-align: center;
-        color: #fff;
-        background: $darker_background;
-        border-left: 1px solid lighten($darker_background, 15%);
-        text-shadow: 0px 0px 1px rgba(0,0,0,0.3);
-        &.selected {
-          border-left: 1px solid orange;
-          background: orange;
-        }
+}
+
+.tabs {
+  list-style: none;
+  padding: 0px;
+  margin: 5px 0;
+  li {
+    float: left;
+    width: $wrapper_width / $tab_columns;
+    &:first-child a {
+      border-left: 0px;
+      border-radius: 5px 0px 0px 5px;
+    }
+    
+    &:last-child a {
+      border-radius: 0px 5px 5px 0px;
+    }
+    a {
+      display: block;
+      padding: 5px 10px;
+      text-align: center;
+      color: #fff;
+      background: $darker_background;
+      border-left: 1px solid lighten($darker_background, 15%);
+      text-shadow: 0px 0px 1px rgba(0,0,0,0.3);
+      &.selected {
+        border-left: 1px solid orange;
+        background: orange;
       }
     }
   }

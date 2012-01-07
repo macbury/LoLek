@@ -246,3 +246,8 @@ pl:
 
       full_messages:
         format: "%{attribute} %{message}"
+  
+  achievements:
+    register:
+      name: "Pierwsza 100"
+      description: "Jesteś jednym z pierwszych użytkowników"

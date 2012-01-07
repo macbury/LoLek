@@ -9,4 +9,8 @@
     %p Posiada #{@user.rank} punktów/0 odznak 
     %p Dodał #{@user.links.count} obrazków/#{@user.likes.count} udostępnił
   .clear
-%h3.vs VS
+%ul.tabs
+  %li= link_to "Osiągnięcia", "#"
+  %li= link_to "Znajomi", "#"
+  %li= link_to "Udostępnione", "#"
+  %li= link_to "Dodane", "#"
