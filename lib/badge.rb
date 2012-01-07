@@ -1,6 +1,12 @@
+require 'RMagick'
+
 class Badge
 
-  def initialize(first_line, second_line, gravatar = nil)
+  def download_image(user)
+    open("http://graph.facebook.com/#{user}/picture").read
+  end
+
+  def initialize(first_line, second_line, user_id = nil)
     canvas = Magick::Image.new(423, 67) { |c| c.background_color = "none"; c.format = "png" }
     draw = Magick::Draw.new
 
@@ -45,7 +51,7 @@ class Badge
     draw.rectangle(6, 30, 60,36)
     draw.circle(33,33, 33,54)
 
-    if gravatar && (avatar = gravatar_image(gravatar))
+    if user_id && (avatar = download_image(user_id))
       odraw = Magick::Draw.new
       mdraw = Magick::Draw.new
       aimg = Magick::Image.from_blob(avatar).first
@@ -77,7 +83,11 @@ class Badge
     draw.text(75,50, second_line)
 
     draw.draw(canvas)
-    canvas
+
+    @canvas = canvas
   end
 
+  def image
+    @canvas
+  end
 end

@@ -16,8 +16,7 @@ class User
 
   has_many :links, :dependent => :destroy
   has_many :likes, :dependent => :destroy
-  
-  embeds_many :achievements
+  has_many :achievements, :dependent => :destroy
 
   after_create :post_info
   after_save :check_if_admin

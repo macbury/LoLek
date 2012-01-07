@@ -13,6 +13,7 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'carrierwave_backgrounder'
 
+gem 'faraday'
 gem 'youtube_it'
 gem "rmagick"
 

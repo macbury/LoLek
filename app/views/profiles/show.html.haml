@@ -14,3 +14,6 @@
   %li= link_to "Znajomi", "#"
   %li= link_to "Udostępnione", "#"
   %li= link_to "Dodane", "#"
+
+- @user.achievements.each do |badge|
+  %p= image_tag "/badges/#{badge.id}.png?time=#{Time.now.to_f}"
