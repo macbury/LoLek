@@ -1,4 +1,10 @@
 .inner
-  LoLek #{[2012, Time.now.year].uniq.join("/")}
-  %br/
-  .fb-like-box{ :data => { :href => Facebook::CONFIG["fanpage"], :width => 370, :colorscheme => "dark", "show-faces" => "true", :stream => "false", :header => "false" } }
+  .column
+    %h4 #{t("title")} #{[2012, Time.now.year].uniq.join("/")}
+    %p= link_to "Regulamin", "#"
+    %p= link_to "Kontakt", "#"
+    %p= link_to "Reklama", "#"
+    %p= link_to "Osiągnięcia", "#"
+  .column
+    .fb-like-box{ :data => { :href => Facebook::CONFIG["fanpage"], :width => 370, :colorscheme => "dark", "show-faces" => "true", :stream => "false", :header => "false" } }
+  .clear

@@ -2,6 +2,8 @@
 %html{ itemscope: true, itemtype: "http://schema.org/Article" }
   %head
     %title #{t("title")} - #{t('summary')}
+    %meta{ name: "keywords", content: t('keywords') }
+    %meta{ name: "description", content: t('description') }
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     %link{ :rel => "shortcut icon", :href => "/favicon.png", :type => "image/x-icon" }/

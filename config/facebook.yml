@@ -1,4 +1,8 @@
 development:
   app_id: 168720459895128
   secret_key: 2240d76edbe5b782d49083b614a6c5fe
-  fanpage: "http://www.facebook.com/platform"
+  fanpage: "https://www.facebook.com/pages/Hardziopl/165033726934059"
+production:
+  app_id: 302702653105030
+  secret_key: d08ad5427a087860321c3d77d787f6e1
+  fanpage: "http://www.facebook.com/pages/Hardziopl/165033726934059"
