@@ -11,7 +11,7 @@ class ForGifsImageDownloaderWorker < Struct.new(:url)
     puts "GET: #{url}"
     
     @agent.get(url) do |page|
-      img = page.search("#gsImageView img").first
+      img = page.search("#gsImageView img")[1]
       unless img.nil?
         obj = { src: img["src"], alt: img["alt"] }
         puts obj.inspect

@@ -1,20 +1,23 @@
 require "open-uri"
+require 'fileutils'
 class ImageDownloaderWorker < Struct.new(:url)
   def perform
     return unless Image.where(url: url).empty?
-    puts "Downloading: #{url}"
-    file = open(url)
-    if file.nil?
-      puts "No file found..."
-      return
-    end
-    path = file.path
-    ext = File.extname(path)
+    tmp_path = File.join(Rails.root, "tmp", "images")
+    Dir.mkdir(tmp_path) rescue nil
+
+    hash = Digest::MD5.hexdigest(url)
+    ext = File.extname(url)
+
+    path = File.join(tmp_path, "#{hash}#{ext}")
+    puts "Downloading to #{path} from #{url}"
+    puts `wget -O #{path} "#{url}"`
 
     if ext.blank? && ext = detect_extension(path)
       puts "Detected extension for image - #{ext}"
+      old_path = path
       path = path + ".#{ext}"
-      FileUtils.mv(file.path, path)
+      FileUtils.move old_path, path
       file = File.open(path)
     else
       puts "File have ext: #{ext}"

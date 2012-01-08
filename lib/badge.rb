@@ -78,7 +78,7 @@ class Badge
     draw.kerning('0.65')
     draw.text(75,29, first_line)
 
-    draw.font_size('15.5')
+    draw.font_size('12')
     draw.kerning('0.4')
     draw.text(75,50, second_line)
 

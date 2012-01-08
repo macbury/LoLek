@@ -8,12 +8,8 @@
     = csrf_meta_tags
     = yield :head
   %body
-    - if notice
-      .modal-backdrop
-      .modal.fade
-        .modal-body
-          %p= notice
-          = link_to "Zamknij", "#", class: "btn"
+    = render 'layouts/flash_messages'
+    = render 'layouts/badges'
     .uploader
       .inner= render 'links/form'
     .wrapper

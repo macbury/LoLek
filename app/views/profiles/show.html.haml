@@ -9,11 +9,6 @@
     %p Posiada #{@user.rank} punktów/0 odznak 
     %p Dodał #{@user.links.count} obrazków/#{@user.likes.count} udostępnił
   .clear
-%ul.tabs
-  %li= link_to "Osiągnięcia", "#"
-  %li= link_to "Znajomi", "#"
-  %li= link_to "Udostępnione", "#"
-  %li= link_to "Dodane", "#"
-
-- @user.achievements.each do |badge|
-  %p= image_tag "/badges/#{badge.id}.png?time=#{Time.now.to_f}"
+.badges
+  - @user.achievements.each do |badge|
+    %p= image_tag "/badges/#{badge.id}.png"

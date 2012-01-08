@@ -1,2 +1,2 @@
 - @users.each do |user|
-  %p= user.username
+  = link_to image_tag("http://graph.facebook.com/#{user.fb_id}/picture"), profile_path(id: user.id)

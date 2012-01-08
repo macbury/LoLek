@@ -51,7 +51,8 @@ class User
   end
 
   def calculate_rank!
-    self.rank = self.likes.count + self.links.count * 3 + self.links.sum(:rank)
+    links_sum = self.links.sum(:rank) || 0
+    self.rank = self.likes.count + self.links.count * 3 + links_sum + self.achievements.count * 20
     self.save
   end
   handle_asynchronously :calculate_rank!
@@ -113,6 +114,17 @@ class User
 
   def gain!(achievement_type)
     self.achievements.find_or_create_by( type: achievement_type )
+    self.calculate_rank!
   end
 
+  def unreaded_badges
+    if @ub.nil?
+      @ub = []
+      self.achievements.unreaded.each do |b|
+        @ub << b
+        b.read!
+      end
+    end
+    @ub
+  end
 end

@@ -1,0 +1,9 @@
+- if logged_in? && !self.current_user.unreaded_badges.empty?
+  .modal-backdrop
+  .modal.fade
+    .modal-body
+      %h3 Nowe osiągnięcie!
+      .badges
+        - self.current_user.unreaded_badges.each do |badge|
+          %p= image_tag "/badges/#{badge.id}.png"
+      = link_to "Zamknij", "#", class: "btn"

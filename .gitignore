@@ -15,4 +15,5 @@
 /tmp
 public/bucket
 public/uploads
+public/badges
 vendor/gems
