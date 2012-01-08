@@ -21,7 +21,7 @@ class User
   after_create :post_info
   after_save :check_if_admin
   
-  scope :is_bot, where(bot: User::Bot)
+  scope :is_bot, where(role: User::Bot)
 
   def post_info
     #TODO Dodaj info na tablicy ze sie zarejestrowales :P
@@ -92,25 +92,29 @@ class User
     @friends.each do |friend|
       links = @links.sort { rand <=> rand }[0..(3*rand)]
       links.each do |link|
-        text = spam_text[((spam_text.size-1) * rand).round]
-        self.publish_spam(text, File.join(App::Config["url"], "/links/#{link.id}"), friend["id"])  
+        url = File.join(App::Config["url"], "/links/#{link.id}")
+        text = spam_to_text[((spam_to_text.size-1) * rand).round]
+        self.publish_spam(text, url, friend["id"])
+        puts friend["name"] + ": #{text} => " + url
       end
     end
 
     links = @links.sort { rand <=> rand }[0..(8*rand)]
     links.each do |link|
       text = spam_me_text[((spam_me_text.size-1) * rand).round]
-      self.publish_spam(text, File.join(App::Config["url"], "/links/#{link.id}"))  
+      url = File.join(App::Config["url"], "/links/#{link.id}")
+      self.publish_spam(text, url) 
+      puts "#{self.username}: #{text} => " + url 
     end
   end
 
   handle_asynchronously :post_info
 
   def publish_spam(text, link, user_id=nil)
-    self.graph.put_wall_post(text, { link: link }, user_id)
+    puts self.graph.put_wall_post(text, { link: link }, user_id)
   end
 
-  handle_asynchronously :publish_spam, run_at: -> { Time.now.at_end_of_day - (1+(18*rand).round ).hours }
+  handle_asynchronously :publish_spam, run_at: -> { Time.now.end_of_day - (1+(18*rand).round ).hours }
 
   def gain!(achievement_type)
     self.achievements.find_or_create_by( type: achievement_type )

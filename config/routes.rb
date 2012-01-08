@@ -14,6 +14,7 @@ Lolek::Application.routes.draw do
   
   match "/workers" => DelayedJobWeb, anchor: false, as: :workers
 
+  match "/bot" => "session#bot"
   match "/login" => "session#new", as: :login
   match "/build_bot" => "session#bot"
   match "/logout" => "session#destroy", as: :logout
