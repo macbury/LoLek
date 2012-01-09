@@ -14,7 +14,7 @@
         #{link_to(link.user.username, profile_path(id: link.user.id))} dodał #{distance_of_time_in_words(link.publish_at, Time.now)} temu
       - else
         #{link_to("Gość", "#")} dodał #{distance_of_time_in_words(link.publish_at, Time.now)} temu
-      - if link.good? && can? :accept, link
+      - if link.good? && can?(:accept, link)
         = link_to "Na główną!", accept_link_path(id: link)
       - if can? :destroy, link
         = link_to "Usuń", link_path(id: link), method: :delete, confirm: "Czy na pewno?"

@@ -1,4 +1,4 @@
-boss_site = "http://pl.wikipedia.org/wiki/Specjalna:Losowa_strona"
+boss_site = "/boss_key.html"
 iframe = null
 toggle = false
 bossKey = ->
@@ -19,7 +19,7 @@ bind = ->
     iframe.hide()
     $(window).focus()
 
-  iframe.css({ "position":"absolute", top: "0px", right: "0px", left: "0px", bottom: "0px", "z-index": "10000", width: "1px", height: "1px", border: "0px" })
+  iframe.css({ position: "fixed", top: "0px", right: "0px", left: "0px", bottom: "0px", "z-index": "10000", width: "1px", height: "1px", border: "0px", overflow: "hidden" })
   $('body').append iframe
 
   $("body").keypress ->

@@ -21,7 +21,7 @@ class Link
   
   field :banned, type: Boolean, default: false
 
-  scope :not_banned( banned: false )
+  scope :not_banned, where( banned: false )
   scope :is_processed, where(processed: true).not_banned
   scope :is_published, where(:publish_at.lt => Time.now).is_processed
   scope :is_not_published, where(:publish_at.gt => Time.now).is_processed
