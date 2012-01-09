@@ -21,7 +21,8 @@ class Link
   
   field :banned, type: Boolean, default: false
 
-  scope :is_processed, where(processed: true)
+  scope :not_banned( banned: false )
+  scope :is_processed, where(processed: true).not_banned
   scope :is_published, where(:publish_at.lt => Time.now).is_processed
   scope :is_not_published, where(:publish_at.gt => Time.now).is_processed
   scope :is_pending, where(:rate.lt => Link::RateThreshold)
@@ -86,6 +87,21 @@ class Link
 
   def to_opengraph
     { title: I18n.t("title"), type: "article", description: I18n.t("summary") }
+  end
+
+  def ban!
+    self.banned = true
+    self.save
+  end
+
+  def good?
+    self.rate >= Link::RateThreshold
+  end
+
+  def accept!
+    self.start_rate = Link::RateThreshold
+    self.save
+    self.check_status!
   end
 
   def check_status!

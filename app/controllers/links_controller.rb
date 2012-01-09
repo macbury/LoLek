@@ -57,11 +57,20 @@ class LinksController < ApplicationController
     authorize! :read, :stats
   end
 
+  def accept
+    @link = Link.find(params[:id])
+    authorize! :accept, @link
+    @link.accept!
+
+    redirect_to params[:return_to] || root_path
+  end
+
   def destroy
     @link = Link.find(params[:id])
-    @link.banned = true
-    @link.save
     authorize! :destroy, @link
+
+    @link.ban!
+    @link.save
     
     redirect_to params[:return_to] || root_path
   end

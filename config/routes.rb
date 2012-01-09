@@ -9,7 +9,10 @@ Lolek::Application.routes.draw do
       get :stats
     end
 
-    get :like, on: :member
+    member do
+      get :like
+      get :accept
+    end
   end
   
   match "/workers" => DelayedJobWeb, anchor: false, as: :workers
