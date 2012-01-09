@@ -41,6 +41,9 @@ GEM
     activesupport (3.1.1)
       multi_json (~> 1.0)
     addressable (2.2.6)
+    airbrake (3.0.9)
+      activesupport
+      builder
     arel (2.2.1)
     bson (1.5.2)
     bson_ext (1.5.2)
@@ -203,6 +206,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   bson_ext
   cancan
   carrierwave
