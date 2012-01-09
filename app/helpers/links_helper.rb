@@ -6,8 +6,12 @@ module LinksHelper
   
   def unread_count
     total = Link.is_published.is_pending.is_newest.count
-    readed = cookies[:readed]
-    readed ||= 0
+    if logged_in?
+      readed = self.current_user.readed_links
+    else
+      readed = cookies[:readed]
+      readed ||= 0
+    end
 
     total - readed.to_i
   end

@@ -20,6 +20,8 @@ class User
 
   field :rank, type: Integer, default: 0
 
+  field :readed, type: Integer, default: 0
+
   has_many :links, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :achievements, :dependent => :destroy

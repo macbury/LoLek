@@ -21,6 +21,7 @@ class LinksController < ApplicationController
     @tab = :pending
     @links = Link.is_published.is_pending.is_newest.includes(:user).page(params[:page]).per(10)
     cookies[:readed] = @links.count
+    self.current_user.update_attributes(readed: @links.count) if logged_in? 
     authorize! :index, Link
     render action: "index"
   end
