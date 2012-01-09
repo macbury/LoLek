@@ -1,4 +1,4 @@
-boss_site = "http://wikipedia.pl"
+boss_site = "http://pl.wikipedia.org/wiki/Specjalna:Losowa_strona"
 iframe = null
 toggle = false
 bossKey = ->
