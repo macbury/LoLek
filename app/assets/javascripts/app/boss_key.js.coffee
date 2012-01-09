@@ -17,14 +17,15 @@ bind = ->
   iframe = $("<iframe src='#{boss_site}'></iframe>")
   iframe.load -> 
     iframe.hide()
-    $(window).focus()
+    $(document).blur().focus().select()
 
   iframe.css({ position: "fixed", top: "0px", right: "0px", left: "0px", bottom: "0px", "z-index": "10000", width: "1px", height: "1px", border: "0px", overflow: "hidden" })
   $('body').append iframe
 
-  $("body").keypress ->
-    bossKey() if event.which == 98
-  $(window).focus()
+  $(document).shortkeys
+    "b": -> bossKey()
+
+  $(document).focus()
 
 
 $(document).ready -> bind()
