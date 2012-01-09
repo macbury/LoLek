@@ -8,7 +8,7 @@ bossKey = ->
     iframe.css
       height: "100%"
       width: "100%"
-
+    $.cookie "boss_key", true
     iframe.show()
   else
     iframe.hide()

@@ -1,4 +1,5 @@
 Lolek::Application.routes.draw do
+  
   resources :users
   resources :profiles
   resources :links do
