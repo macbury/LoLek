@@ -96,5 +96,5 @@ class Link
     update_user!
   end
 
-  handle_asynchronously :check_status!, run_at: -> { 5.minutes.from_now }, priority: Delay::Like
+  handle_asynchronously :check_status!, run_at: -> { 5.seconds.from_now }, priority: Delay::Like
 end

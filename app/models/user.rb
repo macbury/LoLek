@@ -12,6 +12,8 @@ class User
   field :role, type: Integer, default: User::Normal
   field :points, type: Integer, default: 10
 
+  field :last_login, type: DateTime
+
   field :rank, type: Integer, default: 0
 
   has_many :links, :dependent => :destroy
@@ -62,6 +64,7 @@ class User
     user = User.find_or_initialize_by fb_id: profile["id"]
     user.username = [profile["first_name"], profile["last_name"]].join(" ")
     user.access_token = access_token
+    user.last_login = Time.now
     user.save
     
     user

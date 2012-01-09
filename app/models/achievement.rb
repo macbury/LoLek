@@ -12,13 +12,14 @@ class Achievement
   FirstDayLike = :first_day_like
   FirstLink = :first_link
 
+  after_create :build_image, priority: Delay::Badge
+
   def build_image
     tmp = File.join(Rails.root, "public", "badges")
     Dir.mkdir(tmp) rescue nil 
     path = File.join(tmp, filename)
     badge = Badge.new(name, description, self.user.fb_id)
     badge.image.write(path)
-    badge.image
   end
 
   def filename

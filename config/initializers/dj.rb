@@ -6,6 +6,7 @@ Delayed::Worker.delay_jobs = !Rails.env.test?
 
 module Delay
   Like = -1
+  Badge = -2
 end
 
 
