@@ -65,6 +65,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    colored (1.2)
     daemons (1.0.10)
     delayed_job (3.0.0.pre3)
       activesupport (~> 3.0)
@@ -213,6 +214,7 @@ DEPENDENCIES
   carrierwave-mongoid
   carrierwave_backgrounder
   coffee-rails (~> 3.1.1)
+  colored
   delayed_job (= 3.0.0.pre3)
   delayed_job_mongoid
   delayed_job_web!

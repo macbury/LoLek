@@ -15,6 +15,7 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'carrierwave_backgrounder'
 
+gem "colored"
 gem 'faraday'
 gem 'youtube_it'
 gem "rmagick"
