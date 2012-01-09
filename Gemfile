@@ -53,8 +53,9 @@ gem 'therubyracer'
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-gem 'thin'
-
+group :development do
+  gem 'thin'
+end
 # Deploy with Capistrano
 # gem 'capistrano'
 
