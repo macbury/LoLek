@@ -5,8 +5,10 @@ Delayed::Worker.max_run_time = 15.minutes
 Delayed::Worker.delay_jobs = !Rails.env.test?
 
 module Delay
-  Like = -1
+  Observer = -1
+  Like = -4
   Badge = -2
+  UserRank = -3
 end
 
 

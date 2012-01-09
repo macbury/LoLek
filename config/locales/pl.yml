@@ -258,3 +258,6 @@ pl:
     first_link:
       name: "Samarytanin"
       description: "Dodałeś swój pierwszy obrazek"
+    school_access:
+      name: "Leń"
+      description: "Korzystasz z serwisu w czasie lekcji/pracy"

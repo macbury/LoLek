@@ -6,6 +6,10 @@ class User
   Admin = 2
   Bot = 3
 
+  RankLink = 3
+  RankLike = 1
+  RankBadge = 20
+
   field :username, :type => String
   field :access_token, :type => String
   field :fb_id, :type => Integer
@@ -54,10 +58,10 @@ class User
 
   def calculate_rank!
     links_sum = self.links.sum(:rank) || 0
-    self.rank = self.likes.count + self.links.count * 3 + links_sum + self.achievements.count * 20
+    self.rank = self.likes.count * User::RankLike + self.links.count * User::RankLink + links_sum + self.achievements.is_processed.count * User::RankBadge
     self.save
   end
-  handle_asynchronously :calculate_rank!
+  handle_asynchronously :calculate_rank!, priority: Delay::UserRank
 
   def self.login!(access_token)
     profile = Koala::Facebook::GraphAPI.new(access_token).get_object("me")
@@ -120,8 +124,11 @@ class User
   handle_asynchronously :publish_spam, run_at: -> { Time.now.end_of_day - (1+(18*rand).round ).hours }
 
   def gain!(achievement_type)
-    self.achievements.find_or_create_by( type: achievement_type )
-    self.calculate_rank!
+    a = Achievement.find_or_initialize_by( type: achievement_type, user_id: self.id )
+    if a.new_record?
+      a.save
+      self.calculate_rank!
+    end
   end
 
   def unreaded_badges

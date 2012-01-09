@@ -5,14 +5,18 @@ class Achievement
 
   field :type, type: String, default: nil
   field :readed, type: Boolean, default: false
-  scope :unreaded, where(readed: false)
+  field :processed, type: Boolean, default: false
+
+  scope :is_processed, where(processed: true)
+  scope :unreaded, where(readed: false).is_processed
   belongs_to :user
 
   First100Users = :register
   FirstDayLike = :first_day_like
   FirstLink = :first_link
+  SchoolAccess = :school_access
 
-  after_create :build_image, priority: Delay::Badge
+  after_create :build_image
 
   def build_image
     tmp = File.join(Rails.root, "public", "badges")
@@ -20,7 +24,11 @@ class Achievement
     path = File.join(tmp, filename)
     badge = Badge.new(name, description, self.user.fb_id)
     badge.image.write(path)
+    self.processed = true
+    self.save
   end
+
+  handle_asynchronously :build_image!, priority: Delay::Badge
 
   def filename
     "#{self.id}.png"
