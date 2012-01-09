@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :analyze_cookies
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, notice: I18n.t("flash.notice.access_denied")
@@ -32,4 +33,11 @@ class ApplicationController < ActionController::Base
     login_required!
   end
   
+  def analyze_cookies
+    return unless logged_in?
+    if cookie[:boss_key]
+      cookie.delete(:boss_key)
+      self.current_user.gain!(Achievement::BossKey)
+    end
+  end
 end

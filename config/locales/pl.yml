@@ -261,3 +261,6 @@ pl:
     school_access:
       name: "Leń"
       description: "Korzystasz z serwisu w czasie lekcji/pracy"
+    boss_key:
+      name: "Spryciarz"
+      description: "Użyłeś boss key"

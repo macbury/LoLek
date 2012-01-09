@@ -15,7 +15,8 @@ class Achievement
   FirstDayLike = :first_day_like
   FirstLink = :first_link
   SchoolAccess = :school_access
-
+  BossKey = :boss_key
+  
   after_create :build_image
 
   def build_image
