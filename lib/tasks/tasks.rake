@@ -112,7 +112,7 @@ namespace :lolek do
   
   desc "Spam"
   task :spam => :environment do
-    User.is_bot.each(&:spam!)
+    User.spam!
   end
 
   desc "Calculate user ranks"

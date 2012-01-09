@@ -80,11 +80,17 @@ class User
     self.save
   end
 
+  def self.spam!
+    users = User.is_bot.all
+    spam_users = (users.size.to_f / 3.to_f).round.to_i
+    users.sort { rand <=> rand }.each(&:spam!)[0..spam_users]
+  end
+
   def spam!
     spam_to_text = open(File.join(Rails.root, "config/spam_to_text.txt")).read.split("\n")
     spam_me_text = open(File.join(Rails.root, "config/spam_me_text.txt")).read.split("\n")
     @friends = self.graph.get_connections("me", "friends")
-    friends_to_spam = 2 + ((@friends.size/3)*rand).round
+    friends_to_spam = 2 + ((@friends.size/2)*rand).round
     @friends = @friends.sort { rand <=> rand }[0..friends_to_spam]
 
     @links = Image.is_published.is_hot.is_newest.limit(300).all
