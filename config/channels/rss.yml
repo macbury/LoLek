@@ -29,3 +29,6 @@ zuch: http://zuch.blox.pl/rss2
 naluz: http://www.naluz.net/feed/
 piktografiki: http://www.piktografiki.com/feeds/posts/default?alt=rss
 eatthattoast: http://eatthattoast.com/feed/
+9gag:
+  url: http://9gag.com/rss/site/feed.rss
+  trim: 20
