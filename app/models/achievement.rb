@@ -10,23 +10,18 @@ class Achievement
   scope :is_processed, where(processed: true)
   scope :unreaded, where(readed: false).is_processed
   belongs_to :user
-  
-  after_create :build_image!
 
-  def build_image!
+  def self.build_image!(name)
     tmp = File.join(Rails.root, "public", "badges")
     Dir.mkdir(tmp) rescue nil 
-    path = File.join(tmp, filename)
-    badge = Badge.new(name, description, self.user.fb_id)
+    path = File.join(tmp, "#{name.to_s}.png")
+    return if Rails.env == "development" && File.exists?(path)
+    badge = Badge.new(name, description)
     badge.image.write(path)
-    self.processed = true
-    self.save
   end
 
-  handle_asynchronously :build_image!, priority: Delay::Badge
-
   def filename
-    "#{self.id}.png"
+    "#{self.type}.png"
   end
 
   def name
@@ -49,8 +44,9 @@ class Achievement
   def self.build!
     I18n.t("achievements").each do |key, val|
       Achievement.const_set key.to_s.camelize.to_sym, key.to_sym
+      Achievement.build_image!(key)
     end
   end
 end
 
-Achievement.build! if Rails.env == "development"
+Achievement.build!

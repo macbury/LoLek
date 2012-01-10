@@ -1,5 +1,13 @@
 class LinksController < ApplicationController
 
+  def feed
+    @links = Image.is_published.is_hot.is_newest.limit(10)
+    
+    respond_to do |format|
+      format.rss
+    end
+  end
+
   def like
     @link = Link.is_published.find(params[:id])
     authorize! :like, @link

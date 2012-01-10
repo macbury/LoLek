@@ -7,6 +7,7 @@ Lolek::Application.routes.draw do
       get :pending
       get :popular
       get :stats
+      get :feed
     end
 
     member do
