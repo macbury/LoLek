@@ -3,6 +3,8 @@ SitemapGenerator::Sitemap.default_host = App::Config["url"]
 
 SitemapGenerator::Sitemap.create do
   add root_path, :priority => 1.0, :changefreq => 'daily'
+  add pending_links_path, :priority => 1.0, :changefreq => 'daily'
+  add popular_links_path, :priority => 1.0, :changefreq => 'daily'
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.
@@ -20,9 +22,13 @@ SitemapGenerator::Sitemap.create do
   #
   #   add articles_path, :priority => 0.7, :changefreq => 'daily'
   #
-  
+
   Link.is_published.all.each do |link|
-    add link_path(:id => link.id), :lastmod => link.publish_at
+    if link.image?
+      add link_path(:id => link.id), lastmod: link.publish_at, images: { loc: File.join(App::Config["url"], link.file.url), title: link.seo_description }
+    else
+      add link_path(:id => link.id), lastmod: link.publish_at
+    end
   end
   
   # Add all articles:

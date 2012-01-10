@@ -2,7 +2,10 @@ class UserObserver < Mongoid::Observer
   observe :user
   
   def after_create(user)
-    user.gain!(Achievement::First100Users) if User.count < 100
+    Delayed::Job.enqueue UserObserverWorker.new(user), priority: Delay::Observer
   end
 
+  def after_update(user)
+    Delayed::Job.enqueue UserObserverWorker.new(user), priority: Delay::Observer
+  end
 end

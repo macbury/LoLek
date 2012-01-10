@@ -6,33 +6,27 @@ class User
   Admin = 2
   Bot = 3
 
+  RankLink = 3
+  RankLike = 1
+  RankBadge = 20
+
   field :username, :type => String
   field :access_token, :type => String
   field :fb_id, :type => Integer
   field :role, type: Integer, default: User::Normal
   field :points, type: Integer, default: 10
 
+  field :last_login, type: DateTime
+
   field :rank, type: Integer, default: 0
+
+  field :readed, type: Integer, default: 0
 
   has_many :links, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :achievements, :dependent => :destroy
-
-  after_create :post_info
-  after_save :check_if_admin
   
   scope :is_bot, where(role: User::Bot)
-
-  def post_info
-    #TODO Dodaj info na tablicy ze sie zarejestrowales :P
-  end
-  
-  def check_if_admin
-    
-  end
-  
-  #handle_asynchronously :post_info
-  #handle_asynchronously :check_if_admin
   
   def graph
     Koala::Facebook::GraphAPI.new(self.access_token)
@@ -52,16 +46,17 @@ class User
 
   def calculate_rank!
     links_sum = self.links.sum(:rank) || 0
-    self.rank = self.likes.count + self.links.count * 3 + links_sum + self.achievements.count * 20
+    self.rank = self.likes.count * User::RankLike + self.links.count * User::RankLink + links_sum + self.achievements.is_processed.count * User::RankBadge
     self.save
   end
-  handle_asynchronously :calculate_rank!
+  handle_asynchronously :calculate_rank!, priority: Delay::UserRank
 
   def self.login!(access_token)
     profile = Koala::Facebook::GraphAPI.new(access_token).get_object("me")
     user = User.find_or_initialize_by fb_id: profile["id"]
     user.username = [profile["first_name"], profile["last_name"]].join(" ")
     user.access_token = access_token
+    user.last_login = Time.now
     user.save
     
     user
@@ -114,8 +109,6 @@ class User
     end
   end
 
-  handle_asynchronously :post_info
-
   def publish_spam(text, link, user_id=nil)
     puts self.graph.put_wall_post(text, { link: link }, user_id)
   end
@@ -123,8 +116,11 @@ class User
   handle_asynchronously :publish_spam, run_at: -> { Time.now.end_of_day - (1+(18*rand).round ).hours }
 
   def gain!(achievement_type)
-    self.achievements.find_or_create_by( type: achievement_type )
-    self.calculate_rank!
+    a = Achievement.find_or_initialize_by( type: achievement_type, user_id: self.id )
+    if a.new_record?
+      a.save
+      self.calculate_rank!
+    end
   end
 
   def unreaded_badges

@@ -248,13 +248,3 @@ pl:
       full_messages:
         format: "%{attribute} %{message}"
   
-  achievements:
-    register:
-      name: "Pierwsza 100"
-      description: "Jesteś jednym z pierwszych użytkowników"
-    first_day_like:
-      name: "Pierwszak"
-      description: "Pierwsze udostępnienie na facebook.com dzisiaj."
-    first_link:
-      name: "Samarytanin"
-      description: "Dodałeś swój pierwszy obrazek"

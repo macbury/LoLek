@@ -12,6 +12,7 @@ class Ability
     else  
       if user.moderator?
         can :destroy, Link
+        can :accept, Link
       end
     end
   end

@@ -36,6 +36,7 @@ $(document).ready ->
     $('#pending_link').twipsy
       placement: "above"
       title: -> "#{unread_count} nowe obrazki!"
+    Notificon("#{unread_count}")
   $('#pending_link').twipsy "show"
 
   $('.item .facebook-share-button').click ->

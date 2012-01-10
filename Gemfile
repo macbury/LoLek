@@ -2,8 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.1.1'
 
+gem "rack-xframe-options"
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+gem "airbrake"
 
 gem "mongoid"
 gem "bson_ext"
@@ -13,6 +17,7 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'carrierwave_backgrounder'
 
+gem "colored"
 gem 'faraday'
 gem 'youtube_it'
 gem "rmagick"
@@ -50,8 +55,9 @@ gem 'therubyracer'
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-gem 'thin'
-
+group :development do
+  gem 'thin'
+end
 # Deploy with Capistrano
 # gem 'capistrano'
 

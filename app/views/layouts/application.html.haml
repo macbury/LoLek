@@ -6,7 +6,8 @@
     %meta{ name: "description", content: t('description') }
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
-    %link{ :rel => "shortcut icon", :href => "/favicon.png", :type => "image/x-icon" }/
+    %link{ :rel => "icon", :href => "/favicon.png", :type => "image/x-icon" }/
+    = auto_discovery_link_tag(:rss, feed_links_url(format: :rss), {:title => "Najnowsze"}) 
     = csrf_meta_tags
     = yield :head
   %body

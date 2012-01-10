@@ -1,5 +1,12 @@
 = render partial: "links/link", locals: { link: @link }
 
+%h3 Inne zasoby
+
+- @links.each_with_index do |link, index|
+  = render partial: "links/link", locals: { link: link }
+.clear
+= paginate @links, :window => 10
+
 - content_for :head do
   - @link.to_opengraph.merge(url: link_url(id: @link.id)).each do |key, value|
     %meta{ property: "og:#{key}", content: value }/

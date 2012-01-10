@@ -21,6 +21,15 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :watermark
   end  
 
+  version :rss, :if => :not_gif? do
+    process :resize_to_fill => [320, 240]
+  end  
+
+  version :mobile, :if => :not_gif? do
+    process :resize_to_limit => [320, 18_000]
+    process :watermark
+  end  
+
   version :facebook, :if => :not_gif? do
     process :resize_to_fill => [60, 60]
   end  
@@ -41,6 +50,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #
   
   def mark_as_processed
+    model.width, model.height = `identify -format "%wx %h" #{model.file.thumb.path}`.split(/x/) 
     model.processed!
   end
   

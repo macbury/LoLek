@@ -3,7 +3,9 @@ class Image < Link
   field :file_processing, type: Boolean, default: true
   
   field :description, type: String
-  
+  field :width, type: Integer
+  field :height, type: Integer
+
   mount_uploader :file, ImageUploader
   
   process_in_background :file
@@ -30,6 +32,10 @@ class Image < Link
     Rails.logger.debug "New url: #{new_url}"
     self.remote_file_url = new_url
     write_attribute :url, new_url
+  end
+
+  def seo_description
+    self.description
   end
 
   def to_opengraph

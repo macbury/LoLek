@@ -22,7 +22,7 @@ class TheMovieWorker < Struct.new(:url)
       page.search("#comic img").each do |img|
         url = img["src"]
         puts url
-        Delayed::Job.enqueue ImageDownloaderWorker.new(url)
+        Delayed::Job.enqueue ImageDownloaderWorker.new(url, img["alt"])
       end
       puts "Going to next page"
       next_page_link = page.search(".nawigacja table td a").first

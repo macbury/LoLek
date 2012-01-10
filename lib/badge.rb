@@ -7,7 +7,7 @@ class Badge
   end
 
   def initialize(first_line, second_line, user_id = nil)
-    canvas = Magick::Image.new(423, 67) { |c| c.background_color = "none"; c.format = "png" }
+    canvas = Magick::Image.new(423, 67) { |c| c.background_color = "none"; c.format = "gif" }
     draw = Magick::Draw.new
 
     draw.fill("#3B3F40")

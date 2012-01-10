@@ -12,7 +12,7 @@ class RssImageWorker < Struct.new(:url)
       img = item.search("img").first
       return if img.nil?
       puts "Found: #{img["src"]}"
-      Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"])
+      Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"])
     end
   end
   

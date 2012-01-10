@@ -1,16 +1,23 @@
 Lolek::Application.routes.draw do
+  
   resources :users
-  resources :badges
   resources :profiles
   resources :links do
     collection do
       get :pending
       get :popular
       get :stats
+<<<<<<< HEAD
       get :shuffle
+=======
+      get :feed
+>>>>>>> fdf4b9c8df5ab1a2138e1c01179556d2c1508870
     end
 
-    get :like, on: :member
+    member do
+      get :like
+      get :accept
+    end
   end
   
   match "/workers" => DelayedJobWeb, anchor: false, as: :workers

@@ -3,6 +3,7 @@ class Link
   include Mongoid::Timestamps
   include Mongoid::Random
   RateThreshold = 5
+
   validates :url, :uniqueness => true, :presence => true, :if => :check_url?, :on => :create
   
   field :url, type: String
@@ -20,7 +21,8 @@ class Link
   
   field :banned, type: Boolean, default: false
 
-  scope :is_processed, where(processed: true)
+  scope :not_banned, where( banned: false )
+  scope :is_processed, where(processed: true).not_banned
   scope :is_published, where(:publish_at.lt => Time.now).is_processed
   scope :is_not_published, where(:publish_at.gt => Time.now).is_processed
   scope :is_pending, where(:rate.lt => Link::RateThreshold)
@@ -32,6 +34,11 @@ class Link
   belongs_to :user
 
   after_create :update_user!
+  before_save :randomize
+
+  def randomize
+    self._randomization_key = rand
+  end
 
   def update_user!
     self.user.calculate_rank! if self.user
@@ -45,7 +52,11 @@ class Link
     toc = read_attribute :store_token
     if toc.nil?
       toc = Digest::MD5.hexdigest(self.id.to_s)
-      write_attribute :store_token, toc
+      begin
+        write_attribute :store_token, toc 
+      rescue Exception => e 
+        Rails.logger.error e.to_s
+      end
     end
     toc
   end
@@ -87,6 +98,21 @@ class Link
     { title: I18n.t("title"), type: "article", description: I18n.t("summary") }
   end
 
+  def ban!
+    self.banned = true
+    self.save
+  end
+
+  def good?
+    self.rate >= Link::RateThreshold
+  end
+
+  def accept!
+    self.start_rate = Link::RateThreshold
+    self.save
+    self.check_status!
+  end
+
   def check_status!
     @graph = Koala::Facebook::GraphAPI.new(nil)
     info = @graph.get_object(File.join(App::Config["url"], "/links/#{self.id}"))
@@ -96,5 +122,5 @@ class Link
     update_user!
   end
 
-  handle_asynchronously :check_status!, run_at: -> { 5.minutes.from_now }, priority: Delay::Like
+  handle_asynchronously :check_status!, run_at: -> { 5.seconds.from_now }, priority: Delay::Like
 end

@@ -41,6 +41,9 @@ GEM
     activesupport (3.1.1)
       multi_json (~> 1.0)
     addressable (2.2.6)
+    airbrake (3.0.9)
+      activesupport
+      builder
     arel (2.2.1)
     bson (1.5.2)
     bson_ext (1.5.2)
@@ -62,6 +65,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
+    colored (1.2)
     daemons (1.0.10)
     delayed_job (3.0.0.pre3)
       activesupport (~> 3.0)
@@ -93,7 +97,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
-    koala (1.2.1)
+    koala (1.3.0)
       faraday (~> 0.7.0)
       multi_json (~> 1.0)
     libv8 (3.3.10.4)
@@ -109,7 +113,7 @@ GEM
     mime-types (1.17.2)
     mongo (1.5.2)
       bson (= 1.5.2)
-    mongoid (2.3.4)
+    mongoid (2.4.0)
       activemodel (~> 3.1)
       mongo (~> 1.3)
       tzinfo (~> 0.3.22)
@@ -133,6 +137,8 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    rack-xframe-options (0.1.2)
+      rack (>= 0.9.1)
     rails (3.1.1)
       actionmailer (= 3.1.1)
       actionpack (= 3.1.1)
@@ -163,7 +169,7 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
-    sitemap_generator (2.1.8)
+    sitemap_generator (2.2.1)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -203,12 +209,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airbrake
   bson_ext
   cancan
   carrierwave
   carrierwave-mongoid
   carrierwave_backgrounder
   coffee-rails (~> 3.1.1)
+  colored
   delayed_job (= 3.0.0.pre3)
   delayed_job_mongoid
   delayed_job_web!
@@ -221,6 +229,7 @@ DEPENDENCIES
   mechanize (= 2.0.1)
   mongoid
   mongoid-random
+  rack-xframe-options
   rails (= 3.1.1)
   rmagick
   sass-rails (~> 3.1.4)
