@@ -12,7 +12,7 @@ class LubieCyckiImageDownloaderWorker < Struct.new(:url)
       unless img.nil?
         obj = { src: img["src"], alt: img["alt"] }
         puts obj.inspect
-        Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"])
+        Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"])
       end
     end
     

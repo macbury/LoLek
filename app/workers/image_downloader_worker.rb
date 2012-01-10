@@ -1,6 +1,6 @@
 require "open-uri"
 require 'fileutils'
-class ImageDownloaderWorker < Struct.new(:url)
+class ImageDownloaderWorker < Struct.new(:url, :alt)
   def perform
     return unless Image.where(url: url).empty?
     tmp_path = File.join(Rails.root, "tmp", "images")
@@ -28,6 +28,7 @@ class ImageDownloaderWorker < Struct.new(:url)
     i.file = file
     i.publish_at = Time.now + (1.day * rand)
     i.random_rate!
+    i.description = alt
     saved = i.save
   end
   

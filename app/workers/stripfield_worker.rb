@@ -25,7 +25,7 @@ class StripfieldWorker < Struct.new(:nil)
       puts img
       return if img.nil?
       url = File.join("http://www.stripfield.cba.pl/", img["src"])
-      Delayed::Job.enqueue ImageDownloaderWorker.new(url)
+      Delayed::Job.enqueue ImageDownloaderWorker.new(url, img["alt"])
       puts url
       return
       next_page_link = page.xpath('//td/a[@name="arrowleft"]')

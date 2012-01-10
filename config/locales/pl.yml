@@ -248,19 +248,3 @@ pl:
       full_messages:
         format: "%{attribute} %{message}"
   
-  achievements:
-    first_100_users:
-      name: "Pierwsza 100"
-      description: "Jesteś jednym z pierwszych użytkowników"
-    first_day_like:
-      name: "Pierwsze udostępnienie"
-      description: "Pierwsze udostępnienie na facebook.com dzisiaj."
-    first_link:
-      name: "Chojny"
-      description: "Dodałeś chociaż jeden obrazek"
-    school_access:
-      name: "Wagarowicz"
-      description: "Korzystasz z serwisu w czasie lekcji/pracy"
-    boss_key:
-      name: "Spryciarz"
-      description: "Użyłeś boss key"

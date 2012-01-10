@@ -23,7 +23,7 @@ class ChataWorker < Struct.new(:nil)
       puts "=======> Opening: #{check_url}"
       page.search(".post_body p a img").each do |url|
         puts url["src"]
-        Delayed::Job.enqueue ImageDownloaderWorker.new(url["src"])
+        Delayed::Job.enqueue ImageDownloaderWorker.new(url["src"], url["alt"])
       end
       
       next_page_link = page.search(".nav-previous a")

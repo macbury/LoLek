@@ -14,22 +14,22 @@ class Achievement
   def self.build_image!(name)
     tmp = File.join(Rails.root, "public", "badges")
     Dir.mkdir(tmp) rescue nil 
-    path = File.join(tmp, "#{name.to_s}.png")
+    path = File.join(tmp, "#{name.to_s}.gif")
     return if Rails.env == "development" && File.exists?(path)
-    badge = Badge.new(name, description)
+    badge = Badge.new($achievements_list[name.to_s]["name"], $achievements_list[name.to_s]["description"])
     badge.image.write(path)
   end
 
   def filename
-    "#{self.type}.png"
+    "#{self.type}.gif"
   end
 
   def name
-    I18n.t("achievements.#{self.type}.name")
+    $achievements_list[self.type.to_s]["name"]
   end
 
   def description
-    I18n.t("achievements.#{self.type}.description")
+    $achievements_list[self.type.to_s]["description"]
   end
 
   def read!
@@ -42,7 +42,8 @@ class Achievement
   end
 
   def self.build!
-    I18n.t("achievements").each do |key, val|
+    $achievements_list = YAML.load_file(Rails.root.join("config/achievements.yml"))
+    $achievements_list.each do |key, val|
       Achievement.const_set key.to_s.camelize.to_sym, key.to_sym
       Achievement.build_image!(key)
     end

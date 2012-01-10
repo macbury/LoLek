@@ -47,7 +47,11 @@ class Link
     toc = read_attribute :store_token
     if toc.nil?
       toc = Digest::MD5.hexdigest(self.id.to_s)
-      write_attribute :store_token, toc
+      begin
+        write_attribute :store_token, toc 
+      rescue Exception => e 
+        Rails.logger.error e.to_s
+      end
     end
     toc
   end
