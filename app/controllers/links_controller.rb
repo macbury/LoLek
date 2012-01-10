@@ -43,6 +43,7 @@ class LinksController < ApplicationController
 
   def show
     @link = Link.is_published.find(params[:id])
+    @links = Link.is_published.is_pending.includes(:user).random(10)
     authorize! :read, @link
   end
 

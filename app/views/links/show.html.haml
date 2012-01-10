@@ -1,7 +1,11 @@
 = render partial: "links/link", locals: { link: @link }
 
-.item
-  %div{ :class => "fb-comments", :data => { :href => links_url(id: @link.id), "num-posts" => 4, "colorscheme" => "dark" }}
+%h3 Inne multimedia
+
+- @links.each_with_index do |link, index|
+  = render partial: "links/link", locals: { link: link }
+.clear
+= paginate @links, :window => 10
 
 - content_for :head do
   - @link.to_opengraph.merge(url: link_url(id: @link.id)).each do |key, value|
