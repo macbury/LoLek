@@ -34,6 +34,9 @@ class Image < Link
     write_attribute :url, new_url
   end
 
+  def seo_description
+    self.description
+  end
 
   def to_opengraph
     super.merge({ image: File.join(App::Config["url"], self.file.facebook.url) })
