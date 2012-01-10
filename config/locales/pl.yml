@@ -256,10 +256,10 @@ pl:
       name: "Pierwsze udostępnienie"
       description: "Pierwsze udostępnienie na facebook.com dzisiaj."
     first_link:
-      name: "Samarytanin"
-      description: "Dodałeś swój pierwszy obrazek"
+      name: "Chojny"
+      description: "Dodałeś chociaż jeden obrazek"
     school_access:
-      name: "Leń"
+      name: "Wagarowicz"
       description: "Korzystasz z serwisu w czasie lekcji/pracy"
     boss_key:
       name: "Spryciarz"

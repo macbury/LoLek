@@ -41,6 +41,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #
   
   def mark_as_processed
+    model.width, model.height = `identify -format "%wx %h" #{model.file.thumb.path}`.split(/x/) 
     model.processed!
   end
   
