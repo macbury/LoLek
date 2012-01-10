@@ -27,20 +27,8 @@ class User
   has_many :achievements, :dependent => :destroy
 
   after_create :post_info
-  after_save :check_if_admin
   
   scope :is_bot, where(role: User::Bot)
-
-  def post_info
-    #TODO Dodaj info na tablicy ze sie zarejestrowales :P
-  end
-  
-  def check_if_admin
-    
-  end
-  
-  #handle_asynchronously :post_info
-  #handle_asynchronously :check_if_admin
   
   def graph
     Koala::Facebook::GraphAPI.new(self.access_token)

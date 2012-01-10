@@ -137,6 +137,8 @@ GEM
       rack
     rack-test (0.6.1)
       rack (>= 1.0)
+    rack-xframe-options (0.1.2)
+      rack (>= 0.9.1)
     rails (3.1.1)
       actionmailer (= 3.1.1)
       actionpack (= 3.1.1)
@@ -227,6 +229,7 @@ DEPENDENCIES
   mechanize (= 2.0.1)
   mongoid
   mongoid-random
+  rack-xframe-options
   rails (= 3.1.1)
   rmagick
   sass-rails (~> 3.1.4)
