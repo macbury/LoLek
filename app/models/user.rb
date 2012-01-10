@@ -25,8 +25,6 @@ class User
   has_many :links, :dependent => :destroy
   has_many :likes, :dependent => :destroy
   has_many :achievements, :dependent => :destroy
-
-  after_create :post_info
   
   scope :is_bot, where(role: User::Bot)
   
@@ -104,8 +102,6 @@ class User
       puts "#{self.username}: #{text} => " + url 
     end
   end
-
-  handle_asynchronously :post_info
 
   def publish_spam(text, link, user_id=nil)
     puts self.graph.put_wall_post(text, { link: link }, user_id)
