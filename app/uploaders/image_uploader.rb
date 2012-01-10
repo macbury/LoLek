@@ -21,6 +21,11 @@ class ImageUploader < CarrierWave::Uploader::Base
     process :watermark
   end  
 
+  version :mobile, :if => :not_gif? do
+    process :resize_to_limit => [320, 18_000]
+    process :watermark
+  end  
+
   version :facebook, :if => :not_gif? do
     process :resize_to_fill => [60, 60]
   end  
