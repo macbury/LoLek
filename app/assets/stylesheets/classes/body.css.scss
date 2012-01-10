@@ -17,7 +17,7 @@ a {
 }
 
 .uploader {
-  background: $darker_background;
+  background: $darker_background image-url("pixels.png") repeat;
   overflow: hidden;
   height: 0px;
   border-bottom: 6px solid orange;
