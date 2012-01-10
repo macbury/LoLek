@@ -1,6 +1,7 @@
 # encoding: utf-8
 class ImageUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::DelayStorage
+  FooterHeight = 32
   # Include RMagick or ImageScience support:
   include CarrierWave::RMagick
   # include CarrierWave::ImageScience
@@ -28,12 +29,13 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :mobile, :if => :not_gif? do
     process :resize_to_limit => [320, 18_000]
     process :watermark
+    process :get_dimension
   end  
 
   version :facebook, :if => :not_gif? do
     process :resize_to_fill => [60, 60]
   end  
-  
+  process :get_dimension
   process :mark_as_processed
   
   def not_gif?(new_file)
@@ -49,8 +51,17 @@ class ImageUploader < CarrierWave::Uploader::Base
   #process :scale => [200, 300]
   #
   
+  def get_dimension
+    f = not_gif?(model.file) ? model.file.thumb.path : model.file.path
+    cmd = "identify -format \"%wx%h\" #{f}"
+    puts cmd
+    res = `#{cmd}`.split(/x/)
+    model.width, model.height = res.first, res.last
+    puts "Dimension: #{model.width}x#{model.height}"
+    model.height -= ImageUploader::FooterHeight if not_gif?(model.file)
+  end
+
   def mark_as_processed
-    model.width, model.height = `identify -format "%wx %h" #{model.file.thumb.path}`.split(/x/) 
     model.processed!
   end
   
@@ -59,7 +70,7 @@ class ImageUploader < CarrierWave::Uploader::Base
       
  
     manipulate! do |img|
-      black_bg = Magick::Image.new(img.columns, img.rows+32) do
+      black_bg = Magick::Image.new(img.columns, img.rows+ImageUploader::FooterHeight) do
         self.background_color = '#fff'
       end
       

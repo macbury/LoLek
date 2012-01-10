@@ -94,6 +94,7 @@ a {
     border-radius: 6px;
     margin-bottom: 15px;
     padding-top: 10px;
+
     &.full {
       border-radius: 6px;
     }
@@ -123,6 +124,18 @@ a {
       text-align: center;
       margin: 0 10px;
       margin-bottom: 10px;
+
+      .image {
+        overflow: hidden;
+        display: block;
+        border: 0px;
+        overflow: hidden;
+        margin: 0 auto;
+        background: transparent image-url('loading.gif') no-repeat center center;
+        &.loaded {
+          background-position: top center;
+        }
+      }
     }
     .social {
       text-align: center;

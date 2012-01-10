@@ -1,5 +1,2 @@
-= link_to link_path(id: image.id) do
-  - if image.gif?
-    = image_tag image.file.url, alt: image.description, data: { url: image.file.url }
-  - else
-    = image_tag image.file.url(:thumb), alt: image.description, class: "preview", data: { url: image.file.url(:thumb) }
+= link_to link_path(id: image.id), class: "image", data: { img: image.gif? ? image.file.url : image.file.url(:thumb) }, style: "width: #{image.width}px; height: #{image.height}px" do
+  = image_tag "blank.gif", alt: image.description, style: "width: #{image.width}px; height: #{image.height}px"
