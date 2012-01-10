@@ -7,11 +7,7 @@ Lolek::Application.routes.draw do
       get :pending
       get :popular
       get :stats
-<<<<<<< HEAD
-      get :shuffle
-=======
       get :feed
->>>>>>> fdf4b9c8df5ab1a2138e1c01179556d2c1508870
     end
 
     member do
