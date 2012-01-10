@@ -10,16 +10,10 @@ class Achievement
   scope :is_processed, where(processed: true)
   scope :unreaded, where(readed: false).is_processed
   belongs_to :user
-
-  First100Users = :register
-  FirstDayLike = :first_day_like
-  FirstLink = :first_link
-  SchoolAccess = :school_access
-  BossKey = :boss_key
   
-  after_create :build_image
+  after_create :build_image!
 
-  def build_image
+  def build_image!
     tmp = File.join(Rails.root, "public", "badges")
     Dir.mkdir(tmp) rescue nil 
     path = File.join(tmp, filename)
@@ -47,4 +41,16 @@ class Achievement
     self.readed = true
     self.save
   end
+
+  def self.list
+    Achievement.constants(false).map { |c| Achievement.const_get(c) }
+  end
+
+  def self.build!
+    I18n.t("achievements").each do |key, val|
+      Achievement.const_set key.to_s.camelize.to_sym, key.to_sym
+    end
+  end
 end
+
+Achievement.build! if Rails.env == "development"

@@ -3,3 +3,5 @@ Mongoid::Document::ClassMethods.send(:include, ::CarrierWave::Backgrounder::ORM:
 module App
   Config = YAML.load_file(Rails.root.join("config/main.yml"))[Rails.env]
 end
+
+Achievement.build!

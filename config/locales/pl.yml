@@ -249,11 +249,11 @@ pl:
         format: "%{attribute} %{message}"
   
   achievements:
-    register:
+    first_100_users:
       name: "Pierwsza 100"
       description: "Jesteś jednym z pierwszych użytkowników"
     first_day_like:
-      name: "Pierwszak"
+      name: "Pierwsze udostępnienie"
       description: "Pierwsze udostępnienie na facebook.com dzisiaj."
     first_link:
       name: "Samarytanin"
