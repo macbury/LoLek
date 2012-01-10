@@ -27,21 +27,15 @@ class LinksController < ApplicationController
 
   def pending
     @tab = :pending
-<<<<<<< HEAD
     page = params[:page]
     page ||=1
     page = page.to_i
 
     @links = Link.is_published.is_pending.is_newest.includes(:user).page(page).per(10)
-    if page == 1
-      @random = @links.random(10).limit(10)
-    end
+    @random = @links.random(10).limit(10) if page == 1
+    
     cookies[:readed] = Link.is_published.is_pending.count
-=======
-    @links = Link.is_published.is_pending.is_newest.includes(:user).page(params[:page]).per(10)
-    cookies[:readed] = @links.count
-    self.current_user.update_attributes(readed: @links.count) if logged_in? 
->>>>>>> fdf4b9c8df5ab1a2138e1c01179556d2c1508870
+    self.current_user.update_attributes(readed: cookies[:readed]) if logged_in? 
     authorize! :index, Link
   end
 
