@@ -12,10 +12,11 @@
   %body
     = render 'layouts/flash_messages'
     = render 'layouts/badges'
+    #fb-root
     .uploader
       .inner= render 'links/form'
-    .wrapper
-      #fb-root
+    
+    .top
       %ul.nav
         %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
         - if logged_in?
@@ -43,6 +44,8 @@
           %li= link_to "Wylęgarnia", pending_links_path, id: "pending_link", data: { count: unread_count }, class: @tab == :pending ? "selected" : nil
           %li= link_to "Ranking", profiles_path, class: @tab == :profiles ? "selected" : nil
         .clear
+
+    .wrapper
       = yield
       .clear
     .footer= render 'layouts/footer'

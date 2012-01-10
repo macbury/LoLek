@@ -19,10 +19,16 @@ class LinksController < ApplicationController
 
   def pending
     @tab = :pending
-    @links = Link.is_published.is_pending.is_newest.includes(:user).page(params[:page]).per(10)
-    cookies[:readed] = @links.count
+    page = params[:page]
+    page ||=1
+    page = page.to_i
+
+    @links = Link.is_published.is_pending.is_newest.includes(:user).page(page).per(10)
+    if page == 1
+      @random = @links.random(10).limit(10)
+    end
+    cookies[:readed] = Link.is_published.is_pending.count
     authorize! :index, Link
-    render action: "index"
   end
 
   def popular

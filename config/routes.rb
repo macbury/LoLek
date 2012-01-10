@@ -7,6 +7,7 @@ Lolek::Application.routes.draw do
       get :pending
       get :popular
       get :stats
+      get :shuffle
     end
 
     get :like, on: :member

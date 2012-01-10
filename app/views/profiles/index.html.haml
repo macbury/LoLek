@@ -1,2 +1,10 @@
-- @users.each do |user|
-  = link_to image_tag("http://graph.facebook.com/#{user.fb_id}/picture"), profile_path(id: user.id)
+%table{ style: "width: 100%" }
+  %tr
+    %th{ width: 30 } Pozycja
+    %th Użytkownik
+    %th Punkty
+  - @users.each_with_index do |user, index|
+    %tr
+      %td #{index+1}.
+      %td= link_to user.username, profile_path(id: user.id)
+      %td #{user.rank} pkt.
