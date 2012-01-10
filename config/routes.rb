@@ -1,5 +1,9 @@
 Lolek::Application.routes.draw do
-  
+  resources :pages do
+    collection do
+      get :agreements
+    end
+  end
   resources :users
   resources :profiles
   resources :links do
