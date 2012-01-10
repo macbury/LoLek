@@ -34,6 +34,11 @@ class Link
   belongs_to :user
 
   after_create :update_user!
+  before_save :randomize
+
+  def randomize
+    self._randomization_key = rand
+  end
 
   def update_user!
     self.user.calculate_rank! if self.user
