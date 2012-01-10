@@ -35,9 +35,13 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :facebook, :if => :not_gif? do
     process :resize_to_fill => [60, 60]
   end  
-  process :get_dimension
+  process :get_dimension_for_gif
   process :mark_as_processed
   
+  def get_dimension_for_gif
+    get_dimension unless not_gif?(model.file)
+  end
+
   def not_gif?(new_file)
     !(File.extname(new_file.path) =~ /gif/i)
   end

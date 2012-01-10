@@ -170,7 +170,7 @@ a {
   clear: both;
 }
 
-a.btn {
+a.btn.big {
   display: block;
   padding: 5px 10px;
   background: orange;
@@ -180,11 +180,9 @@ a.btn {
   border-radius: 5px;
   text-decoration: none;
 
-  &.big {
-    padding: 15px 25px;
-    font-size: 24px;
-    text-align: center;
-  }
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
 }
 
 .nav {

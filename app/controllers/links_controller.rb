@@ -30,13 +30,15 @@ class LinksController < ApplicationController
     page = params[:page]
     page ||=1
     page = page.to_i
-
+    Rails.logger.debug "Page is: #{page}"
     @links = Link.is_published.is_pending.is_newest.includes(:user).page(page).per(10)
-    @random = @links.random(10).limit(10) if page == 1
-    
+    @random = Link.is_published.is_pending.includes(:user).random(10).limit(10) if page == 1
+
     cookies[:readed] = Link.is_published.is_pending.count
     self.current_user.update_attributes(readed: cookies[:readed]) if logged_in? 
     authorize! :index, Link
+
+    render action: "index"
   end
 
   def popular
