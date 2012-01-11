@@ -38,7 +38,7 @@ class Achievement
   end
 
   def self.list
-    Achievement.constants(false).map { |c| Achievement.const_get(c) }
+    $achievements_list
   end
 
   def self.build!
