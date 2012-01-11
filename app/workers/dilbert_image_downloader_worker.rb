@@ -12,7 +12,7 @@ class DilbertImageDownloaderWorker < Struct.new(:url)
       unless img.nil?
         obj = { src: img["src"], alt: img["alt"] }
         puts obj.inspect
-        Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], "dilbert wersja polska komiksu")
+        Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], "dilbert wersja polska komiksu"), priority: Delay::ImportPipline
       end
     end
   end

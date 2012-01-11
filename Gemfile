@@ -15,8 +15,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
-gem 'carrierwave_backgrounder'
-
+gem 'carrierwave_backgrounder', :git => "git://github.com/macbury/carrierwave_backgrounder.git"
 gem "colored"
 gem 'faraday'
 gem 'youtube_it'

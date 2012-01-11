@@ -17,7 +17,7 @@ class CiekawostkiWorker < Struct.new(:nil)
       end
       text = cie["content"]
       puts text
-      Delayed::Job.enqueue CiteRenderWorker.new(text)
+      Delayed::Job.enqueue CiteRenderWorker.new(text), priority: Delay::ImportPipline
     end
     
   end

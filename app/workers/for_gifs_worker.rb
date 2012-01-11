@@ -25,7 +25,7 @@ class ForGifsWorker < Struct.new(:nil)
       puts "=======> Opening: #{check_url}"
       page.search(".giItemCell a").each do |url|
         puts url["href"]
-        Delayed::Job.enqueue ForGifsImageDownloaderWorker.new(File.join("http://forgifs.com/", url["href"]))
+        Delayed::Job.enqueue ForGifsImageDownloaderWorker.new(File.join("http://forgifs.com/", url["href"])), priority: Delay::ImportPipline
       end
       puts "Going to next page"
       next_page_link = page.search(".next-and-last a.next")

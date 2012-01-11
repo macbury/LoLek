@@ -23,7 +23,7 @@ class CiteWorker < Struct.new(:url)
       if (text.nil? || text.empty?)
         puts "skiping..."
       else
-        Delayed::Job.enqueue CiteRenderWorker.new(text)
+        Delayed::Job.enqueue CiteRenderWorker.new(text), priority: Delay::ImportPipline
       end
     end
   end
@@ -32,7 +32,7 @@ class CiteWorker < Struct.new(:url)
     channels = YAML.load(File.open(File.join(Rails.root, "config/channels/cites.yml")))
     channels.each do |name, url|
       puts "Adding #{name} => #{url} to quee"
-      Delayed::Job.enqueue CiteWorker.new(url)
+      Delayed::Job.enqueue CiteWorker.new(url), priority: Delay::ImportPipline
     end
   end
   

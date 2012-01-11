@@ -10,6 +10,8 @@ module Delay
   Badge = -2
   UserRank = -3
   UserFriend = -5
+
+  ImportPipline = 10
 end
 
 

@@ -53,7 +53,7 @@ class GryskopWorker < Struct.new(:url)
         puts "Opening item"
         flash_url = File.join(GryskopWorker::Url, item.inner_text)
         puts "#{flash_url}"
-        Delayed::Job.enqueue GryskopWorker.new(flash_url)
+        Delayed::Job.enqueue GryskopWorker.new(flash_url), priority: Delay::ImportPipline
       end
     end
 

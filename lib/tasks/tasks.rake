@@ -5,7 +5,7 @@ namespace :lolek do
     dev = Rails.env == "developement" ? 0 : 1
     [LubieCyckiWorker, DilbertWorker,StripfieldWorker, TheMovieWorker, CiekawostkiWorker, RefreshWorker, GlosyGlowaWorker, AndrzejRysujeWorker, ForGifsWorker, MemyWorker, PrzyslowiaCytatyWorker, BashWorker, TwistedWorker].uniq.each do |klass|
       time = Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-      Delayed::Job.enqueue klass.new(nil), run_at: time
+      Delayed::Job.enqueue klass.new(nil), run_at: time, priority: Delay::ImportPipline
       puts "Will run #{klass.inspect} on #{time}"
     end
     RssImageWorker.refresh

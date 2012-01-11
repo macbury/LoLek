@@ -52,7 +52,7 @@ class GameNodeWorker < Struct.new(:url)
       puts "Opening item"
       flash_url = item.xpath('link').inner_text
       puts "#{flash_url}"
-      Delayed::Job.enqueue GryskopWorker.new(flash_url)
+      Delayed::Job.enqueue GryskopWorker.new(flash_url), priority: Delay::ImportPipline
     end
   end
 

@@ -23,7 +23,7 @@ class MemyWorker < Struct.new(:nil)
       puts "=======> Opening: #{check_url}"
       page.search(".mem img").each do |url|
         puts url["src"]
-        Delayed::Job.enqueue ImageDownloaderWorker.new(File.join("http://pl.memgenerator.pl/", url["src"]), url["alt"])
+        Delayed::Job.enqueue ImageDownloaderWorker.new(File.join("http://pl.memgenerator.pl/", url["src"]), url["alt"]), priority: Delay::ImportPipline
       end
       
       next_page_link = page.search(".pagination a")

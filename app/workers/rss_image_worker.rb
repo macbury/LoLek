@@ -12,7 +12,7 @@ class RssImageWorker < Struct.new(:url)
       img = item.search("img").first
       return if img.nil?
       puts "Found: #{img["src"]}"
-      Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"])
+      Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"]), priority: Delay::ImportPipline
     end
   end
   
@@ -20,7 +20,7 @@ class RssImageWorker < Struct.new(:url)
     channels = YAML.load(File.open(File.join(Rails.root, "config/channels/rss.yml")))
     channels.each do |name, url|
       puts "Adding #{name} => #{url} to quee"
-      Delayed::Job.enqueue RssImageWorker.new(url)
+      Delayed::Job.enqueue RssImageWorker.new(url), priority: Delay::ImportPipline
     end
   end
   
