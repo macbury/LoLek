@@ -231,6 +231,7 @@ pl:
       less_than_or_equal_to: "musi być mniejsze lub równe %{count}"
       odd: "musi być nieparzyste"
       even: "musi być parzyste"
+      rmagick_processing_error: "Nie można przetworzyć obrazka"
 
   activerecord:
     errors:
@@ -247,4 +248,3 @@ pl:
 
       full_messages:
         format: "%{attribute} %{message}"
-  
