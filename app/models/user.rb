@@ -19,6 +19,8 @@ class User
   field :last_login, type: DateTime
 
   field :rank, type: Integer, default: 0
+  field :position, type: Integer, default: 0
+  field :last_position, type: Integer, default: 0
 
   field :readed, type: Integer, default: 0
 
@@ -28,6 +30,15 @@ class User
   
   scope :is_bot, where(role: User::Bot)
   
+  after_create :setup_values
+
+  def setup_values
+    pos = User.max(:position) || 0
+    pos += 1
+    self.position = pos
+    self.last_position = pos
+  end
+
   def graph
     Koala::Facebook::GraphAPI.new(self.access_token)
   end
@@ -126,5 +137,13 @@ class User
       end
     end
     @ub
+  end
+
+  def self.calculate_position!
+    User.desc(:rank).all({ timeout: false }).each_with_index do |user, index|
+      user.last_position = user.position
+      user.position = index+1
+      user.save
+    end
   end
 end
