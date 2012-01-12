@@ -70,7 +70,7 @@ class User
     self.friends_fb_ids = self.graph.get_connections("me", "friends").map { |f| f["id"] }
     self.save
   end
-  handle_asynchronously :calculate_rank!, priority: Delay::UserFriend
+  handle_asynchronously :get_friends!, priority: Delay::UserFriend
 
   def self.login!(access_token)
     profile = Koala::Facebook::GraphAPI.new(access_token).get_object("me")

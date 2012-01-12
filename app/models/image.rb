@@ -7,7 +7,6 @@ class Image < Link
   field :height, type: Integer
 
   mount_uploader :file, ImageUploader
-  
   process_in_background :file
   
   validates_integrity_of :file
