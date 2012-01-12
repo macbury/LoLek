@@ -15,7 +15,7 @@ class ForGifsImageDownloaderWorker < Struct.new(:url)
       unless img.nil?
         obj = { src: img["src"], alt: img["alt"] }
         puts obj.inspect
-        Delayed::Job.enqueue ImageDownloaderWorker.new(File.join("http://forgifs.com/", img["src"]), img["alt"])
+        Delayed::Job.enqueue ImageDownloaderWorker.new(File.join("http://forgifs.com/", img["src"]), img["alt"]), priority: Delay::ImportPipline
       end
     end
     

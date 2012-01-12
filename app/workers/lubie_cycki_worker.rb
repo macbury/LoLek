@@ -25,7 +25,7 @@ class LubieCyckiWorker < Struct.new(:nil)
       puts "=======> Opening: #{check_url}"
       page.search(".post a").each do |url|
         puts url["href"]
-        Delayed::Job.enqueue LubieCyckiImageDownloaderWorker.new(url["href"])
+        Delayed::Job.enqueue LubieCyckiImageDownloaderWorker.new(url["href"]), priority: Delay::ImportPipline
       end
       puts "Going to next page"
       next_page_link = page.search("#nextpage")

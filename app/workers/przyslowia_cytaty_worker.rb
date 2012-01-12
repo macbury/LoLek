@@ -32,7 +32,7 @@ class PrzyslowiaCytatyWorker < Struct.new(:nil)
         author = entry.search(".author a").first.inner_text
         text = [cite.inspect, "- #{author}"].join("\n")
         puts "Cite: \n#{text}"
-        Delayed::Job.enqueue CiteRenderWorker.new(text)
+        Delayed::Job.enqueue CiteRenderWorker.new(text), priority: Delay::ImportPipline
       end
       
       next_page_link = page.search(".pagination .alignleft a")

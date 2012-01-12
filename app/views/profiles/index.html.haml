@@ -8,3 +8,10 @@
       %td #{index+1}.
       %td= link_to user.username, profile_path(id: user.id)
       %td #{user.rank} pkt.
+.column.right
+  %h3 Za co dostaje się punkty?
+  %ol
+    %li Każde unikalne udostępnienie obrazka - 1 pkt
+    %li Dodanie obrazka - #{User::RankLink}pkt * ilość udostępnień
+    %li Zdobycie osiągnięcia - #{User::RankBadge}pkt
+    %li Każdy twój znajomy z Facebooka zarejestrowany w naszym serwisie - #{User::RankFriend}pkt

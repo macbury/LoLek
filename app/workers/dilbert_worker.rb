@@ -26,7 +26,7 @@ class DilbertWorker < Struct.new(:nil)
       page.search(".dfL a").each do |url|
         url = File.join("http://gazetapraca.pl/gazetapraca/", url["href"])
         puts url
-        Delayed::Job.enqueue DilbertImageDownloaderWorker.new(url)
+        Delayed::Job.enqueue DilbertImageDownloaderWorker.new(url), priority: Delay::ImportPipline
       end
       puts "Going to next page"
       next_page_link = page.search(".strP a")

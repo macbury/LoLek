@@ -24,7 +24,7 @@ class GlosyGlowaWorker < Struct.new(:nil)
       puts "=======> Opening: #{check_url}"
       page.search(".comicpane img").each do |img|
         puts img["src"]
-        Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"])
+        Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"]), priority: Delay::ImportPipline
       end
       
       next_page_link = page.search("a.navi.navi-next")

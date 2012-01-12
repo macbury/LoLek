@@ -9,16 +9,21 @@ class User
   RankLink = 3
   RankLike = 1
   RankBadge = 20
+  RankFriend = 10
 
-  field :username, :type => String
-  field :access_token, :type => String
-  field :fb_id, :type => Integer
+  field :username, type: String
+  field :access_token, type: String
+  field :fb_id, type: Integer
   field :role, type: Integer, default: User::Normal
   field :points, type: Integer, default: 10
 
   field :last_login, type: DateTime
 
   field :rank, type: Integer, default: 0
+  field :position, type: Integer, default: 0
+  field :last_position, type: Integer, default: 0
+
+  field :friends_fb_ids, type: Array, default: []
 
   field :readed, type: Integer, default: 0
 
@@ -28,6 +33,15 @@ class User
   
   scope :is_bot, where(role: User::Bot)
   
+  before_create :setup_values
+
+  def setup_values
+    pos = User.max(:position) || 0
+    pos += 1
+    self.position = pos
+    self.last_position = pos
+  end
+
   def graph
     Koala::Facebook::GraphAPI.new(self.access_token)
   end
@@ -46,10 +60,17 @@ class User
 
   def calculate_rank!
     links_sum = self.links.sum(:rank) || 0
-    self.rank = self.likes.count * User::RankLike + self.links.count * User::RankLink + links_sum + self.achievements.is_processed.count * User::RankBadge
+    friends_count = User.all_in( fb_id: self.friends_fb_ids ).count
+    self.rank = self.likes.count * User::RankLike + self.links.count * User::RankLink + links_sum + self.achievements.is_processed.count * User::RankBadge + friends_count * User::RankFriend
     self.save
   end
   handle_asynchronously :calculate_rank!, priority: Delay::UserRank
+
+  def get_friends!
+    self.friends_fb_ids = self.graph.get_connections("me", "friends").map { |f| f["id"] }
+    self.save
+  end
+  handle_asynchronously :calculate_rank!, priority: Delay::UserFriend
 
   def self.login!(access_token)
     profile = Koala::Facebook::GraphAPI.new(access_token).get_object("me")
@@ -57,6 +78,7 @@ class User
     user.username = [profile["first_name"], profile["last_name"]].join(" ")
     user.access_token = access_token
     user.last_login = Time.now
+    user.get_friends!
     user.save
     
     user
@@ -132,5 +154,13 @@ class User
       end
     end
     @ub
+  end
+
+  def self.calculate_position!
+    User.desc(:rank).all({ timeout: false }).each_with_index do |user, index|
+      user.last_position = user.position
+      user.position = index+1
+      user.save
+    end
   end
 end

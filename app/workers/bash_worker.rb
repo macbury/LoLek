@@ -10,7 +10,7 @@ class BashWorker < Struct.new(:nil)
       else
         puts "Cite:"
         text = text[1..-1].join("\n")
-        Delayed::Job.enqueue CiteRenderWorker.new(text)
+        Delayed::Job.enqueue CiteRenderWorker.new(text), priority: Delay::ImportPipline
       end
     end
   end

@@ -1,0 +1,8 @@
+.item
+  .inner
+    %h3 Dostępne osiągnięcia
+    %p Za każde osiągnięcie dostajesz odznakę którą możesz się pochwalić znajomym!
+
+    %ul
+      - Achievement.list.each do |key, val|
+        %li= image_tag "/badges/#{key}.gif", alt: val["description"]

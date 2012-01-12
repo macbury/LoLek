@@ -5,7 +5,7 @@ namespace :lolek do
     dev = Rails.env == "developement" ? 0 : 1
     [LubieCyckiWorker, DilbertWorker,StripfieldWorker, TheMovieWorker, CiekawostkiWorker, RefreshWorker, GlosyGlowaWorker, AndrzejRysujeWorker, ForGifsWorker, MemyWorker, PrzyslowiaCytatyWorker, BashWorker, TwistedWorker].uniq.each do |klass|
       time = Time.now.at_beginning_of_day + (dev * (15.hours * rand))
-      Delayed::Job.enqueue klass.new(nil), run_at: time
+      Delayed::Job.enqueue klass.new(nil), run_at: time, priority: Delay::ImportPipline
       puts "Will run #{klass.inspect} on #{time}"
     end
     RssImageWorker.refresh
@@ -117,17 +117,18 @@ namespace :lolek do
 
   desc "Calculate user ranks"
   task :rank => :environment do
-    User.all.each(&:calculate_rank!)
+    User.all({ :timeout => false }).each(&:calculate_rank!)
   end
+
+  desc "Calculate Position"
+  task :position => :environment do
+    User.calculate_position!
+  end  
 
   desc "Randomize"
   task :randomize => :environment do
-    Link.all.each do |link|
-      if Rails.env == "development"
-        link.publish_at = Time.now - 1.day * rand
-      else
-        link.publish_at = Time.now + 2.months * rand
-      end
+    Link.all(:timeout => false).each do |link|
+      link.randomize
       link.save
     end
   end
