@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+  extend Resque::AsyncHandling
   Normal = 0
   Moderator = 1
   Admin = 2

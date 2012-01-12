@@ -1,3 +1,3 @@
-worker_importer: ./script/delayed_job start -m --min-priority 1 --prefix importer
-worker_assets: ./script/delayed_job start -m --min-priority 0 --max-priority 0 --prefix assets
-worker_actions: ./script/delayed_job start -m --max-priority -1 --prefix actions
+worker_importer: bundle exec rake resque:work QUEUES=import,download 
+worker_assets:   bundle exec rake resque:work QUEUE=process_assets
+worker_actions:  bundle exec rake resque:work QUEUE=actions

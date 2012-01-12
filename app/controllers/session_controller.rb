@@ -10,7 +10,7 @@ class SessionController < ApplicationController
       perms << "offline_access"
       perms << "manage_pages"
     end
-    redirect_to Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => CGI.escape(callback_url(bot: params[:bot])), :permissions => perms.join(","))
+    redirect_to Koala::Facebook::OAuth.new.url_for_oauth_code(:callback => callback_url(bot: params[:bot]), :permissions => perms.join(","))
   end
   
   def create

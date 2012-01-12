@@ -22,9 +22,10 @@ gem 'youtube_it'
 gem "rmagick"
 
 gem 'resque', :require => "resque/server"
+gem "resque-scheduler"
 
 gem "cancan"
-gem "koala"
+gem "koala", :git => "git://github.com/arsduo/koala.git"
 
 gem "kaminari"
 gem "mechanize", "2.0.1"

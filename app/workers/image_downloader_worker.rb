@@ -1,7 +1,9 @@
 require "open-uri"
 require 'fileutils'
-class ImageDownloaderWorker < Struct.new(:url, :alt)
-  def perform
+class ImageDownloaderWorker
+  @queue = Delay::Download
+
+  def self.perform(url, alt)
     return unless Image.where(url: url).empty?
     tmp_path = File.join(Rails.root, "tmp", "images")
     Dir.mkdir(tmp_path) rescue nil
@@ -13,13 +15,14 @@ class ImageDownloaderWorker < Struct.new(:url, :alt)
     puts "Downloading to #{path} from #{url}"
     puts `wget -O #{path} "#{url}"`
 
-    if ext.blank? && ext = detect_extension(path)
+    if ext.blank? && ext = self.detect_extension(path)
       puts "Detected extension for image - #{ext}"
       old_path = path
       path = path + ".#{ext}"
       FileUtils.move old_path, path
       file = File.open(path)
     else
+      file = File.open(path)
       puts "File have ext: #{ext}"
     end
 
@@ -29,7 +32,9 @@ class ImageDownloaderWorker < Struct.new(:url, :alt)
     i.publish_at = Time.now + (1.day * rand)
     i.random_rate!
     i.description = alt
+
     saved = i.save
+    puts i.errors.full_messages.join(", ") unless saved
   end
   
   def detect_extension(file_name)

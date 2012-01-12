@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
   
   def analyze_cookies
     return unless logged_in?
-    if cookie[:boss_key]
-      cookie.delete(:boss_key)
+    if cookies[:boss_key]
+      cookies.delete(:boss_key)
       self.current_user.gain!(Achievement::BossKey)
     end
   end

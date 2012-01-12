@@ -2,6 +2,7 @@ class Link
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Random
+  extend Resque::AsyncHandling
   RateThreshold = 5
 
   validates :url, :uniqueness => true, :presence => true, :if => :check_url?, :on => :create

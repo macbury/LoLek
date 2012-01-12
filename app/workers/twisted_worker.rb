@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-class TwistedWorker < Struct.new(:nil)
+class TwistedWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://twistedspeedo.com/"
   
   attr_accessor :list, :images, :urls
@@ -24,7 +25,7 @@ class TwistedWorker < Struct.new(:nil)
       puts "=======> Opening: #{check_url}"
       page.search(".comicpane img").each do |img|
         puts img["src"]
-        Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"]), priority: Delay::ImportPipline
+        Resque.enqueue(ImageDownloaderWorker, img["src"], img["alt"])
       end
       
       next_page_link = page.search("a.navi.navi-prev")

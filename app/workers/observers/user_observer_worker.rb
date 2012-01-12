@@ -1,6 +1,8 @@
-class UserObserverWorker < Struct.new(:user)
+class UserObserverWorker
+  @queue = Delay::Actions
 
-  def perform
+  def self.perform(user_id)
+    user = User.find(user_id)
     user.gain!(Achievement::First100Users) if User.count < 100
 
     day_beginning = Time.now.at_beginning_of_day
