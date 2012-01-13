@@ -197,6 +197,12 @@ a.btn.big {
   margin: 0;
   li {
     float: right;
+    .login {
+      text-align: center;
+      padding-top: 2px;
+      font-size: 10px;
+      display: block;
+    }
     a.btn {
       display: block;
       padding: 5px 10px;

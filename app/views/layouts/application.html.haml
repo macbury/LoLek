@@ -25,7 +25,7 @@
           %li= link_to "Wyloguj się", logout_path, class: "btn"
           %li
             = link_to "Twój profil", profile_path(id: self.current_user.id), class: "btn"
-            %small= self.current_user.username
+            %span.login= self.current_user.username
         - else
           %li= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn", id: "login_button")
         %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
