@@ -26,6 +26,7 @@ Lolek::Application.routes.draw do
 
   match "/bot" => "session#bot"
   match "/login" => "session#new", as: :login
+  match "/async" => "session#async", as: :async_login
   match "/build_bot" => "session#bot"
   match "/logout" => "session#destroy", as: :logout
   match "/callback" => "session#create", as: :callback

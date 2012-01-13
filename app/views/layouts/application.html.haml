@@ -9,6 +9,8 @@
     %link{ :rel => "icon", :href => "/favicon.png", :type => "image/x-icon" }/
     = auto_discovery_link_tag(:rss, feed_links_url(format: :rss), {:title => "Najnowsze"}) 
     = csrf_meta_tags
+    :javascript
+      var logged_in = #{logged_in?};
     = yield :head
   %body
     = render 'layouts/flash_messages'
@@ -16,29 +18,19 @@
     #fb-root
     .uploader
       .inner= render 'links/form'
-    
     .top
       %ul.nav
-        %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
+        
         - if logged_in?
-          %li.pull-left= link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
-            
-          %li.pull-left.profile
-            %p= link_to self.current_user.username, profile_path(id: self.current_user.id)
-            %p Masz #{self.current_user.rank} punktów
-            - if can? :manage, User
-              %p= link_to "Użytkownicy", users_path
-              %p= link_to "Workery", workers_path
-            - if can? :read, :stats
-              %p= link_to "Statystyki", stats_links_path
-            %p= link_to "Wyloguj się", logout_path
+          %li= link_to "Wyloguj się", logout_path, class: "btn"
+          %li
+            = link_to "Twój profil", profile_path(id: self.current_user.id), class: "btn"
+            %small= self.current_user.username
         - else
-          %li.pull-left= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn", id: "login_button")
-      .clear
+          %li= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn", id: "login_button")
+        %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
       .header
-        %h1
-          = link_to t("title"), root_url
-          %small - #{t('summary')}
+        %h1.logo= link_to image_tag("logo.png"), root_url
         %ul.tabs
           %li= link_to "Najnowsze", root_path, class: @tab == :newest ? "selected" : nil
           %li= link_to "Najpopularniejsze", popular_links_path, class: @tab == :popular ? "selected" : nil

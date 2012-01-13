@@ -1,7 +1,8 @@
 require "open-uri"
 require File.join(Rails.root, "lib/render_text")
 
-class CiekawostkiWorker < Struct.new(:nil)
+class CiekawostkiWorker < BaseWorker
+  @queue = Delay::Import
   
   def perform
     tmp_path = File.join(Rails.root, "tmp", "cites")

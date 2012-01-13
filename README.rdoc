@@ -1,13 +1,16 @@
-    %table
-      %tr
-        %td
-          %a.twitter-share-button{ href: "https://twitter.com/share", data: { url: link_url(:id => link.id), counturl: link_url(:id => link.id), lang: "pl", count: "horizontal" }  } Tweet
-        %td
-          .g-plusone{ :data => { :size => "medium", :annotation => "bubble", :href => link_url(:id => link.id) } }
-        %td
-          :javascript
-            #{nk(link.to_opengraph.merge(type: 2, color: 1, url: link_url(id: link.id)))}
-        %td
-          :javascript
-              gg_share_widget(#{link.to_opengraph.merge(button_type: "03", color: 1, url: link_url(id: link.id)).to_json})
-        %td
+      %ul.nav
+        %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"
+- if logged_in?
+          %li.pull-left= link_to(image_tag("http://graph.facebook.com/#{self.current_user.fb_id}/picture"), "#", class: "btn")
+            
+          %li.pull-left.profile
+            %p= link_to self.current_user.username, profile_path(id: self.current_user.id)
+            %p Masz #{self.current_user.rank} punktów
+            - if can? :manage, User
+              %p= link_to "Użytkownicy", users_path
+              %p= link_to "Workery", workers_path
+            - if can? :read, :stats
+              %p= link_to "Statystyki", stats_links_path
+            %p= link_to "Wyloguj się", logout_path
+        - else
+          %li.pull-left= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn", id: "login_button")

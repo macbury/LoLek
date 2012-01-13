@@ -71,6 +71,12 @@ a {
     width: $wrapper_width;
     margin: 0px auto;  
   }
+  .logo {
+    padding: 15px 0px 0px 0px;
+
+    margin: 0px;
+  }
+
   margin-bottom: 10px;
   background: $background;
   background-image: -khtml-gradient(linear, left top, left bottom, from($background), to($darker_background));
@@ -131,7 +137,7 @@ a {
         border: 0px;
         overflow: hidden;
         margin: 0 auto;
-        background: transparent image-url('loading.gif') no-repeat center center;
+        background: transparent image-url('loader.gif') no-repeat center center;
         &.loaded {
           background-position: top center;
         }
@@ -200,6 +206,17 @@ a.btn.big {
       font-size: 14px;
       border-radius: 0px 0px 5px 5px;
       text-decoration: none;
+      margin-right: 5px;
+      background: orange;
+      background-image: -webkit-linear-gradient(top, #FFA500, darken(#FFA500, 13%));
+
+      background-image: -khtml-gradient(linear, left top, left bottom, from(#FFA500), to(darken(#FFA500, 13%)));
+      background-image: -moz-linear-gradient(top, #FFA500, darken(#FFA500, 13%));
+      background-image: -ms-linear-gradient(top, #FFA500, darken(#FFA500, 13%));
+      background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFA500), color-stop(100%, darken(#FFA500, 13%)));
+      background-image: -webkit-linear-gradient(top, #FFA500, darken(#FFA500, 13%));
+      background-image: -o-linear-gradient(top, #FFA500, darken(#FFA500, 13%));
+      background-image: linear-gradient(top, #FFA500, darken(#FFA500, 13%));
     }
     &.profile {
       margin-left: 5px;

@@ -40,7 +40,7 @@ class ImageDownloaderWorker
     
   end
   
-  def detect_extension(file_name)
+  def self.detect_extension(file_name)
     mime_type = %x(file --mime-type #{file_name}|cut -f2 -d' ').gsub("\n", "")
     case mime_type
     when 'image/jpeg'

@@ -1,4 +1,5 @@
-class ChataWorker < Struct.new(:nil)
+class ChataWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://chatolandia.pl/"
   
   attr_accessor :list, :images, :urls

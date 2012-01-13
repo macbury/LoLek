@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-class GlosyGlowaWorker < Struct.new(:nil)
+class GlosyGlowaWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://www.glosywmojejglowie.pl/2011/04/04/taniec-przyjazni-2/"
   
   attr_accessor :list, :images, :urls

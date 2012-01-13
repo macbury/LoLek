@@ -1,6 +1,7 @@
 require "open-uri"
 require File.join(Rails.root, "lib/render_text")
-class BashWorker < Struct.new(:nil)
+class BashWorker < BaseWorker
+  @queue = Delay::Import
   
   def perform
     cites = open("http://bash.org.pl/text").read.split("%").map { |c| c.split("\n")[1..-1] }.compact

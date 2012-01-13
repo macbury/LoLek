@@ -1,5 +1,6 @@
-class LubieCyckiImageDownloaderWorker < Struct.new(:url)
-  def perform
+class LubieCyckiImageDownloaderWorker < BaseWorker
+  @queue = Delay::Import
+  def perform(url)
     @agent = Mechanize.new
     @agent.open_timeout = 10
     

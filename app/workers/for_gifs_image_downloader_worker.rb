@@ -1,6 +1,7 @@
-class ForGifsImageDownloaderWorker < Struct.new(:url)
+class ForGifsImageDownloaderWorker < BaseWorker
+  @queue = Delay::Import
   
-  def perform
+  def perform(url)
     @agent = Mechanize.new
     @agent.open_timeout = 10
     

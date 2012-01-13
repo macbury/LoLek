@@ -34,6 +34,12 @@ class ApplicationController < ActionController::Base
   end
   
   def analyze_cookies
+    #@facebook_cookies ||= Koala::Facebook::OAuth.new(Facebook::APP_ID.to_s, Facebook::SECRET.to_s).get_user_info_from_cookie(cookies)
+    #if @facebook_cookies.nil?
+    #  session.delete(:user_id)
+    #else
+    #  self.current_user = User.login!(@facebook_cookies["access_token"])  
+    #end
     return unless logged_in?
     if cookies[:boss_key]
       cookies.delete(:boss_key)

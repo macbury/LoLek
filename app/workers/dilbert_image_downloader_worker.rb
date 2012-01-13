@@ -1,5 +1,6 @@
-class DilbertImageDownloaderWorker < Struct.new(:url)
-  def perform
+class DilbertImageDownloaderWorker < BaseWorker
+  @queue = Delay::Import
+  def perform(url)
     @agent = Mechanize.new
     @agent.open_timeout = 10
     

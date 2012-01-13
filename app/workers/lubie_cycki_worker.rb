@@ -1,4 +1,5 @@
-class LubieCyckiWorker < Struct.new(:nil)
+class LubieCyckiWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://lubiecycki.tumblr.com/"
   
   attr_accessor :list, :images, :urls

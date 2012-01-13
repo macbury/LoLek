@@ -20,6 +20,10 @@ class SessionController < ApplicationController
     redirect_to root_path
   end
   
+  def async
+    render layout: false
+  end
+
   def destroy
     session.delete(:user_id)
     

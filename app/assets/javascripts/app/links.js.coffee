@@ -2,7 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-window.bindFacebook = -> false  
+window.bindFacebook = -> 
+  return if window.logged_in
+  #FB.getLoginStatus (response) -> window.location.reload() if(response.status == "connected")
+
 
 onShare = (item) ->
   counter = item.find('.fb_share_count_inner')
@@ -32,12 +35,15 @@ $(document).ready ->
   blank_image = $("#blank_image").attr("src")
   
   unread_count = $('#pending_link').data("count")
-  if unread_count > 0
+
+  show_unreaded = -> if unread_count > 0
     $('#pending_link').twipsy
       placement: "above"
       title: -> "#{unread_count} nowe obrazki!"
     Notificon("#{unread_count}")
-  $('#pending_link').twipsy "show"
+    $('#pending_link').twipsy "show"
+  
+  setTimeout show_unreaded, 1000
 
   $('.item .facebook-share-button').click ->
     item = $(this)

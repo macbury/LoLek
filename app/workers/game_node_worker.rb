@@ -1,6 +1,7 @@
 require "open-uri"
 require "nokogiri"
-class GameNodeWorker < Struct.new(:url)
+class GameNodeWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://www.gamenode.com/"
   
   def perform

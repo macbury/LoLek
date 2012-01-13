@@ -1,9 +1,9 @@
 require "open-uri"
 require "nokogiri"
 require File.join(Rails.root, "lib/render_text")
-class CiteWorker < Struct.new(:url)
-  
-  def perform
+class CiteWorker < BaseWorker
+  @queue = Delay::Import
+  def perform(url)
     puts "Opening Channel: #{url}"
     tmp_path = File.join(Rails.root, "tmp", "cites")
     Dir.mkdir(tmp_path) rescue nil
