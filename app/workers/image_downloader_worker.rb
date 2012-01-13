@@ -4,7 +4,10 @@ class ImageDownloaderWorker
   @queue = Delay::Download
 
   def self.perform(url, alt)
-    return unless Image.where(url: url).empty?
+    unless Image.where(url: url).empty?
+      puts "URL: #{url} exists! Skiping..."
+      return
+    end
     tmp_path = File.join(Rails.root, "tmp", "images")
     Dir.mkdir(tmp_path) rescue nil
 
@@ -33,8 +36,8 @@ class ImageDownloaderWorker
     i.random_rate!
     i.description = alt
 
-    saved = i.save
-    puts i.errors.full_messages.join(", ") unless saved
+    i.save!
+    
   end
   
   def detect_extension(file_name)
