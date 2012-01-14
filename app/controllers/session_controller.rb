@@ -21,7 +21,12 @@ class SessionController < ApplicationController
   end
   
   def async
-    render layout: false
+    if Rails.env == "development"
+      self.current_user = User.first
+      redirect_to root_path
+    else
+      render text: "False"
+    end
   end
 
   def destroy

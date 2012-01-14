@@ -18,14 +18,17 @@
     #fb-root
     .uploader
       .inner= render 'links/form'
+
     .top
       %ul.nav
-        
         - if logged_in?
           %li= link_to "Wyloguj się", logout_path, class: "btn"
-          %li
-            = link_to "Twój profil", profile_path(id: self.current_user.id), class: "btn"
-            %span.login= self.current_user.username
+          - if can? :manage, User
+            %li= link_to "Użytkownicy", users_path, class: "btn"
+            %li= link_to "Workery", workers_path, class: "btn"
+          - if can? :read, :stats
+            %li= link_to "Statystyki", stats_links_path, class: "btn"
+          %li= link_to "Twój profil", profile_path(id: self.current_user.id), class: "btn"
         - else
           %li= link_to(image_tag("facebook-login-button.png"), login_path, class: "btn", id: "login_button")
         %li= link_to 'Dodaj obrazek', new_link_path, id: "add_image", class: "btn"

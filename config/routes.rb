@@ -1,5 +1,5 @@
 Lolek::Application.routes.draw do
-  mount Resque::Server, :at => "/workers"
+  mount Resque::Server, :at => "/workers", :as => "workers"
   
   resources :pages do
     collection do
