@@ -29,6 +29,16 @@ class ImageDownloaderWorker
       puts "File have ext: #{ext}"
     end
 
+    cmd = "identify -format \"%wx%h\" #{path}"
+    puts cmd
+    res = `#{cmd}`.split(/x/)
+    width, height = res.first, res.last
+    puts "Dimension: #{width}x#{height}"
+
+    if width < 100 || height < 100
+      throw "Image dimension invalid! #{url}"
+    end
+
     i = Image.new
     i.write_attribute :url, url
     i.file = file
