@@ -35,7 +35,7 @@ class ImageDownloaderWorker
     width, height = res.first, res.last
     puts "Dimension: #{width}x#{height}"
 
-    if width < 100 || height < 100
+    if width.to_i < 100 || height.to_i < 100
       throw "Image dimension invalid! #{url}"
     end
 

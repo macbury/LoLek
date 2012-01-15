@@ -87,7 +87,6 @@ class LinksController < ApplicationController
     authorize! :destroy, @link
 
     @link.ban!
-    @link.save
     
     redirect_to params[:return_to] || root_path
   end

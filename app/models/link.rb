@@ -100,7 +100,8 @@ class Link
 
   def ban!
     self.banned = true
-    self.save
+    Rails.logger.info "Banning link"
+    self.save :validate => false
   end
 
   def good?

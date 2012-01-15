@@ -10,7 +10,7 @@ class Ability
       can :manage, :all
       can :read, :stats
     else  
-      if user.moderator?
+      if user.admin? || user.moderator?
         can :destroy, Link
         can :accept, Link
       end
