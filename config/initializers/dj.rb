@@ -17,4 +17,4 @@ Resque::Server.use(Rack::Auth::Basic) do |username, password|
   password == App::Config["admin"]["password"]
 end
 
-Resque::AsyncHandling.enabled = false
+Resque::AsyncHandling.enabled = true

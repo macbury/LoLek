@@ -10,5 +10,5 @@
     %p Dodał #{@user.links.count} obrazków/#{@user.likes.count} udostępnił
   .clear
 .badges
-  - @user.achievements.is_processed.each do |badge|
-    %p= image_tag "/badges/#{badge.id}.png"
+  - @user.achievements.each do |badge|
+    %p= image_tag "/badges/#{badge.filename}"
