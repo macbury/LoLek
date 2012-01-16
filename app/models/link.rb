@@ -115,7 +115,7 @@ class Link
 
   def check_status!
     @graph = Koala::Facebook::GraphAPI.new(nil)
-    info = @graph.get_object(File.join(App::Config["url"], "/links/#{self.id}"))
+    info = @graph.get_object(File.join(App::Config["url"], "/#{self.id}"))
     
     self.rate = [info["shares"], info["likes"], self.start_rate].compact.inject(0) { |sum, likes| sum += likes } || 0
     self.save

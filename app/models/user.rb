@@ -115,7 +115,7 @@ class User
     @friends.each do |friend|
       links = @links.sort { rand <=> rand }[0..(3*rand)]
       links.each do |link|
-        url = File.join(App::Config["url"], "/links/#{link.id}")
+        url = File.join(App::Config["url"], "/#{link.id}")
         text = spam_to_text[((spam_to_text.size-1) * rand).round]
         self.publish_spam(text, url, friend["id"])
         puts friend["name"] + ": #{text} => " + url
@@ -125,7 +125,7 @@ class User
     links = @links.sort { rand <=> rand }[0..(8*rand)]
     links.each do |link|
       text = spam_me_text[((spam_me_text.size-1) * rand).round]
-      url = File.join(App::Config["url"], "/links/#{link.id}")
+      url = File.join(App::Config["url"], "/#{link.id}")
       self.publish_spam(text, url) 
       puts "#{self.username}: #{text} => " + url 
     end
