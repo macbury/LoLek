@@ -1,6 +1,7 @@
 require "open-uri"
 require "nokogiri"
-class GryskopWorker < Struct.new(:url)
+class GryskopWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://gryskop.pl/"
   
   def perform

@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
+
   Normal = 0
   Moderator = 1
   Admin = 2
@@ -64,13 +65,13 @@ class User
     self.rank = self.likes.count * User::RankLike + self.links.count * User::RankLink + links_sum + self.achievements.is_processed.count * User::RankBadge + friends_count * User::RankFriend
     self.save
   end
-  handle_asynchronously :calculate_rank!, priority: Delay::UserRank
+  handle_asynchronously :calculate_rank!
 
   def get_friends!
     self.friends_fb_ids = self.graph.get_connections("me", "friends").map { |f| f["id"] }
     self.save
   end
-  handle_asynchronously :calculate_rank!, priority: Delay::UserFriend
+  handle_asynchronously :get_friends!
 
   def self.login!(access_token)
     profile = Koala::Facebook::GraphAPI.new(access_token).get_object("me")
@@ -130,6 +131,7 @@ class User
       puts "#{self.username}: #{text} => " + url 
     end
   end
+  handle_asynchronously :spam!
 
   def publish_spam(text, link, user_id=nil)
     puts self.graph.put_wall_post(text, { link: link }, user_id)
@@ -163,4 +165,5 @@ class User
       user.save
     end
   end
+
 end

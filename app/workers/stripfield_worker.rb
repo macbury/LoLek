@@ -1,4 +1,5 @@
-class StripfieldWorker < Struct.new(:nil)
+class StripfieldWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://www.stripfield.cba.pl/newestPL.html"
   
   attr_accessor :list, :images, :urls

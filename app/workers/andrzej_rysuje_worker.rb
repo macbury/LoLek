@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
-class AndrzejRysujeWorker < Struct.new(:nil)
+class AndrzejRysujeWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://www.andrzejrysuje.pl/"
   
   attr_accessor :list, :images, :urls

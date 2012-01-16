@@ -1,4 +1,5 @@
-class RefreshWorker < Struct.new(:nil)
+class RefreshWorker < BaseWorker
+  @queue = Delay::Import
   def perform
     Video.refresh_channel
   end

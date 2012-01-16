@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_filter :setup_tab
 
   def index
-    @users = User.limit(70).desc(:rank)
+    @users = User.limit(50).asc(:position)
   end
 
   def show

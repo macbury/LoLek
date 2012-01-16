@@ -1,4 +1,5 @@
-class DilbertWorker < Struct.new(:nil)
+class DilbertWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://gazetapraca.pl/gazetapraca/0,74784.html"
   
   attr_accessor :list, :images, :urls

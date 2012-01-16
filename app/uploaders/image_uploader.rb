@@ -75,7 +75,7 @@ class ImageUploader < CarrierWave::Uploader::Base
  
     manipulate! do |img|
       black_bg = Magick::Image.new(img.columns, img.rows+ImageUploader::FooterHeight) do
-        self.background_color = '#fff'
+        self.background_color = '#000'
       end
       
       img = black_bg.composite(img, 0, 0, Magick::OverCompositeOp)

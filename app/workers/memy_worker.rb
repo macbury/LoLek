@@ -1,4 +1,5 @@
-class MemyWorker < Struct.new(:nil)
+class MemyWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://pl.memgenerator.pl/"
   
   attr_accessor :list, :images, :urls

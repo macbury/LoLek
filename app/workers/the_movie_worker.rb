@@ -1,4 +1,5 @@
-class TheMovieWorker < Struct.new(:url)
+class TheMovieWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://nowas.nazwa.pl/belewicz/"
   attr_accessor :urls
   def perform

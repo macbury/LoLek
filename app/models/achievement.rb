@@ -7,8 +7,7 @@ class Achievement
   field :readed, type: Boolean, default: false
   field :processed, type: Boolean, default: false
 
-  scope :is_processed, where(processed: true)
-  scope :unreaded, where(readed: false).is_processed
+  scope :unreaded, where(readed: false)
   belongs_to :user
 
   def self.build_image!(name)

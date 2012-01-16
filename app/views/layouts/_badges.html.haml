@@ -5,5 +5,5 @@
       %h3 Nowe osiągnięcie!
       .badges
         - self.current_user.unreaded_badges.each do |badge|
-          %p= image_tag "/badges/#{badge.id}.png"
+          %p= image_tag "/badges/#{badge.filename}"
       = link_to "Zamknij", "#", class: "btn"

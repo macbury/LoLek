@@ -1,7 +1,8 @@
 require "open-uri"
 require File.join(Rails.root, "lib/render_text")
 
-class PrzyslowiaCytatyWorker < Struct.new(:nil)
+class PrzyslowiaCytatyWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://www.przyslowia-cytaty.com/"
   
   attr_accessor :list, :images, :urls

@@ -1,10 +1,11 @@
 require "open-uri"
 require "nokogiri"
-class RssImageWorker < Struct.new(:url)
-  
-  def perform
+class RssImageWorker
+  @queue = Delay::Import
+
+  def self.perform(url)
     puts "Opening Channel: #{url}"
-    rss = Nokogiri::HTML(open(self.url))
+    rss = Nokogiri::HTML(open(url))
     rss.search("item").each do |item|
       puts "Opening item"
       item = Nokogiri::HTML(item.text)
@@ -12,7 +13,7 @@ class RssImageWorker < Struct.new(:url)
       img = item.search("img").first
       return if img.nil?
       puts "Found: #{img["src"]}"
-      Delayed::Job.enqueue ImageDownloaderWorker.new(img["src"], img["alt"]), priority: Delay::ImportPipline
+      Resque.enqueue(ImageDownloaderWorker, img["src"], img["alt"])
     end
   end
   
@@ -20,7 +21,7 @@ class RssImageWorker < Struct.new(:url)
     channels = YAML.load(File.open(File.join(Rails.root, "config/channels/rss.yml")))
     channels.each do |name, url|
       puts "Adding #{name} => #{url} to quee"
-      Delayed::Job.enqueue RssImageWorker.new(url), priority: Delay::ImportPipline
+      Resque.enqueue(RssImageWorker, url)
     end
   end
   

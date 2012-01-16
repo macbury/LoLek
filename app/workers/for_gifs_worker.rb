@@ -1,4 +1,5 @@
-class ForGifsWorker < Struct.new(:nil)
+class ForGifsWorker < BaseWorker
+  @queue = Delay::Import
   Url = "http://forgifs.com/gallery/v/Girls/"
   
   attr_accessor :list, :images, :urls

@@ -1,8 +1,9 @@
 require "open-uri"
 require File.join(Rails.root, "lib/render_text")
-class CiteRenderWorker < Struct.new(:text_to_render)
+class CiteRenderWorker < BaseWorker
+  @queue = Delay::Import
   
-  def perform
+  def perform(text_to_render)
     tmp_path = File.join(Rails.root, "tmp", "cites")
     Dir.mkdir(tmp_path) rescue nil
     puts text_to_render

@@ -3,6 +3,7 @@ class LinkObserver < Mongoid::Observer
 
   def after_create(link)
     return if link.user.nil?
-    Delayed::Job.enqueue LinkObserverWorker.new(link), priority: Delay::Observer
+    
+    Resque.enqueue(LinkObserverWorker, link.id)
   end
 end

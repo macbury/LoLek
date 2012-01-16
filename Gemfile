@@ -21,12 +21,11 @@ gem 'faraday'
 gem 'youtube_it'
 gem "rmagick"
 
-gem 'delayed_job', '3.0.0.pre3'
-gem 'delayed_job_mongoid'
-gem "delayed_job_web", :git => "git://github.com/macbury/delayed_job_web.git"
+gem 'resque', :require => "resque/server"
+gem "resque-scheduler"
 
 gem "cancan"
-gem "koala"
+gem "koala", :git => "git://github.com/arsduo/koala.git"
 
 gem "kaminari"
 gem "mechanize", "2.0.1"

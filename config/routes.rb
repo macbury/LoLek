@@ -1,4 +1,6 @@
 Lolek::Application.routes.draw do
+  mount Resque::Server, :at => "/workers", :as => "workers"
+  
   resources :pages do
     collection do
       get :agreements
@@ -20,11 +22,11 @@ Lolek::Application.routes.draw do
       get :accept
     end
   end
-  
-  match "/workers" => DelayedJobWeb, anchor: false, as: :workers
+
 
   match "/bot" => "session#bot"
   match "/login" => "session#new", as: :login
+  match "/async" => "session#async", as: :async_login
   match "/build_bot" => "session#bot"
   match "/logout" => "session#destroy", as: :logout
   match "/callback" => "session#create", as: :callback
