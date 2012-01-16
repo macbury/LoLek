@@ -54,16 +54,7 @@ a {
     border: 0px;
     min-width: 320px;
   }
-  
-  input[type="submit"] {
-    background: orange;
-    border-radius: 5px;
-    padding: 5px;
-    color: #fff;
-    font-weight: bold;
-    border: 0px;
-    min-width: 80px;
-  }
+
 }
 
 .top {
@@ -179,19 +170,50 @@ a {
   clear: both;
 }
 
-a.btn.big {
+a.btn {
   display: block;
-  padding: 5px 10px;
-  background: orange;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  border-radius: 5px;
-  text-decoration: none;
+}
 
-  padding: 15px 25px;
-  font-size: 24px;
+a.btn, input.btn {
+  padding: 5px;
   text-align: center;
+  color: #fff;
+  font-weight: bold;
+  min-width: 80px;
+  background-color: #F90;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear,left top,left bottom,from(#fc6),to(#f90));
+  background-image: -moz-linear-gradient(#fc6,#f90);
+  background-image: -ms-linear-gradient(#fc6,#f90);
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#fc6),color-stop(100%,#f90));
+  background-image: -webkit-linear-gradient(#fc6,#f90);
+  background-image: -o-linear-gradient(#fc6,#f90);
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc66',endColorstr='#ff9900',GradientType=0)";
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffcc66',endColorstr='#ff9900',GradientType=0);
+  background-image: linear-gradient(#fc6,#f90);
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom-color: rgba(0, 0, 0, 0.25);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
+  -webkit-transition: .1s linear all;
+  -moz-transition: .1s linear all;
+  transition: .1s linear all;
+
+  &:hover {
+    background-color: #F93;
+  }
+
+  &:active {
+    -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 3px 7px rgba(0,0,0,0.1),0 1px 2px rgba(0,0,0,0.05);
+  }
 }
 
 .nav {
@@ -206,7 +228,7 @@ a.btn.big {
       font-size: 10px;
       display: block;
     }
-    a.btn, &.btn {
+    a, &.btn {
       a { color: #fff; }
       display: block;
       padding: 5px 10px;
@@ -412,4 +434,83 @@ table {
     width: $wrapper_width;
     margin: 0 auto;
   }
+}
+
+.paginator {
+    margin-top:20px;
+    font-size:1em;
+    width:$wrapper_width;
+    margin-bottom:20px;
+}
+.paginator table {
+    border-collapse:collapse;
+    table-layout:fixed;
+    width:100%;
+}
+.paginator table td {
+    padding:0;
+    white-space:nowrap;
+    text-align:center;
+}
+.paginator span {
+    display:block;
+    padding:3px 0;
+    color:#fff;
+
+}
+.paginator span strong,
+.paginator span a {
+    padding:2px 6px;
+}
+.paginator span strong {
+    background: orange;
+    font-style:normal;
+    font-weight:normal; 
+}
+.paginator .scroll_bar {
+    width:100%; height:20px;
+    position:relative;
+    margin-top:10px; 
+}
+.paginator .scroll_trough {
+    width:100%; height:3px;
+    background: $darker_background;
+    overflow:hidden;
+}
+.paginator .scroll_thumb {
+    position:absolute;
+    z-index:2;
+    width:0; height:3px;
+    top:0; left:0;
+    font-size:1px;
+    background: orange;
+}
+.paginator .scroll_knob {
+    position:absolute;
+    top:-5px; left:50%;
+    margin-left:-10px;
+    width:20px; height:20px;
+    overflow:hidden;
+    background: image-url("slider_knob.png") no-repeat 50% 50%;
+    cursor:pointer; cursor:hand;
+}
+.paginator .current_page_mark {
+    position:absolute;
+    z-index:1;
+    top:0; left:0;
+    width:0; height:3px;
+    overflow:hidden;
+    background: orange;
+}
+
+.fullsize .scroll_thumb {
+    display:none;
+}
+
+.paginator_pages {
+    width:$wrapper_width;
+    text-align:right;
+    font-size:0.8em; 
+    color: orange;
+    margin-top:-10px; 
 }

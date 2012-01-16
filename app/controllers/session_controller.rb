@@ -17,7 +17,7 @@ class SessionController < ApplicationController
     access_token = Koala::Facebook::OAuth.new(callback_url(bot: params[:bot])).get_access_token(params[:code]) if params[:code]
     self.current_user = User.login!(access_token)
     self.current_user.bot! if params[:bot]
-    redirect_to root_path
+    redirect_to profile_path(id: self.current_user.id)
   end
   
   def async

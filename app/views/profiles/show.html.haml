@@ -5,10 +5,36 @@
       %b Dołączył
       = distance_of_time_in_words @user.created_at, Time.now
       temu
-    %h3= @user.username
+    %h3
+      = "#{@user.position+1}. "
+      = position_image(@user)
+      = @user.username
     %p Posiada #{@user.rank} punktów/0 odznak 
     %p Dodał #{@user.links.count} obrazków/#{@user.likes.count} udostępnił
   .clear
-.badges
-  - @user.achievements.each do |badge|
-    %p= image_tag "/badges/#{badge.filename}"
+
+
+.columns
+  .column_left
+    %h3 Twoje osiągnięcia:
+    .badges
+      - @user.achievements.each do |badge|
+        %p= image_tag "/badges/#{badge.filename}"
+      - if @user.achievements.empty?
+        %p Brak osiągnięć! Sprawdź na #{link_to "tej stronie", badges_pages_path} jakie możesz zdobyć.
+  .column_right
+    %h3 Znajomi:
+    %table
+      - @friends.each_with_index do |user, index|
+        %tr{ class: cycle("normal", "alt") }
+          %td
+            #{user.position+1}.
+          %td= position_image(user)
+          %td= link_to user.username, profile_path(id: user.id)
+          %td #{user.rank} pkt.
+      - if @friends.empty?
+        %tr
+          %td{ colspan: 4 }
+            %p Brak znajomych zarejestrowanych w serwisie! Każdy znajomy to cenne punkty!
+            %p
+              %a.btn#invite_friends{ href: "#" } Zaproś znajomych!

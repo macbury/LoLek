@@ -1,10 +1,12 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 window.bindFacebook = -> 
-  return if window.logged_in
-  #FB.getLoginStatus (response) -> window.location.reload() if(response.status == "connected")
+  $("#invite_friends").click ->
+    FB.ui
+      method: 'apprequests',
+      message: 'Witaj! Zaproś swoich znajomych do korzystania z Hardzio.pl! Każdy znajomy to dodatkowe punkty do zdobycia!',
+      (resp) -> console.log(resp)
+    false
+        
 
 
 onShare = (item) ->

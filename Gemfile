@@ -22,7 +22,7 @@ gem 'youtube_it'
 gem "rmagick"
 
 gem 'resque', :require => "resque/server"
-gem "resque-scheduler"
+gem "resque-scheduler", :require => "resque_scheduler"
 
 gem "cancan"
 gem "koala", :git => "git://github.com/arsduo/koala.git"

@@ -7,6 +7,7 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @friends = User.all_in( fb_id: @user.friends_fb_ids ).asc(:position)
   end
 
   protected

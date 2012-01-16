@@ -166,4 +166,7 @@ class User
     end
   end
 
+  def fresh?
+    self.created_at <= 1.minute.from_now
+  end
 end

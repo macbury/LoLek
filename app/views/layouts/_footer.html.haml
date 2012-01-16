@@ -1,6 +1,7 @@
 .inner
   .column
     %h4 #{t("title")} #{[2012, Time.now.year].uniq.join("/")}
+    %p Wszelkie treści w serwisie są generowane przez użytkowników i właściciel portalu #{t('title')} nie bierze za nie odpowiedzialności. Jeśli uważasz, że dodane treści naruszają jakiekolwiek prawo (w tym prawa autorskie) prześlij nam informację na ten temat.
     %p= link_to "Regulamin", agreements_pages_path
     %p= link_to "Kontakt", "#"
     %p= link_to "Reklama", "#"

@@ -10,7 +10,7 @@ module Resque
           met, sign = original_method.to_s.sub(/([?!=])$/, ''), $1
           now_method = "#{ met }_now#{sign}"
           later_method = "#{ met }_later#{sign}"
-          params[:in] ||= :async
+          params[:in] ||= :"async"
           metaclass = self
         
           metaclass.send(:define_method, later_method) do |*args|
@@ -27,38 +27,12 @@ module Resque
       end
     end
 
-    
-    class AsyncJob
-      @queue = :actions
-      def self.perform(the_method, serialized_obj, *args)
-        puts "=====> #{the_method}"
-        obj = YAML.load(serialized_obj)
-        obj.send the_method, *args
-      end
-    end
   end
 end
 
 Object.send(:include, Resque::AsyncHandling)
 Module.send(:include, Resque::AsyncHandling::ClassMethods)
 
-module Delayed
-  module MessageSending
-    def send_later(method, *args)
-      Delayed::Job.enqueue Delayed::PerformableMethod.new(self, method.to_sym, args)
-    end
-    
-    module ClassMethods
-      def handle_asynchronously(method)
-        without_name = "#{method}_without_send_later"
-        define_method("#{method}_with_send_later") do |*args|
-          send_later(without_name, *args)
-        end
-        alias_method_chain method, :send_later
-      end
-    end
-  end                               
-end
 
 module CarrierWave
   module Uploader

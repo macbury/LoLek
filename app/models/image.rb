@@ -2,7 +2,7 @@ class Image < Link
   field :file, type: String
   field :file_processing, type: Boolean, default: true
   
-  field :description, type: String
+  field :description, type: String, default: ""
   field :width, type: Integer
   field :height, type: Integer
 
@@ -14,7 +14,8 @@ class Image < Link
   validates :file, :presence => true
   
   attr_accessor :skip_extension_check
-  
+
+
   def check_url?
     url.present?
   end

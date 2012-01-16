@@ -11,7 +11,7 @@
   .field
     = label_tag :url, "URL:"
     = text_field_tag :url
-    = submit_tag 'Wyślij'
+    = submit_tag 'Wyślij', class: "btn"
 
 
 %h2 Wyślij obrazek:
@@ -20,6 +20,6 @@
   .field
     = label_tag :image, "Obrazek:"
     = file_field_tag :image
-    = submit_tag 'Wyślij'
+    = submit_tag 'Wyślij', class: "btn"
 %br/
 .clear
